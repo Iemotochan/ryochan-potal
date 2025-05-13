@@ -1,1 +1,1825 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RYO-CHANの冒険 - 究極完成版</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Yuji+Syuku&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6366F1;
+            --text-shadow: 0 0 10px rgba(99, 102, 241, 0.7);
+            --red-aura: rgba(255, 32, 32, 0.9);
+            --blue-aura: rgba(32, 156, 255, 0.9);
+            --transition-speed: 1500ms;
+            --text-container-opacity: 0.7;
+        }
 
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Noto Serif JP', serif;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+            touch-action: manipulation;
+        }
+
+        .title-font {
+            font-family: 'Yuji Syuku', serif;
+        }
+
+        /* メインコンテナスタイル */
+        .novel-container {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 背景スタイル */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: opacity var(--transition-speed) ease-in-out;
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .background.active {
+            opacity: 1;
+        }
+
+        /* 縦書きテキストコンテナスタイル */
+        .text-container {
+            position: fixed;
+            top: 10vh;
+            right: 50%;
+            transform: translateX(50%);
+            width: 85%;
+            max-width: 600px;
+            height: 75vh;
+            min-height: 400px;
+            margin: auto;
+            padding: 2rem 1.5rem;
+            background-color: rgba(0, 0, 0, var(--text-container-opacity));
+            border-radius: 8px;
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            overflow-x: auto;
+            overflow-y: hidden;
+            line-height: 2;
+            z-index: 10;
+            transition: font-size 0.3s ease, opacity 0.5s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .text-container.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .text-content {
+            height: 100%;
+            margin: 0;
+            padding: 0.5em 0;
+            padding-left: 32em; /* 3倍の余白を確保 */
+        }
+
+        .text-paragraph {
+            margin-left: 0.5em; /* 段落間の間隔を半分に */
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        .emphasis {
+            color: #ffcc00;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(255, 204, 0, 0.7);
+        }
+
+        .character-name {
+            font-weight: bold;
+            color: #6366F1;
+            text-shadow: var(--text-shadow);
+            margin-left: 0.3em;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* 特殊効果スタイル */
+        .effect {
+            position: fixed;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .blue-aura {
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--blue-aura) 0%, rgba(32,156,255,0.2) 60%, rgba(32,156,255,0) 100%);
+            box-shadow: 0 0 30px rgba(32,156,255,0.8);
+            animation: pulse 1s ease-out forwards;
+        }
+
+        .red-aura {
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--red-aura) 0%, rgba(255,32,32,0.2) 60%, rgba(255,32,32,0) 100%);
+            box-shadow: 0 0 30px rgba(255,32,32,0.8);
+            animation: pulse 1s ease-out forwards;
+        }
+
+        /* パーティクルのスタイル強化 */
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particleAnim var(--duration, 1s) cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+            opacity: 0.9;
+            z-index: 15;
+        }
+
+        /* パーティクルアニメーションの改良 */
+        @keyframes particleAnim {
+            0% { 
+                transform: translate(0, 0) scale(1) rotate(0deg); 
+                opacity: 1; 
+            }
+            40% { 
+                opacity: 0.8; 
+            }
+            80% {
+                opacity: 0.5;
+                transform: translate(calc(var(--x) * 0.8), calc(var(--y) * 0.8)) scale(0.5) rotate(calc(var(--r) * 0.8));
+            }
+            100% { 
+                transform: translate(var(--x), var(--y)) scale(0) rotate(var(--r)); 
+                opacity: 0; 
+            }
+        }
+
+        /* アニメーション */
+        @keyframes pulse {
+            0% { transform: scale(0.1); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+
+        /* タイトル画面スタイル */
+        .title-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            z-index: 100;
+            transition: opacity var(--transition-speed) ease-in-out;
+        }
+        
+        .loading-container {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .loading-text {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 1rem;
+        }
+
+        .loading-spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary-color);
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .title {
+            font-size: 2.2em;
+            font-weight: bold;
+            margin-bottom: 0.5em;
+            text-shadow: var(--text-shadow);
+            text-align: center;
+            padding: 0 0.5em;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            margin-bottom: 2em;
+            text-shadow: var(--text-shadow);
+            text-align: center;
+            padding: 0 1em;
+        }
+
+        .title-image {
+            max-width: 90%;
+            max-height: 40vh;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+        }
+
+        .start-button {
+            padding: 0.8em 2em;
+            background-color: rgba(99, 102, 241, 0.5);
+            border: 1px solid #6366F1;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 1.5em;
+        }
+
+        .start-button:hover, .start-button:active {
+            background-color: rgba(99, 102, 241, 0.8);
+        }
+        
+        .official-site-link {
+            color: #fff;
+            text-decoration: underline;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+        
+        .official-site-link:hover {
+            color: #ffcc00;
+        }
+
+        /* コントロールパネルとボタン */
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 20;
+        }
+
+        .control-button {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 1px solid #6366F1;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            color: white;
+            font-size: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .control-button:hover {
+            background-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .control-button.active {
+            background-color: rgba(99, 102, 241, 0.5);
+        }
+
+        /* 言語切り替えボタン */
+        .language-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 1px solid #6366F1;
+            border-radius: 5px;
+            padding: 5px 10px;
+            color: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 30;
+            transition: background-color 0.3s;
+        }
+
+        .language-button:hover {
+            background-color: rgba(99, 102, 241, 0.5);
+        }
+
+        /* クリックヒント */
+        #click-prompt {
+            position: absolute;
+            bottom: 15px;
+            right: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            animation: blink 1.5s infinite;
+            font-size: 0.9rem;
+            z-index: 20;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* 設定パネル */
+        .settings-panel {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 1px solid #6366F1;
+            border-radius: 8px;
+            padding: 15px;
+            z-index: 30;
+            min-width: 200px;
+            display: none;
+        }
+
+        .settings-panel.active {
+            display: block;
+        }
+
+        .settings-title {
+            font-size: 1em;
+            margin-bottom: 10px;
+            color: #fff;
+            text-align: center;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.5);
+            padding-bottom: 5px;
+        }
+
+        .setting-group {
+            margin-bottom: 15px;
+        }
+
+        .setting-label {
+            display: block;
+            margin-bottom: 5px;
+            color: #fff;
+            font-size: 0.9em;
+        }
+
+        .range-with-value {
+            display: flex;
+            align-items: center;
+        }
+
+        .setting-range {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+
+        .setting-value {
+            width: 60px;
+            text-align: right;
+            color: #6366F1;
+        }
+
+        /* スクロールバーカスタマイズ */
+        .text-container::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        .text-container::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.5);
+            border-radius: 3px;
+        }
+
+        /* 装飾要素 */
+        .petal {
+            position: absolute;
+            width: 15px;
+            height: 10px;
+            background-color: rgba(255, 183, 197, 0.7);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        /* データリセットボタン */
+        .reset-button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: rgba(220, 38, 38, 0.7);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.3s;
+        }
+
+        .reset-button:hover {
+            background-color: rgba(220, 38, 38, 0.9);
+        }
+
+        /* レスポンシブデザイン */
+        @media (max-width: 768px) {
+            .text-container {
+                width: 90%;
+                height: 75vh;
+                min-height: 70vh;
+            }
+            
+            .title {
+                font-size: 1.8em;
+            }
+            
+            .subtitle {
+                font-size: 1.1em;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .text-container {
+                width: 80%;
+                max-width: 700px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- タイトル画面 -->
+    <div class="title-screen" id="titleScreen">
+        <img src="https://page1.genspark.site/v1/base64_upload/5502009156d90db793e188d90c48acca" alt="RYO-CHAN" class="title-image">
+        <h1 class="title title-font">JAPAN PRIDE "氣" Presents</h1>
+        <h2 class="subtitle title-font">『RYO-CHANの冒険』</h2>
+        
+        <div class="loading-container" id="loadingContainer">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">読み込み中...</div>
+        </div>
+        
+        <button class="start-button" id="startButton" style="display:none;">物語を始める</button>
+        <a href="https://ryochan.com" class="official-site-link" target="_blank">RYO-CHAN公式サイトへ</a>
+    </div>
+    
+    <!-- 言語切り替えボタン -->
+    <a href="https://hqqngxff.gensparkspace.com" class="language-button">
+        English Version
+    </a>
+    
+    <!-- メインノベルコンテナ -->
+    <div class="novel-container" id="novelContainer">
+        <!-- 背景画像 -->
+        <div class="background" id="bg1" style="background-image: url('https://page1.genspark.site/v1/base64_upload/72412271ae0f7a34f746979ac0a50cef');"></div>
+        <div class="background" id="bg2" style="background-image: url('https://page1.genspark.site/v1/base64_upload/1ffcf0c9393f7b45822cdc074b8fa9b4');"></div>
+        <div class="background" id="bg3" style="background-image: url('https://page1.genspark.site/v1/base64_upload/1c74c3c852608027848d9ff24af17863');"></div>
+        <div class="background" id="bg4" style="background-image: url('https://page1.genspark.site/v1/base64_upload/79b9f817e9c9a1cac6a230a4fccd2d4c');"></div>
+        <div class="background" id="bg5" style="background-image: url('https://page1.genspark.site/v1/base64_upload/ee1c4ff3ca59d3ccc5c2df8138a3fc5c');"></div>
+        <div class="background" id="bg6" style="background-image: url('https://page1.genspark.site/v1/base64_upload/ec2fe0faf0cb257067a7e6cd8fedf1b8');"></div>
+        <div class="background" id="bg7" style="background-image: url('https://page1.genspark.site/v1/base64_upload/f993705b8beece06962fc5a32905ba35');"></div>
+        <div class="background" id="bg8" style="background-image: url('https://page1.genspark.site/v1/base64_upload/c8c6ce27bbf15dacc44bc8b41aa96d97');"></div>
+        <div class="background" id="bg9" style="background-image: url('https://page1.genspark.site/v1/base64_upload/d6cdedad4a26f59fb569534748e143af');"></div>
+        <div class="background" id="bg10" style="background-image: url('https://page1.genspark.site/v1/base64_upload/5502009156d90db793e188d90c48acca');"></div>
+        <div class="background" id="bg11" style="background-image: url('https://page1.genspark.site/v1/base64_upload/66ae7b6b7a1708f1b4976659c392fd2f');"></div>
+        <div class="background" id="bg12" style="background-image: url('https://iemotochan.github.io/ryochan-potal/image/bg12.png');"></div>
+        
+        <!-- テキスト表示領域 -->
+        <div class="text-container" id="textContainer">
+            <div class="text-content" id="textContent"></div>
+        </div>
+        
+        <!-- クリックヒント -->
+        <div id="click-prompt">タップして続ける</div>
+        
+        <!-- 視覚効果のコンテナ -->
+        <div class="effects-container" id="effectsContainer"></div>
+        
+        <!-- コントロールボタン -->
+        <div class="controls">
+            <div class="control-button" id="settingsButton" title="設定"><i class="fas fa-cog"></i></div>
+            <div class="control-button" id="hideTextButton" title="テキスト表示/非表示"><i class="fas fa-eye"></i></div>
+            <div class="control-button" id="muteButton" title="サウンドオン/オフ"><i class="fas fa-volume-up"></i></div>
+            <div class="control-button" id="autoButton" title="自動再生"><i class="fas fa-play"></i></div>
+            <div class="control-button" id="clearButton" title="テキストクリア"><i class="fas fa-eraser"></i></div>
+        </div>
+
+        <!-- 設定パネル -->
+        <div class="settings-panel" id="settingsPanel">
+            <div class="settings-title">設定</div>
+            
+            <div class="setting-group">
+                <label class="setting-label" for="fontSizeRange">フォントサイズ</label>
+                <div class="range-with-value">
+                    <input type="range" id="fontSizeRange" class="setting-range" min="12" max="24" value="20">
+                    <span class="setting-value" id="fontSizeValue">20px</span>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label class="setting-label" for="textSpeedRange">テキスト速度</label>
+                <div class="range-with-value">
+                    <input type="range" id="textSpeedRange" class="setting-range" min="10" max="100" value="50">
+                    <span class="setting-value" id="textSpeedValue">標準</span>
+                </div>
+            </div>
+
+            <div class="setting-group">
+                <label class="setting-label" for="opacityRange">背景の不透明度</label>
+                <div class="range-with-value">
+                    <input type="range" id="opacityRange" class="setting-range" min="0" max="10" value="7">
+                    <span class="setting-value" id="opacityValue">70%</span>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label class="setting-label">エフェクト</label>
+                <div class="flex items-center">
+                    <input type="checkbox" id="effectToggle" checked class="mr-2">
+                    <label for="effectToggle">視覚効果を有効にする</label>
+                </div>
+            </div>
+            
+            <button class="reset-button" id="resetButton">最初から始める</button>
+        </div>
+    </div>
+    
+    <!-- オーディオ要素 -->
+    <audio id="bgm" loop>
+        <source src="https://cdn.jsdelivr.net/gh/twingly/audio-assets@master/music/traditional-japanese-music.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="clickSound">
+        <source src="https://cdn.jsdelivr.net/gh/twingly/audio-assets@master/sfx/interface-click.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="effectSound">
+        <source src="https://cdn.jsdelivr.net/gh/twingly/audio-assets@master/sfx/magical-effect.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="importantSound">
+        <source src="https://cdn.jsdelivr.net/gh/twingly/audio-assets@master/sfx/magical-chime.mp3" type="audio/mpeg">
+    </audio>
+    
+    <script>
+        /**
+         * ストーリーコンテンツ
+         * 「RYO-CHANの冒険」のストーリーコンテンツ
+         */
+        const storyContent = [
+     { text: "<span class='emphasis'>第一話: 覚醒</span>", bg: "bg1", speed: 0.5, important: true },
+    
+    { text: "", bg: "bg1", speed: 0.5 },
+    
+    { text: "静寂に包まれた山の中、古い神社に満月の光が降り注いでいた。苔むした石段を照らす月明かりは、朽ちかけた鳥居を越え、本殿へと続く道に一筋の光の道を作り出していた。", bg: "bg1", speed: 0.5 },
+    
+    { text: "その光の中に、小さな影が横たわっていた。運命に導かれたかのように、一匹の犬がこの神社に迷い込み、疲れ果てて眠りについていた。", bg: "bg1", speed: 0.6 },
+    
+    { text: "それがRYOCHAN、ミニチュア・シュナウザーだった。小さな体を覆う侍の鎧が、月明かりを受けてかすかに輝いている。", bg: "bg1", speed: 0.7 },
+    
+    { text: "風のない夜だというのに、桜の木々が揺れ始め、花びらが宙を舞った。", bg: "bg1", speed: 0.7, effect: "blue_aura" },
+
+    { text: "満月が天頂に達した瞬間、強い光のビームがRYOCHANを直撃した。", bg: "bg1", speed: 0.6, effect: "blue_aura" },
+    
+    { text: "これは普通の月明かりではなく、生命を宿したかのように脈動する<span class='celestial'>青白い光</span>だった。RYOCHANの体が震え、鎧の隙間から<span class='celestial'>青い光</span>がもれ始めた。", bg: "bg2", speed: 0.5, important: true },
+    
+    { text: "そしてゆっくりと、その目が開いた・・・", bg: "bg2", speed: 0.3 },
+    
+    { speaker: "RYO", text: "うっ・・・ここは・・・どこだ・・・？", bg: "bg2", speed: 0.2 },
+    
+    { text: "RYOCHANは茫然とした様子で周りを見回した。見知らぬ神社。気づけば舞い始めていた桜の花びら。そして体の内側から湧き上がる不思議な暖かさ。", bg: "bg2", speed: 0.7 },
+    
+    { speaker: "RYO", text: "なぜおいらはここにいるんだ？", bg: "bg2", speed: 0.3 },
+    
+    { text: "答えてくれる者はいなかった。ただ桜の花びらだけが舞い続けていた。", bg: "bg2", speed: 0.5, effect: "blue_aura" },
+
+    { text: "突然、花びらが渦を巻き始め、光の中から一人の老人が現れた。", bg: "bg12", speed: 0.5, effect: "blue_aura" },
+    
+    { text: "神秘的な雰囲気を纏い、深い知恵を宿した目と温かな笑顔を持つ老人だった。", bg: "bg12", speed: 0.7 },
+    
+    { speaker: "老人", text: "目覚めたようじゃな、RYOCHAN", bg: "bg12", speed: 0.2 },
+    
+    { text: "その声は、古い木が鳴るような深みと響きを持っていた。RYO-CHANは身構え、警戒心を表した。", bg: "bg12", speed: 0.7 },
+    
+    { speaker: "RYO", text: "あなたは誰だ？どうしておいらの名前を知っているんだ？", bg: "bg12", speed: 0.3 },
+    
+    { speaker: "老人", text: "わしはこの神社の守り人じゃ。そなたを待っておったのじゃよ", bg: "bg12", speed: 0.3 },
+    
+    { speaker: "RYO", text: "待っていた？おいらを？", bg: "bg12", speed: 0.3 },
+    
+    { text: "老人はうなずき、月に向かって両手を広げた。", bg: "bg3", speed: 0.7 },
+    
+    { speaker: "老人", text: "今宵は特別な夜じゃ。満月の力が最も強まる夜。そして、そなたの中で眠りし力が目覚める時じゃ", bg: "bg3", speed: 0.2, important: true },
+    
+    { speaker: "RYO", text: "力？おいらの中に？", bg: "bg3", speed: 0.3 },
+    
+    { speaker: "老人", text: "そうじゃ", bg: "bg3", speed: 0.3 },
+    
+    { text: "老人は静かに近づいた。", bg: "bg3", speed: 0.7 },
+    
+    { speaker: "老人", text: "かつて日本には<span class='emphasis'>『氣』</span>という素晴らしい力があった。すべてを繋ぎ、生命に満ちた力じゃ", bg: "bg4", speed: 0.3 },
+    
+    { text: "老人は杖を地面に突くと、空中に<span class='celestial'>青い光</span>で<span class='emphasis'>「氣」</span>の文字が浮かび上がった。", bg: "bg4", speed: 0.5, effect: "blue_aura" },
+    
+    { speaker: "老人", text: "この文字を見るがよい。『米』と『气』から成っておる。大地の恵みと空のエネルギーが合わさった形じゃ。日本人はこの力を感じ、共に生きてきたのじゃ", bg: "bg4", speed: 0.3 },
+    
+    { text: "その表情が曇った。", bg: "bg4", speed: 0.7 },
+    
+    { speaker: "老人", text: "だが戦後、多くの文字が簡略化された。『氣』は『気』となり、その本質が失われてしまった。これは単なる文字の変化ではない。<span class='emphasis'>日本の魂の一部が消し去られたのじゃ</span>", bg: "bg4", speed: 0.2, important: true },
+    
+    { text: "RYOCHANは黙って聞いていた。不思議なことに、老人の語る「氣」という言葉が、自分の体の中で共鳴しているのを感じた。", bg: "bg4", speed: 0.7 },
+    
+    { speaker: "RYO", text: "それがおいらとどう関係があるんだ？", bg: "bg4", speed: 0.3 },
+    
+    { speaker: "老人", text: "深い関係があるのじゃよ", bg: "bg4", speed: 0.3 },
+    
+    { text: "老人の目が輝いた。", bg: "bg4", speed: 0.7 },
+    
+    { speaker: "老人", text: "そなたは<span class='emphasis'>『氣』を見る力</span>を持つ守護者として選ばれた。今宵、その力が目覚めたのじゃ", bg: "bg4", speed: 0.2, important: true },
+    
+    { text: "その瞬間、RYOCHANの視界が変わった。世界が違って見える。神社の周りを<span class='celestial'>青い光の流れ</span>が取り巻き、都市の方角からは<span class='negative'>不吉な赤い線</span>が伸びていた。", bg: "bg5", speed: 0.5, effect: "blue_aura" },
+    
+    { speaker: "RYO", text: "あれは・・・なんだ？", bg: "bg5", speed: 0.2 },
+    
+    { text: "老人は都市の方を指さした。", bg: "bg5", speed: 0.7 },
+    
+    { speaker: "老人", text: "見えるか、あれが現代の世界に存在する<span class='negative'>悪意</span>の『氣』じゃ。さまざまな形で<span class='negative'>人々を脅かし</span>、<span class='negative'>傷つけておる</span>", bg: "bg5", speed: 0.3 },
+    
+    { text: "老人が杖を振ると、RYOCHANの心に映像が浮かんだ。<span class='negative'>暗い部屋</span>でコンピューターに向かう人影。画面には複雑なコードが流れ、渦巻く<span class='negative'>赤い霧</span>に包まれていた。", bg: "bg6", speed: 0.5, effect: "red_aura" },
+    
+    { speaker: "老人", text: "この者はブロックチェーンという新しい技術を<span class='negative'>悪用</span>して、<span class='negative'>人々の資産を盗んでおる</span>。普通の目には見えぬが、<span class='emphasis'>そなたの目には見えるのじゃ</span>", bg: "bg6", speed: 0.2, important: true },
+    
+    { speaker: "RYO", text: "ブロックチェーン？", bg: "bg6", speed: 0.3 },
+    
+    { text: "その言葉はRYOCHANにとって馴染みのないものだった。", bg: "bg6", speed: 0.7 },
+    
+    { speaker: "老人", text: "未来を変える技術じゃ。だが光があるところには<span class='negative'>影</span>もある。そなたの役目は、その<span class='negative'>闇</span>を見つけ出し、人々を守ることじゃ。古の知恵と新しい技術を繋ぐ<span class='emphasis'>架け橋</span>となるのじゃ", bg: "bg7", speed: 0.2, important: true },
+    
+    { text: "RYOCHANは複雑な感情を抱きながら都市の方を見つめた。確かに<span class='negative'>赤い「氣」</span>の流れが見える。そしてその先に潜む<span class='negative'>危険</span>も感じ取れた。", bg: "bg5", speed: 0.7 },
+    
+    { speaker: "RYO", text: "でも・・・おいらにそんなことができるのだろうか？", bg: "bg5", speed: 0.2 },
+    
+    { speaker: "老人", text: "そなたは一人ではない", bg: "bg8", speed: 0.3 },
+    
+    { text: "老人は微笑んだ。", bg: "bg8", speed: 0.7 },
+    
+    { speaker: "老人", text: "明日、わしの孫娘に会うことになるじゃろう。彼女はブロックチェーンの研究者じゃ。そなたの力と彼女の技術が合わさった時、<span class='emphasis'>真の守りが始まるのじゃ</span>", bg: "bg8", speed: 0.2, important: true },
+    
+    { text: "RYOCHANは深く考え込んだ。自分にだけ見えるものがある。その力で多くの人を助けられるかもしれない。", bg: "bg8", speed: 0.7 },
+    
+    { speaker: "RYO", text: "わかった。やってみよう", bg: "bg7", speed: 0.3 },
+    
+    { speaker: "老人", text: "やってみるではない・・・<span class='emphasis'>必ずやるのじゃ</span>。勇気を持って吠え、名誉を持って噛むのじゃ！", bg: "bg8", speed: 0.2, important: true },
+    
+    { text: "RYOCHANは勇敢に吠えた！老人の顔に満足の表情が広がった。", bg: "bg7", speed: 0.5, effect: "blue_aura" },
+    
+    { speaker: "老人", text: "ありがとう、RYOCHAN。そなたの旅はまだ始まったばかりじゃ", bg: "bg8", speed: 0.3 },
+    
+    { text: "老人が桜の花びらに変わり、風に散り始めた。", bg: "bg9", speed: 0.5, effect: "blue_aura" },
+    
+    { speaker: "老人", text: "<span class='emphasis'>サクラがそなたを見つけるだろう。『氣』が二人を繋ぐのじゃ</span>・・・", bg: "bg9", speed: 0.2, important: true },
+    
+    { text: "最後の言葉が風に消え、神社は元の静けさを取り戻した。しかしRYOCHANの世界は永遠に変わってしまった。鎧は<span class='celestial'>鈍く輝き</span>、目には決意が宿っていた。", bg: "bg5", speed: 0.7 },
+    
+    { text: "RYOCHANは立ち上がり、都市から立ち上る<span class='negative'>邪悪</span>な「氣」の流れを見つめた。", bg: "bg5", speed: 0.7 },
+    
+    { speaker: "RYO", text: "<span class='emphasis'>これがおいらの運命なら、受け入れよう</span>", bg: "bg7", speed: 0.2, important: true },
+    
+    { text: "RYOCHANは至る所に流れる「氣」を見ることができた。小さな足で神社の階段を駆け下り、遠くに感じる<span class='negative'>不吉な気配</span>に導かれるように都市へと向かった。", bg: "bg5", speed: 0.7 },
+    
+    { text: "その姿は月明かりの中、闇に溶け込んでいった。こうして<span class='emphasis'>「氣」の戦士、守護者RYOCHANの冒険</span>が始まったのだった。", bg: "bg10", speed: 0.2, important: true },
+    
+    { text: "<span class='emphasis'>続く・・・</span>", bg: "bg11", speed: 0.2 }
+
+        ];
+
+        //==================================================
+        // 桜の花びらモジュール
+        //==================================================
+ const cherryblossom = {
+  petals: [],
+  isActive: true,
+  
+  init: function() {
+    // 花びらのコンテナを作成（重要な最適化）
+    const container = document.createElement('div');
+    container.className = 'petals-container';
+    container.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:3; overflow:hidden;';
+    document.body.appendChild(container);
+    
+    this.container = container;
+    this.createPetals();
+    
+    if (this.isActive) {
+      this.animate();
+    }
+  },
+  
+  createPetals: function() {
+    for (let i = 0; i < 15; i++) {
+      const petal = document.createElement('div');
+      petal.className = 'petal';
+      
+      // GPU高速化のためのCSS設定を追加
+      petal.style.cssText = `
+        will-change: transform;
+        position: absolute;
+        backface-visibility: hidden;
+        transform-style: preserve-3d;
+      `;
+      
+      const size = Math.random() * 10 + 8;
+      petal.style.width = `${size}px`;
+      petal.style.height = `${size * 0.6}px`;
+      petal.style.opacity = Math.random() * 0.6 + 0.4;
+      
+      const x = Math.random() * window.innerWidth;
+      const y = -size;
+      
+      this.petals.push({
+        element: petal,
+        x: x,
+        y: y,
+        vx: Math.random() * 2 - 1,
+        vy: Math.random() * 2 + 1,
+        rotation: Math.random() * 360,
+        rotationSpeed: (Math.random() * 2 - 1) * 2,
+        size: size
+      });
+      
+      // 専用コンテナに追加（document.bodyには直接追加しない）
+      this.container.appendChild(petal);
+    }
+  },
+  
+  animate: function() {
+    // 位置計算とDOM更新を分離して最適化
+    const updates = [];
+    
+    for (let i = 0; i < this.petals.length; i++) {
+      const petal = this.petals[i];
+      
+      // 位置の計算のみ行う（DOM操作なし）
+      petal.y += petal.vy;
+      petal.x += petal.vx + Math.sin(petal.y * 0.01) * 0.5;
+      petal.rotation += petal.rotationSpeed;
+      
+      if (petal.y > window.innerHeight + petal.size) {
+        petal.y = -petal.size;
+        petal.x = Math.random() * window.innerWidth;
+      }
+      
+      // 更新情報を記録
+      updates.push({
+        element: petal.element,
+        transform: `translate3d(${petal.x}px, ${petal.y}px, 0) rotate(${petal.rotation}deg)`
+      });
+    }
+    
+    // 一括でDOM更新（重要な最適化ポイント）
+    window.requestAnimationFrame(() => {
+      updates.forEach(update => {
+        update.element.style.transform = update.transform;
+      });
+    });
+    
+    if (this.isActive) {
+      requestAnimationFrame(() => this.animate());
+    }
+  }
+};
+        //==================================================
+        // タイプライターモジュール - HTML対応
+        //==================================================
+        const typewriter = {
+            isTyping: false,
+            currentIndex: 0,
+            text: '',
+            element: null,
+            delay: 30,
+            timerId: null,
+            callback: null,
+            speakerName: null,
+            typingEl: null,
+            
+            type: function(element, content, delay, callback) {
+                try {
+                    // 初期化
+                    this.element = element;
+                    this.delay = delay || 30;
+                    this.callback = callback;
+                    this.isTyping = true;
+                    
+                    // スピーカー名と本文を分離
+                    if (content.speaker) {
+                        // スピーカー名を即時表示
+                        this.speakerName = content.speaker;
+                        this.text = content.text;
+                        
+                        // 表示要素の準備
+                        this.element.innerHTML = '';
+                        
+                        // スピーカー名を追加 - 即時表示
+                        const speakerSpan = document.createElement('span');
+                        speakerSpan.className = 'character-name';
+                        speakerSpan.textContent = this.speakerName + '：';
+                        this.element.appendChild(speakerSpan);
+                        
+                        // テキスト表示用の要素
+                        this.typingEl = document.createElement('span');
+                        this.element.appendChild(this.typingEl);
+                        
+                        // テキスト処理開始
+                        this.currentIndex = 0;
+                        
+                        // 強調表示などを処理
+                        this.processAndTypeText();
+                    } else {
+                        // 通常テキスト
+                        this.text = content.text;
+                        this.speakerName = null;
+                        this.element.innerHTML = '';
+                        
+                        this.typingEl = this.element;
+                        this.currentIndex = 0;
+                        
+                        // 強調表示などを処理
+                        this.processAndTypeText();
+                    }
+                } catch (error) {
+                    console.error('Typewriter initialization error:', error);
+                    // エラー時は全文表示してコールバック
+                    this.displayAllText();
+                }
+            },
+            
+            processAndTypeText: function() {
+                try {
+                    // 既存のタイマーをクリア
+                    if (this.timerId) {
+                        clearTimeout(this.timerId);
+                    }
+                    
+                    // テキストに強調表示などのタグが含まれているかチェック
+                    const hasEmphasis = this.text.includes('<span') || this.text.includes('<em>');
+                    
+                    if (hasEmphasis) {
+                        // HTMLタグを含むテキストの処理
+                        this.typeHTMLText();
+                    } else {
+                        // 通常のテキスト処理
+                        this.typeNextChar();
+                    }
+                } catch (error) {
+                    console.error('Text processing error:', error);
+                    this.displayAllText();
+                }
+            },
+            
+            typeNextChar: function() {
+                try {
+                    if (!this.isTyping || !this.typingEl) return;
+                    
+                    if (this.currentIndex < this.text.length) {
+                        // 1文字追加
+                        this.typingEl.textContent = this.text.substring(0, this.currentIndex + 1);
+                        this.currentIndex++;
+                        
+                        // 次の文字をタイプ
+                        this.timerId = setTimeout(() => this.typeNextChar(), this.delay);
+                    } else {
+                        // タイピング完了
+                        this.isTyping = false;
+                        if (this.callback) this.callback();
+                    }
+                } catch (error) {
+                    console.error('Character typing error:', error);
+                    // エラー時は全文表示してコールバック
+                    this.displayAllText();
+                }
+            },
+            
+            // HTMLタグを含むテキストの処理
+            typeHTMLText: function() {
+                try {
+                    if (!this.isTyping || !this.typingEl) return;
+                    
+                    // テキストをHTMLタグと通常テキストに分解
+                    const textSegments = this.parseHTMLSegments(this.text);
+                    let displayHTML = '';
+                    let currentTextLength = 0;
+                    let processedTextLength = 0;
+                    
+                    // 現在の位置までのテキストセグメントを処理
+                    for (let i = 0; i < textSegments.length; i++) {
+                        const segment = textSegments[i];
+                        
+                        if (segment.isTag) {
+                            // タグはそのまま追加
+                            displayHTML += segment.content;
+                        } else {
+                            // テキスト部分
+                            currentTextLength += segment.content.length;
+                            
+                            if (currentTextLength > this.currentIndex) {
+                                // このセグメント内に現在位置がある
+                                const visibleLength = segment.content.length - (currentTextLength - this.currentIndex);
+                                displayHTML += segment.content.substring(0, visibleLength);
+                                break;
+                            } else {
+                                // このセグメントは全て表示
+                                displayHTML += segment.content;
+                                processedTextLength += segment.content.length;
+                            }
+                        }
+                    }
+                    
+                    // 表示を更新
+                    this.typingEl.innerHTML = displayHTML;
+                    
+                    // 次の文字へ
+                    const plainTextLength = this.getPlainTextLength();
+                    if (this.currentIndex < plainTextLength) {
+                        this.currentIndex++;
+                        this.timerId = setTimeout(() => this.typeHTMLText(), this.delay);
+                    } else {
+                        // タイピング完了
+                        this.isTyping = false;
+                        if (this.callback) this.callback();
+                    }
+                } catch (error) {
+                    console.error('HTML typing error:', error);
+                    // エラー時は全文表示
+                    this.displayAllText();
+                }
+            },
+            
+            // テキストをHTMLタグとテキストに分解
+            parseHTMLSegments: function(text) {
+                const segments = [];
+                let currentPos = 0;
+                let tagStart = text.indexOf('<', currentPos);
+                
+                while (tagStart !== -1) {
+                    // タグ前のテキスト
+                    if (tagStart > currentPos) {
+                        segments.push({
+                            content: text.substring(currentPos, tagStart),
+                            isTag: false
+                        });
+                    }
+                    
+                    // タグを見つける
+                    const tagEnd = text.indexOf('>', tagStart);
+                    if (tagEnd === -1) break;
+                    
+                    // タグ内容
+                    segments.push({
+                        content: text.substring(tagStart, tagEnd + 1),
+                        isTag: true
+                    });
+                    
+                    // タグの終了タグを探す
+                    const tagName = this.getTagName(text.substring(tagStart + 1, tagEnd));
+                    
+                    if (tagName) {
+                        const closingTag = `</${tagName}>`;
+                        const closingTagPos = text.indexOf(closingTag, tagEnd + 1);
+                        
+                        if (closingTagPos !== -1) {
+                            // タグ内のテキスト
+                            segments.push({
+                                content: text.substring(tagEnd + 1, closingTagPos),
+                                isTag: false
+                            });
+                            
+                            // 終了タグ
+                            segments.push({
+                                content: closingTag,
+                                isTag: true
+                            });
+                            
+                            currentPos = closingTagPos + closingTag.length;
+                        } else {
+                            currentPos = tagEnd + 1;
+                        }
+                    } else {
+                        currentPos = tagEnd + 1;
+                    }
+                    
+                    tagStart = text.indexOf('<', currentPos);
+                }
+                
+                // 残りのテキスト
+                if (currentPos < text.length) {
+                    segments.push({
+                        content: text.substring(currentPos),
+                        isTag: false
+                    });
+                }
+                
+                return segments;
+            },
+            
+            // タグ名を取得
+            getTagName: function(tagContent) {
+                const regex = /^([a-zA-Z][a-zA-Z0-9]*)/;
+                const match = tagContent.match(regex);
+                return match ? match[1] : '';
+            },
+            
+            // プレーンテキストの長さを計算
+            getPlainTextLength: function() {
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = this.text;
+                return tempDiv.textContent.length;
+            },
+            
+            // 全テキストを表示（エラー時など）
+            displayAllText: function() {
+                try {
+                    if (this.speakerName && this.text) {
+                        // スピーカー名と本文を全て表示
+                        this.element.innerHTML = `<span class="character-name">${this.speakerName}：</span>${this.text}`;
+                    } else if (this.text) {
+                        // テキストのみ表示
+                        this.element.innerHTML = this.text;
+                    }
+                    
+                    this.isTyping = false;
+                    if (this.callback) this.callback();
+                } catch (error) {
+                    console.error('Display all text error:', error);
+                }
+            },
+            
+            // 表示を即時完了
+            complete: function() {
+                try {
+                    if (this.timerId) {
+                        clearTimeout(this.timerId);
+                        this.timerId = null;
+                    }
+                    
+                    this.displayAllText();
+                } catch (error) {
+                    console.error('Complete display error:', error);
+                }
+            },
+            
+            isActive: function() {
+                return this.isTyping;
+            }
+        };
+
+        //==================================================
+        // スパークエフェクトモジュール - 強化版
+        //==================================================
+        const sparkEffect = {
+            create: function(x, y) {
+                try {
+                    // メインのエフェクトを生成
+                    this.createMainEffect(x, y);
+                    
+                    // より多くのパーティクルを生成（50個程度）
+                    this.createEnhancedParticles(x, y, 50);
+                } catch (error) {
+                    console.error('Spark effect creation error:', error);
+                }
+            },
+            
+            // メインエフェクト作成
+            createMainEffect: function(x, y) {
+                // メインの光エフェクト
+                const effect = document.createElement('div');
+                effect.className = `effect ${Math.random() > 0.5 ? 'blue-aura' : 'red-aura'}`;
+                effect.style.width = '150px';
+                effect.style.height = '150px';
+                effect.style.left = (x - 75) + 'px';
+                effect.style.top = (y - 75) + 'px';
+                document.body.appendChild(effect);
+                
+                // 一定時間後に削除
+                setTimeout(() => {
+                    if (effect.parentNode) {
+                        effect.parentNode.removeChild(effect);
+                    }
+                }, 1000);
+            },
+            
+            // 強化されたパーティクル生成（数を増やし、動きを改良）
+
+        createEnhancedParticles: function(x, y, count) {
+    // 赤と青のみの色設定
+    const colors = ['#4db8ff', '#ff4d4d'];
+    
+    for (let i = 0; i < count; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // ランダムカラー（赤か青のみ）
+        const colorIndex = Math.floor(Math.random() * colors.length);
+        particle.style.backgroundColor = colors[colorIndex];
+        
+        // サイズのランダム化
+        const size = Math.random() * 6 + 2;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // 強化された発光効果
+        particle.style.boxShadow = `0 0 ${Math.floor(size * 2)}px ${colors[colorIndex]}`;
+        
+        // ランダムな飛散方向と距離
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.random() * 200 + 50;
+        const xMove = Math.cos(angle) * distance;
+        const yMove = Math.sin(angle) * distance;
+        
+        // アニメーションの回転も追加
+        const rotation = Math.random() * 720 - 360;
+        
+        // カスタムプロパティ設定
+        particle.style.setProperty('--x', `${xMove}px`);
+        particle.style.setProperty('--y', `${yMove}px`);
+        particle.style.setProperty('--r', `${rotation}deg`);
+        
+        // 初期位置
+        particle.style.left = (x - size/2) + 'px';
+        particle.style.top = (y - size/2) + 'px';
+        
+        // アニメーション速度のランダム化
+        const duration = Math.random() * 700 + 800;
+        particle.style.animationDuration = `${duration}ms`;
+        
+        document.body.appendChild(particle);
+        
+        // アニメーション終了時に削除
+        setTimeout(() => {
+            if (particle.parentNode) {
+                particle.parentNode.removeChild(particle);
+            }
+        }, duration);
+    }
+}
+        };
+
+        //==================================================
+        // ストーリーコントローラーモジュール
+        //==================================================
+        const storyController = {
+            currentIndex: 0,
+            accumulatedText: [],
+            isReady: false,
+            userHasScrolled: false,
+            scrollLockTimer: null,
+            
+            init: function() {
+                try {
+                    this.currentIndex = 0;
+                    this.accumulatedText = [];
+                    this.isReady = true;
+                    
+                    // LocalStorageから状態を復元
+                    this.loadProgress();
+                    
+                    // スクロールイベントを設定
+                    this.setupScrollEvents();
+                } catch (error) {
+                    console.error('Story controller initialization error:', error);
+                }
+            },
+            
+            setupScrollEvents: function() {
+                try {
+                    textContainer.addEventListener('scroll', function() {
+                        // システムスクロールでなければユーザースクロールと判断
+                        if (!storyController.isSystemScrolling) {
+                            storyController.userHasScrolled = true;
+                            
+                            // 一定時間後にフラグをリセット（次のテキストでは自動スクロール）
+                            clearTimeout(storyController.scrollLockTimer);
+                            storyController.scrollLockTimer = setTimeout(() => {
+                                storyController.userHasScrolled = false;
+                            }, 5000); // 5秒間ユーザースクロール状態を保持
+                        }
+                    });
+                } catch (error) {
+                    console.error('Scroll events setup error:', error);
+                }
+            },
+            
+            advance: function() {
+                try {
+                    if (!this.isReady) return;
+                    
+                    // タイプライターが動作中なら完了させる
+                    if (typewriter.isActive()) {
+                        typewriter.complete();
+                        return;
+                    }
+                    
+                    // 現在のテキストを蓄積
+                    if (currentTextIndex < storyContent.length) {
+                        this.accumulatedText.push({
+                            speaker: storyContent[currentTextIndex].speaker,
+                            text: storyContent[currentTextIndex].text,
+                            important: storyContent[currentTextIndex].important
+                        });
+                    }
+                    
+                    // エフェクトの表示
+                    if (currentTextIndex < storyContent.length && storyContent[currentTextIndex].effect && effectsEnabled) {
+                        this.showEffect(storyContent[currentTextIndex].effect);
+                    }
+                    
+                    // 次のインデックスに進む
+                    currentTextIndex++;
+                    
+                    if (currentTextIndex < storyContent.length) {
+                        // 背景の変更
+                        if (currentTextIndex > 0 && storyContent[currentTextIndex].bg !== storyContent[currentTextIndex - 1].bg) {
+                            this.showBackground(storyContent[currentTextIndex].bg);
+                        }
+                        
+                        // スピード計算
+                        if (storyContent[currentTextIndex].speed) {
+                            typeDelay = baseTypeDelay / storyContent[currentTextIndex].speed;
+                        } else {
+                            typeDelay = baseTypeDelay;
+                        }
+                        
+                        // テキスト表示の更新
+                        this.refreshTextDisplay();
+                        
+                        // タイプライター効果で新しいテキストを表示
+                        this.showNextText();
+                        
+                        // 進行状態を保存
+                        this.saveProgress();
+                    }
+                } catch (error) {
+                    console.error('Story advance error:', error);
+                }
+            },
+            
+            showNextText: function() {
+                try {
+                    // 次のテキストを表示する要素を作成
+                    const nextTextParagraph = document.createElement('p');
+                    nextTextParagraph.className = 'text-paragraph';
+                    nextTextParagraph.id = 'typingText';
+                    textContent.appendChild(nextTextParagraph);
+                    
+                    // タイプライター効果で表示
+                    typewriter.type(nextTextParagraph, storyContent[currentTextIndex], typeDelay, () => {
+                        // タイプ完了後の処理
+                        if (storyContent[currentTextIndex].important && !isMuted) {
+                            importantSound.currentTime = 0;
+                            importantSound.play().catch(e => console.log('Sound play prevented: ', e));
+                        }
+                        
+                        // 自動モードなら次へ
+                        if (isAutoMode) {
+                            autoModeTimer = setTimeout(() => this.advance(), 2000);
+                        }
+                    });
+                    
+                    // スクロール位置を調整
+                    this.scrollToLatestText();
+                } catch (error) {
+                    console.error('Show next text error:', error);
+                }
+            },
+            
+            refreshTextDisplay: function() {
+                try {
+                    // テキストコンテンツをクリア
+                    textContent.innerHTML = '';
+                    
+                    // 蓄積されたテキストを表示
+                    for (let i = 0; i < this.accumulatedText.length; i++) {
+                        const item = this.accumulatedText[i];
+                        const p = document.createElement('p');
+                        p.className = 'text-paragraph';
+                        
+                        // スピーカーがある場合
+                        if (item.speaker) {
+                            p.innerHTML = `<span class="character-name">${item.speaker}：</span>`;
+                            
+                            // テキストがHTML要素を含むかチェック
+                            if (item.text.includes('<span') || item.text.includes('<em>')) {
+                                p.innerHTML += item.text;
+                            } else {
+                                p.innerHTML += item.text;
+                            }
+                        } else {
+                            // HTMLタグを含む場合
+                            if (item.text.includes('<span') || item.text.includes('<em>')) {
+                                p.innerHTML = item.text;
+                            } else {
+                                p.textContent = item.text;
+                            }
+                        }
+                        
+                        textContent.appendChild(p);
+                    }
+                    
+                    // スクロール位置を調整
+                    setTimeout(() => this.scrollToLatestText(), 100);
+                } catch (error) {
+                    console.error('Refresh text display error:', error);
+                }
+            },
+            
+            scrollToLatestText: function() {
+                try {
+                    // ユーザーがスクロールした場合は位置を尊重
+                    if (this.userHasScrolled) return;
+                    
+                    // システムスクロールのフラグを設定
+                    this.isSystemScrolling = true;
+                    
+                    // スムーズなスクロールで左端に移動
+                    // 縦書きの場合、左端（scrollLeft = 0）が最新テキスト
+                    textContent.scrollLeft = 0;
+                    
+                    // フラグをリセット
+                    setTimeout(() => {
+                        this.isSystemScrolling = false;
+                    }, 100);
+                } catch (error) {
+                    console.error('Scroll to latest text error:', error);
+                }
+            },
+            
+            showBackground: function(bgId) {
+                try {
+                    // 現在のスクロール位置を保存
+                    const currentScroll = textContent.scrollLeft;
+                    
+                    // 全背景をいったん非表示
+                    const backgrounds = document.querySelectorAll('.background');
+                    backgrounds.forEach(bg => {
+                        bg.classList.remove('active');
+                    });
+                    
+                    // 指定された背景を表示
+                    const bg = document.getElementById(bgId);
+                    if (bg) {
+                        bg.classList.add('active');
+                    }
+                    
+                    // スクロール位置を復元
+                    setTimeout(() => {
+                        textContent.scrollLeft = currentScroll;
+                    }, 50);
+                } catch (error) {
+                    console.error('Show background error:', error);
+                }
+            },
+            
+            showEffect: function(effectType) {
+                try {
+                    if (!isMuted) {
+                        effectSound.currentTime = 0;
+                        effectSound.play().catch(e => console.log('Effect sound play prevented: ', e));
+                    }
+                    
+                    // エフェクトの種類に応じた処理
+                    switch (effectType) {
+                        case 'blue_aura':
+                            this.showAuraEffect('blue');
+                            break;
+                        case 'red_aura':
+                            this.showAuraEffect('red');
+                            break;
+                        default:
+                            this.showRandomEffect();
+                    }
+                } catch (error) {
+                    console.error('Show effect error:', error);
+                }
+            },
+            
+            showAuraEffect: function(color) {
+                try {
+                    // ランダムな位置にエフェクト表示
+                    const x = Math.random() * window.innerWidth * 0.8 + window.innerWidth * 0.1;
+                    const y = Math.random() * window.innerHeight * 0.8 + window.innerHeight * 0.1;
+                    
+                    // エフェクトを作成
+                    const aura = document.createElement('div');
+                    aura.className = `effect ${color === 'red' ? 'red-aura' : 'blue-aura'}`;
+                    aura.style.width = '200px';
+                    aura.style.height = '200px';
+                    aura.style.left = (x - 100) + 'px';
+                    aura.style.top = (y - 100) + 'px';
+                    document.body.appendChild(aura);
+                    
+                    // 一定時間後に削除
+                    setTimeout(() => {
+                        if (aura.parentNode) {
+                            aura.parentNode.removeChild(aura);
+                        }
+                    }, 2000);
+                } catch (error) {
+                    console.error('Show aura effect error:', error);
+                }
+            },
+            
+            showRandomEffect: function() {
+                try {
+                    const x = Math.random() * window.innerWidth;
+                    const y = Math.random() * window.innerHeight;
+                    sparkEffect.create(x, y);
+                } catch (error) {
+                    console.error('Show random effect error:', error);
+                }
+            },
+            
+            saveProgress: function() {
+                try {
+                    // 現在の状態を保存
+                    const state = {
+                        currentTextIndex: currentTextIndex,
+                        accumulatedText: this.accumulatedText
+                    };
+                    
+                    localStorage.setItem('ryochan-progress', JSON.stringify(state));
+                } catch (error) {
+                    console.error('Save progress error:', error);
+                }
+            },
+            
+            loadProgress: function() {
+                try {
+                    const savedState = localStorage.getItem('ryochan-progress');
+                    
+                    if (savedState) {
+                        const state = JSON.parse(savedState);
+                        
+                        // 状態を復元
+                        currentTextIndex = state.currentTextIndex;
+                        this.accumulatedText = state.accumulatedText || [];
+                        
+                        // 背景を復元
+                        if (currentTextIndex > 0 && currentTextIndex < storyContent.length) {
+                            this.showBackground(storyContent[currentTextIndex - 1].bg);
+                        }
+                        
+                        // テキスト表示を復元
+                        this.refreshTextDisplay();
+                    }
+                } catch (error) {
+                    console.error('Load progress error:', error);
+                    // エラー時は初期状態に
+                    currentTextIndex = 0;
+                    this.accumulatedText = [];
+                }
+            },
+            
+            clearProgress: function() {
+                try {
+                    // 保存データを削除
+                    localStorage.removeItem('ryochan-progress');
+                    
+                    // 状態をリセット
+                    currentTextIndex = 0;
+                    this.accumulatedText = [];
+                    
+                    // 表示をリセット
+                    this.refreshTextDisplay();
+                    this.showBackground('bg1');
+                } catch (error) {
+                    console.error('Clear progress error:', error);
+                }
+            },
+            
+            isSystemScrolling: false
+        };
+        
+        /**
+         * グローバル変数
+         * 小説の現在の状態とUIを追跡
+         */
+        let currentTextIndex = 0;        // 物語の現在位置
+        let currentCharIndex = 0;        // 現在表示中の文字のインデックス
+        let isTyping = false;            // テキストが現在表示中かどうか
+        let isAutoMode = false;          // 自動進行モードが有効かどうか
+        let autoModeTimer = null;        // 自動進行モードのタイマー
+        let isMuted = false;             // サウンドがミュートされているかどうか
+        let baseTypeDelay = 30;          // 文字表示の基本間隔（ミリ秒）
+        let typeDelay = baseTypeDelay;   // 現在の文字表示速度（調整可能）
+        let effectsEnabled = true;       // 視覚効果が有効かどうか
+        let isTextHidden = false;        // テキストが非表示かどうか
+        let isTouching = false;          // タッチ中かどうか
+        let touchStartX = 0;             // タッチ開始位置X
+        let touchStartY = 0;             // タッチ開始位置Y
+
+        /**
+         * 初期化
+         */
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                // 各種イベントリスナーの設定
+                setupEventListeners();
+                
+                // リソース読み込み完了後の処理
+                checkResourcesLoaded();
+                
+                // 桜の花びらアニメーション初期化
+                cherryblossom.init();
+                
+                // ストーリーコントローラー初期化
+                storyController.init();
+            } catch (error) {
+                console.error('Initialization error:', error);
+                
+                // エラーが発生しても読み込み完了表示
+                loadingContainer.style.display = 'none';
+                startButton.style.display = 'block';
+            }
+        });
+        
+        function setupEventListeners() {
+            // スタートボタンイベント
+            startButton.addEventListener('click', startNovel);
+            
+            // テキストコンテナのクリック/タップイベント
+            textContainer.addEventListener('click', handleTouch);
+            textContainer.addEventListener('touchend', handleTouchEnd);
+            textContainer.addEventListener('touchstart', handleTouchStart);
+            textContainer.addEventListener('touchmove', handleTouchMove);
+            
+            // コントロールボタン
+            muteButton.addEventListener('click', toggleMute);
+            autoButton.addEventListener('click', toggleAutoMode);
+            hideTextButton.addEventListener('click', toggleTextVisibility);
+            clearButton.addEventListener('click', clearText);
+            settingsButton.addEventListener('click', toggleSettings);
+            
+            // 設定パネル
+            fontSizeRange.addEventListener('input', updateFontSize);
+            textSpeedRange.addEventListener('input', updateTextSpeed);
+            opacityRange.addEventListener('input', updateTextOpacity);
+            effectToggle.addEventListener('change', toggleEffects);
+            resetButton.addEventListener('click', resetProgress);
+        }
+        
+        function checkResourcesLoaded() {
+            // 背景画像の読み込み状態を確認
+            const backgrounds = document.querySelectorAll('.background');
+            let loadedCount = 0;
+            let totalCount = backgrounds.length;
+            
+            function checkComplete() {
+                loadedCount++;
+                if (loadedCount >= totalCount) {
+                    // すべてのリソースが読み込まれたらロード画面を非表示
+                    loadingContainer.style.display = 'none';
+                    startButton.style.display = 'block';
+                }
+            }
+            
+            // 各背景画像の読み込み完了イベント
+            backgrounds.forEach(bg => {
+                const imgUrl = bg.style.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/, '$1');
+                
+                if (imgUrl) {
+                    const img = new Image();
+                    img.onload = checkComplete;
+                    img.onerror = checkComplete;
+                    img.src = imgUrl;
+                } else {
+                    checkComplete();
+                }
+            });
+            
+            // タイムアウト処理（10秒後に強制的に表示）
+            setTimeout(() => {
+                loadingContainer.style.display = 'none';
+                startButton.style.display = 'block';
+            }, 10000);
+        }
+        
+        function startNovel() {
+            // タイトル画面を非表示
+            titleScreen.style.opacity = '0';
+            setTimeout(() => {
+                titleScreen.style.display = 'none';
+                
+                // BGM再生開始
+                if (!isMuted) {
+                    bgm.volume = 0.3;
+                    bgm.play().catch(e => console.log('Auto-play prevented: ', e));
+                }
+                
+                // ストーリー開始
+                if (currentTextIndex === 0) {
+                    // 初回開始時
+                    showBackground(storyContent[0].bg);
+                    storyController.advance();
+                }
+            }, 1500);
+        }
+        
+        function handleTouchStart(e) {
+            // スクロール処理のためのタッチ開始位置を記録
+            isTouching = true;
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        }
+        
+        function handleTouchMove(e) {
+            if (!isTouching) return;
+            
+            // スクロール操作を優先（デフォルト動作を許可）
+            const diffX = Math.abs(e.touches[0].clientX - touchStartX);
+            const diffY = Math.abs(e.touches[0].clientY - touchStartY);
+            
+            // 十分な距離が移動した場合はスクロールと判断
+            if (diffX > 10 || diffY > 10) {
+                // スクロールを許可
+            }
+        }
+        
+        function handleTouchEnd(e) {
+            // タッチ終了時、移動距離が小さい場合はタップと判断
+            if (isTouching) {
+                const diffX = Math.abs(e.changedTouches[0].clientX - touchStartX);
+                const diffY = Math.abs(e.changedTouches[0].clientY - touchStartY);
+                
+                if (diffX < 10 && diffY < 10) {
+                    // タップと判断してエフェクト表示とテキスト進行
+                    const x = e.changedTouches[0].clientX;
+                    const y = e.changedTouches[0].clientY;
+                    
+                    createTouchEffect(x, y);
+                    storyController.advance();
+                    
+                    e.preventDefault();
+                }
+            }
+            
+            isTouching = false;
+        }
+        
+        function handleTouch(e) {
+            // クリック/タップ時の処理
+            e.preventDefault();
+            
+            // エフェクト表示
+            createTouchEffect(e.clientX, e.clientY);
+            
+            // テキスト進行
+            storyController.advance();
+        }
+        
+        function createTouchEffect(x, y) {
+            // スパークエフェクト表示
+            if (effectsEnabled) {
+                sparkEffect.create(x, y);
+            }
+            
+            // クリック音
+            if (!isMuted) {
+                clickSound.currentTime = 0;
+                clickSound.play().catch(e => console.log('Sound play prevented: ', e));
+            }
+        }
+        
+        function showBackground(bgId) {
+            // 背景画像の切り替え
+            const backgrounds = document.querySelectorAll('.background');
+            backgrounds.forEach(bg => {
+                bg.classList.remove('active');
+            });
+            
+            const bg = document.getElementById(bgId);
+            if (bg) {
+                bg.classList.add('active');
+            }
+        }
+        
+        function toggleMute() {
+            isMuted = !isMuted;
+            
+            if (isMuted) {
+                bgm.pause();
+                muteButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            } else {
+                bgm.play().catch(e => console.log('Music play prevented: ', e));
+                muteButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+            }
+        }
+        
+        function toggleAutoMode() {
+            isAutoMode = !isAutoMode;
+            
+            if (isAutoMode) {
+                autoButton.innerHTML = '<i class="fas fa-pause"></i>';
+                
+                // タイピング中でなければ自動進行
+                if (!typewriter.isActive() && currentTextIndex < storyContent.length) {
+                    autoModeTimer = setTimeout(() => storyController.advance(), 2000);
+                }
+            } else {
+                autoButton.innerHTML = '<i class="fas fa-play"></i>';
+                
+                // タイマーをクリア
+                if (autoModeTimer) {
+                    clearTimeout(autoModeTimer);
+                    autoModeTimer = null;
+                }
+            }
+            
+            autoButton.classList.toggle('active');
+        }
+        
+        function toggleTextVisibility() {
+            isTextHidden = !isTextHidden;
+            textContainer.classList.toggle('hidden', isTextHidden);
+            
+            if (isTextHidden) {
+                hideTextButton.innerHTML = '<i class="fas fa-eye-slash"></i>';
+            } else {
+                hideTextButton.innerHTML = '<i class="fas fa-eye"></i>';
+            }
+            
+            hideTextButton.classList.toggle('active');
+        }
+        
+        function clearText() {
+            // テキストをクリア
+            storyController.accumulatedText = [];
+            storyController.refreshTextDisplay();
+        }
+        
+        function toggleSettings() {
+            settingsPanel.classList.toggle('active');
+            settingsButton.classList.toggle('active');
+        }
+        
+        function updateFontSize() {
+            const size = fontSizeRange.value;
+            textContent.style.fontSize = `${size}px`;
+            fontSizeValue.textContent = `${size}px`;
+        }
+        
+        function updateTextSpeed() {
+            const value = textSpeedRange.value;
+            baseTypeDelay = 60 - value * 0.5;
+            
+            let speedText;
+            if (value < 30) {
+                speedText = '遅い';
+            } else if (value > 70) {
+                speedText = '速い';
+            } else {
+                speedText = '標準';
+            }
+            
+            textSpeedValue.textContent = speedText;
+        }
+        
+        function updateTextOpacity() {
+            const value = opacityRange.value * 0.1;
+            document.documentElement.style.setProperty('--text-container-opacity', value);
+            opacityValue.textContent = `${Math.round(value * 100)}%`;
+        }
+        
+        function toggleEffects() {
+            effectsEnabled = effectToggle.checked;
+        }
+        
+        function resetProgress() {
+            // 確認ダイアログ
+            if (confirm('物語を最初からやり直しますか？進行状況がリセットされます。')) {
+                storyController.clearProgress();
+                currentTextIndex = 0;
+                showBackground('bg1');
+                storyController.advance();
+            }
+        }
+    </script>
+</body>
+</html>
