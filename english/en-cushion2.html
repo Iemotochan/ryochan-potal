@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is RYO Coin? | The Future of Cryptocurrency Explained Simply</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #fef6ff;
+            color: #4b4b4b;
+        }
+        .hero-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f9c3f9' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .bubble {
+            position: relative;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 20px;
+            filter: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07));
+        }
+        .bubble::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20%;
+            width: 0;
+            height: 0;
+            border: 15px solid transparent;
+            border-top-color: #ffffff;
+            border-bottom: 0;
+            margin-left: -15px;
+            margin-bottom: -15px;
+        }
+        .feature-card {
+            transition: all 0.3s;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        .stars-container {
+            display: inline-flex;
+            color: #FFD700;
+        }
+        .star {
+            font-size: 1.5rem;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 0.75rem;
+            background-color: #f3e8ff;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #f472b6 0%, #c084fc 100%);
+        }
+        .character {
+            position: absolute;
+            bottom: -20px;
+            right: 20px;
+            width: 100px;
+            height: 100px;
+            background: #f9a8d4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .speech-bubble {
+            position: relative;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            right: 30px;
+            bottom: -15px;
+            width: 0;
+            height: 0;
+            border: 15px solid transparent;
+            border-top-color: #ffffff;
+            border-bottom: 0;
+        }
+        .comparison-table th {
+            background-color: #f9c3f9;
+            color: #4b4b4b;
+            padding: 12px;
+            font-weight: bold;
+            text-align: left;
+        }
+        .comparison-table td {
+            padding: 12px;
+            border-bottom: 1px solid #f3e8ff;
+        }
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        .comparison-table tr:nth-child(even) {
+            background-color: #fcf8ff;
+        }
+        .comparison-table tr:hover {
+            background-color: #f9e9ff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero-pattern min-h-screen">
+        <header class="container mx-auto py-6 px-4 flex justify-between items-center">
+            <div class="text-3xl font-bold text-purple-600">RYO<span class="text-pink-500">Coin</span></div>
+            <nav class="hidden md:flex space-x-6">
+                <a href="#what-is" class="text-purple-700 hover:text-pink-500 font-semibold">What is RYO?</a>
+                <a href="#features" class="text-purple-700 hover:text-pink-500 font-semibold">Features</a>
+                <a href="#use-cases" class="text-purple-700 hover:text-pink-500 font-semibold">Use Cases</a>
+                <a href="#reviews" class="text-purple-700 hover:text-pink-500 font-semibold">Reviews</a>
+            </nav>
+            <button class="md:hidden text-purple-700 focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </header>
+
+        <div class="container mx-auto px-4 py-10 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-6xl font-bold text-purple-700 leading-tight">
+                    What is <span class="text-pink-500">RYO Coin</span>?
+                </h1>
+                <p class="mt-4 text-xl text-gray-600">
+                    A fun & friendly cryptocurrency from Japan that makes digital money super easy! 🎌✨
+                </p>
+                <div class="mt-8 flex space-x-4">
+                    <a href="#learn-more" class="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                        Learn More!
+                    </a>
+                    <a href="#get-started" class="px-6 py-3 bg-white text-purple-700 font-bold rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1 border-2 border-purple-500">
+                        Get Started
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-1/2 relative">
+                <div class="speech-bubble">
+                    <p class="text-lg">
+                        Hi there! I'm Ryo-chan! Let me show you how cryptocurrency can be fun and easy to use! 💖
+                    </p>
+                </div>
+                <div class="character text-center">
+                    <span>🐱</span>
+                </div>
+                <img src="https://ryochan.com/images/disk.png" alt="RYO Coin" class="mx-auto w-full max-w-md">
+            </div>
+        </div>
+    </div>
+
+    <!-- What is RYO Section -->
+    <section id="what-is" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-purple-700 mb-16">
+                What is <span class="text-pink-500">RYO Coin</span>?
+            </h2>
+            
+            <div class="flex flex-col md:flex-row items-center mb-20">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <img src="https://ryochan.com/images/ryo-chan-flag.webp" alt="RYO Coin Character" class="mx-auto w-full max-w-md rounded-3xl shadow-lg">
+                </div>
+                <div class="md:w-1/2 md:pl-10">
+                    <div class="bubble">
+                        <h3 class="text-2xl font-bold text-purple-600 mb-4">
+                            From Ancient Japan to Future Money! 🏯➡️🚀
+                        </h3>
+                        <p class="text-lg mb-4">
+                            RYO is inspired by an ancient Japanese currency called "Ryō (両)" that was used for over 265 years during the Tokugawa Period (1603-1868)!
+                        </p>
+                        <p class="text-lg mb-4">
+                            Now RYO has been reborn for the digital age as an easy-to-use cryptocurrency that everyone can enjoy! No complicated tech stuff needed!
+                        </p>
+                        <div class="mt-6 flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center text-pink-500 text-2xl mr-4">
+                                <i class="fas fa-info"></i>
+                            </div>
+                            <p class="text-gray-600">
+                                RYO's goal is to make cryptocurrency simple enough for your grandparents to use! 👵👴
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+                <div class="bg-purple-50 p-8 rounded-3xl text-center shadow hover:shadow-lg transition">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white text-3xl">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-purple-700 mb-2">Super Safe & Secure</h3>
+                    <p class="text-gray-600">
+                        RYO uses special technology to keep your money super safe, like a digital fortress! 🏰
+                    </p>
+                </div>
+                <div class="bg-pink-50 p-8 rounded-3xl text-center shadow hover:shadow-lg transition">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full flex items-center justify-center text-white text-3xl">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-pink-600 mb-2">Super Fast Transfers</h3>
+                    <p class="text-gray-600">
+                        Send money anywhere in seconds! Faster than a ninja! ⚡🥷
+                    </p>
+                </div>
+                <div class="bg-purple-50 p-8 rounded-3xl text-center shadow hover:shadow-lg transition">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white text-3xl">
+                        <i class="fas fa-globe-asia"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-purple-700 mb-2">For Everyone</h3>
+                    <p class="text-gray-600">
+                        RYO is for everyone around the world, no matter who you are! 🌏❤️
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gradient-to-b from-purple-50 to-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-purple-700 mb-16">
+                <span class="text-pink-500">Amazing</span> Features!
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="feature-card bg-white p-8">
+                    <div class="flex items-start mb-6">
+                        <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center text-pink-500 text-3xl mr-4 flex-shrink-0">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-purple-700 mb-2">LIFE Wallet</h3>
+                            <p class="text-gray-600">
+                                A super easy-to-use wallet app where you can store, send, and receive RYO coins! It's like having a digital purse that's both cute AND secure! 👛✨
+                            </p>
+                            <div class="mt-4 flex items-center">
+                                <div class="stars-container mr-2">
+                                    <i class="fas fa-star star"></i>
+                                    <i class="fas fa-star star"></i>
+                                    <i class="fas fa-star star"></i>
+                                    <i class="fas fa-star star"></i>
+                                    <i class="fas fa-star star"></i>
+                                </div>
+                                <span class="text-gray-500">5.0 out of 5</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bubble bg-pink-50 mt-6">
+                        <p class="text-gray-700">
+                            <em>"I can send money to my friends with just their email address! So much easier than other crypto wallets!"</em> - Yuki, 22
+                        </p>
+                    </div>
+                </div>
+
+                <div class="feature-card bg-white p-8">
+                    <div class="flex items-start mb-6">
+                        <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center text-purple-500 text-3xl mr-4 flex-shrink-0">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-purple-700 mb-2">Global Mall</h3>
+                            <p class="text-gray-600">
+                                Shop online using RYO at tons of stores! Buy cute stuff, tasty snacks, or whatever you want! It's like your favorite mall, but in your pocket! 🛍️
+                            </p>
+                            <div class="mt-4 flex items-center">
+                                <div class="stars-container mr-2">
+                                    <i class="fas fa-star star"></i>
+                                    <i class="fas fa-star star"></i>
+                                    <i class="fas fa-star star"></i>
+                                    <i class="fas fa-star star"></i>
+                                    <i class="fas fa-star-half-alt star"></i>
+                                </div>
+                                <span class="text-gray-500">4.5 out of 5</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bubble bg-purple-50 mt-6">
+                        <p class="text-gray-700">
+                            <em>"I bought kawaii stickers from Japan using RYO! The checkout was so easy and fast!"</em> - Emma, 25
+                        </p>
+                    </div>
+                </div>
+
+                <div class="feature-card bg-white p-8">
+                    <div class="flex items-start mb-6">
+                        <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center text-pink-500 text-3xl mr-4 flex-shrink-0">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-purple-700 mb-2">Licensed Exchange Partner</h3>
+                            <p class="text-gray-600">
+                                RYO has teamed up with an officially licensed cryptocurrency exchange in Japan! This means you can easily buy and sell RYO coins safely and legally! 🇯🇵💼
+                            </p>
+                            <div class="mt-4 flex items-center">
+                                <div class="stars-container mr-2">
+                                    <i class="fas fa-star star"></i>
+                                    <i class="fas fa-star star"></i>
+                                    <i class="fas fa-star star"></i>
+                                    <i class="fas fa-star star"></i>
+                                    <i class="fas fa-star-half-alt star"></i>
+                                </div>
+                                <span class="text-gray-500">4.5 out of 5</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bubble bg-pink-50 mt-6">
+                        <p class="text-gray-700">
+                            <em>"I was nervous about crypto, but knowing RYO works with a licensed exchange made me feel safe!"</em> - Takeshi, 35
+                        </p>
+                    </div>
+                </div>
+
+                <div class="feature-card bg-white p-8">
+                    <div class="flex items-start mb-6">
+                        <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center text-purple-500 text-3xl mr-4 flex-shrink-0">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-purple-700 mb-2">Crypto ATM Network</h3>
+                            <p class="text-gray-600">
+                                Special ATMs where you can turn cash into RYO coins and back again! It's like magic money machines all over Japan! 💰🏧
+                            </p>
+                            <div class="mt-4 flex items-center">
+                                <div class="stars-container mr-2">
+                                    <i class="fas fa-star star"></i>
+                                    <i class="fas fa-star star"></i>
+                                    <i class="fas fa-star star"></i>
+                                    <i class="fas fa-star star"></i>
+                                    <i class="fas fa-star-half-alt star"></i>
+                                </div>
+                                <span class="text-gray-500">4.8 out of 5</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bubble bg-purple-50 mt-6">
+                        <p class="text-gray-700">
+                            <em>"I turned cash into RYO at an ATM near my favorite ramen shop! So convenient!"</em> - Hiro, 28
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 bg-white rounded-3xl shadow-lg overflow-hidden">
+                <div class="bg-gradient-to-r from-purple-500 to-pink-500 text-white p-6">
+                    <h3 class="text-2xl font-bold">How RYO is Different? 🤔</h3>
+                </div>
+                <div class="p-6">
+                    <table class="comparison-table w-full">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>RYO Coin</th>
+                                <th>Other Cryptocurrencies</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-semibold">Easy to Use</td>
+                                <td class="text-center">
+                                    <span class="text-2xl">😊 Super Easy!</span>
+                                    <p class="text-sm text-gray-500">Even grandma can use it!</p>
+                                </td>
+                                <td class="text-center">
+                                    <span class="text-2xl">🤯 Complicated</span>
+                                    <p class="text-sm text-gray-500">Need tech knowledge</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Transaction Speed</td>
+                                <td class="text-center">
+                                    <span class="text-2xl">⚡ Super Fast</span>
+                                    <p class="text-sm text-gray-500">Seconds!</p>
+                                </td>
+                                <td class="text-center">
+                                    <span class="text-2xl">🐢 Slow to Medium</span>
+                                    <p class="text-sm text-gray-500">Minutes or hours</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Send to Friends</td>
+                                <td class="text-center">
+                                    <span class="text-2xl">📧 Just need email</span>
+                                    <p class="text-sm text-gray-500">Simple as sending a message</p>
+                                </td>
+                                <td class="text-center">
+                                    <span class="text-2xl">🔡 Need long addresses</span>
+                                    <p class="text-sm text-gray-500">Easy to make mistakes</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Shopping</td>
+                                <td class="text-center">
+                                    <span class="text-2xl">🛍️ Built-in mall</span>
+                                    <p class="text-sm text-gray-500">Shop directly from wallet</p>
+                                </td>
+                                <td class="text-center">
+                                    <span class="text-2xl">🔍 Limited stores</span>
+                                    <p class="text-sm text-gray-500">Few places accept them</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section id="use-cases" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-purple-700 mb-16">
+                <span class="text-pink-500">Fun Ways</span> to Use RYO!
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-pink-50 rounded-3xl overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:scale-105">
+                    <div class="h-48 bg-pink-100 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+                            <span class="text-7xl">🍜</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-purple-700 mb-3">Buy Yummy Food!</h3>
+                        <div class="mb-4 speech-bubble bg-white">
+                            <p class="text-gray-700 text-sm">
+                                "I'm craving ramen, but I forgot my wallet! 😱"
+                            </p>
+                        </div>
+                        <div class="mb-4 speech-bubble bg-white">
+                            <p class="text-gray-700 text-sm">
+                                "No problem! Pay with RYO on your phone! Just scan and slurp! 📱➡️🍜"
+                            </p>
+                        </div>
+                        <p class="text-gray-600 text-sm">
+                            Many restaurants in Japan are starting to accept RYO for payments. Just scan a QR code and enjoy your meal!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-purple-50 rounded-3xl overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:scale-105">
+                    <div class="h-48 bg-purple-100 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+                            <span class="text-7xl">🎮</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-purple-700 mb-3">Buy Game Items!</h3>
+                        <div class="mb-4 speech-bubble bg-white">
+                            <p class="text-gray-700 text-sm">
+                                "I need that limited edition sword for my character! 🗡️"
+                            </p>
+                        </div>
+                        <div class="mb-4 speech-bubble bg-white">
+                            <p class="text-gray-700 text-sm">
+                                "Use RYO to buy it directly in the game! Quick and easy! ⚔️"
+                            </p>
+                        </div>
+                        <p class="text-gray-600 text-sm">
+                            RYO makes in-game purchases super simple. Buy items, skins, and upgrades without leaving your favorite games!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-pink-50 rounded-3xl overflow-hidden shadow-lg transition-transform duration-300 hover:transform hover:scale-105">
+                    <div class="h-48 bg-pink-100 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+                            <span class="text-7xl">✈️</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-purple-700 mb-3">Travel Money!</h3>
+                        <div class="mb-4 speech-bubble bg-white">
+                            <p class="text-gray-700 text-sm">
+                                "I'm going to Japan but don't want to carry cash! 💴"
+                            </p>
+                        </div>
+                        <div class="mb-4 speech-bubble bg-white">
+                            <p class="text-gray-700 text-sm">
+                                "Just bring your RYO wallet! Shop, eat, and use ATMs all over Japan! 🏯"
+                            </p>
+                        </div>
+                        <p class="text-gray-600 text-sm">
+                            RYO is perfect for travelers! No need to exchange currency or carry cash. Just use your phone to pay wherever you go!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl p-8 text-white text-center relative overflow-hidden">
+                <div class="relative z-10">
+                    <h3 class="text-3xl font-bold mb-4">Ready to Try RYO?</h3>
+                    <p class="text-xl mb-8 max-w-2xl mx-auto">
+                        Join thousands of people already using RYO to make their lives easier and more fun! 💖
+                    </p>
+                    <a href="#" class="inline-block px-8 py-4 bg-white text-purple-700 font-bold rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                        Get Started Now! 🚀
+                    </a>
+                </div>
+                <div class="absolute right-0 bottom-0 opacity-10">
+                    <span class="text-9xl">🐱</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="py-20 bg-gradient-to-b from-white to-purple-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-purple-700 mb-16">
+                What <span class="text-pink-500">Experts</span> Say
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="bg-white p-8 rounded-3xl shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center text-pink-500 text-3xl mr-4">
+                            <span>👩‍💼</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-purple-700">Sakura Tanaka</h3>
+                            <p class="text-gray-500">Cryptocurrency Analyst</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="stars-container mb-2">
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star-half-alt star"></i>
+                        </div>
+                        <div class="flex justify-between text-sm text-gray-500 mb-1">
+                            <span>Technology</span>
+                            <span>4.8/5</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 96%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-sm text-gray-500 mb-1">
+                            <span>Ease of Use</span>
+                            <span>5.0/5</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-sm text-gray-500 mb-1">
+                            <span>Security</span>
+                            <span>4.9/5</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 98%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <div class="flex justify-between text-sm text-gray-500 mb-1">
+                            <span>Implementation Feasibility</span>
+                            <span>4.5/5</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic">
+                        "RYO Coin represents a significant step forward in making cryptocurrency accessible to everyone. Their innovative approach combines excellent security with unmatched user-friendliness. My only slight concern is whether such an ambitious system can be fully implemented as planned, but if they succeed, it will revolutionize how we think about digital payments."
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl shadow-lg">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center text-purple-500 text-3xl mr-4">
+                            <span>👨‍💻</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-purple-700">Hiroshi Yamamoto</h3>
+                            <p class="text-gray-500">Blockchain Developer</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="stars-container mb-2">
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                        </div>
+                        <div class="flex justify-between text-sm text-gray-500 mb-1">
+                            <span>Technical Innovation</span>
+                            <span>5.0/5</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-sm text-gray-500 mb-1">
+                            <span>Code Quality</span>
+                            <span>4.8/5</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 96%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-sm text-gray-500 mb-1">
+                            <span>Ecosystem Integration</span>
+                            <span>4.9/5</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 98%"></div>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <div class="flex justify-between text-sm text-gray-500 mb-1">
+                            <span>Implementation Feasibility</span>
+                            <span>4.6/5</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 92%"></div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic">
+                        "From a developer's perspective, RYO's hybrid consensus model is brilliant. They've solved many problems that plague other cryptocurrencies. The ecosystem approach with wallet, marketplace, and ATM integration is comprehensive. While achieving all their goals is ambitious, their technical foundation is solid. If they can execute their roadmap, RYO could set new standards for the entire industry."
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-20 text-center">
+                <h3 class="text-2xl font-bold text-purple-700 mb-6">RYO vs Other Cryptocurrencies</h3>
+                <div class="bg-white rounded-3xl shadow-lg overflow-hidden">
+                    <table class="w-full comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>RYO Coin</th>
+                                <th>Bitcoin</th>
+                                <th>Ethereum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Transaction Speed</td>
+                                <td class="text-center">⚡ Seconds</td>
+                                <td class="text-center">🐢 10+ minutes</td>
+                                <td class="text-center">🐌 15+ seconds</td>
+                            </tr>
+                            <tr>
+                                <td>User-Friendly</td>
+                                <td class="text-center">😊 Very High</td>
+                                <td class="text-center">😣 Low</td>
+                                <td class="text-center">😐 Medium</td>
+                            </tr>
+                            <tr>
+                                <td>Built-in Shopping</td>
+                                <td class="text-center">🛍️ Yes!</td>
+                                <td class="text-center">❌ No</td>
+                                <td class="text-center">❌ No</td>
+                            </tr>
+                            <tr>
+                                <td>ATM Network</td>
+                                <td class="text-center">✅ Growing in Japan</td>
+                                <td class="text-center">✅ Limited locations</td>
+                                <td class="text-center">❌ Very rare</td>
+                            </tr>
+                            <tr>
+                                <td>Send via Email</td>
+                                <td class="text-center">✅ Yes!</td>
+                                <td class="text-center">❌ No</td>
+                                <td class="text-center">❌ No</td>
+                            </tr>
+                            <tr>
+                                <td>Energy Efficiency</td>
+                                <td class="text-center">🌱 Very High</td>
+                                <td class="text-center">⚡ Very Low</td>
+                                <td class="text-center">⚡ Low</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-purple-700 mb-16">
+                <span class="text-pink-500">Questions?</span> We've Got Answers!
+            </h2>
+
+            <div class="max-w-3xl mx-auto">
+                <div class="mb-6 border-b border-purple-100 pb-6">
+                    <h3 class="text-xl font-bold text-purple-700 mb-2 flex items-center">
+                        <span class="w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center text-pink-500 mr-3 flex-shrink-0">Q</span>
+                        What exactly is RYO Coin?
+                    </h3>
+                    <div class="pl-11">
+                        <p class="text-gray-600">
+                            RYO Coin is a friendly cryptocurrency from Japan that makes digital money super easy to use! It's named after an ancient Japanese currency but designed for today's digital world!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mb-6 border-b border-purple-100 pb-6">
+                    <h3 class="text-xl font-bold text-purple-700 mb-2 flex items-center">
+                        <span class="w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center text-pink-500 mr-3 flex-shrink-0">Q</span>
+                        How do I get RYO Coins?
+                    </h3>
+                    <div class="pl-11">
+                        <p class="text-gray-600">
+                            You can get RYO Coins through our licensed exchange partner in Japan, at RYO ATMs, or by receiving them from friends who already have RYO! The LIFE Wallet app makes it super easy to start!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mb-6 border-b border-purple-100 pb-6">
+                    <h3 class="text-xl font-bold text-purple-700 mb-2 flex items-center">
+                        <span class="w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center text-pink-500 mr-3 flex-shrink-0">Q</span>
+                        Is RYO Coin safe to use?
+                    </h3>
+                    <div class="pl-11">
+                        <p class="text-gray-600">
+                            Yes! RYO uses super secure blockchain technology to keep your money safe. Plus, it's being developed with regulatory compliance in mind, especially in Japan where cryptocurrency rules are clear!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mb-6 border-b border-purple-100 pb-6">
+                    <h3 class="text-xl font-bold text-purple-700 mb-2 flex items-center">
+                        <span class="w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center text-pink-500 mr-3 flex-shrink-0">Q</span>
+                        What makes RYO different from other cryptocurrencies?
+                    </h3>
+                    <div class="pl-11">
+                        <p class="text-gray-600">
+                            RYO is designed with beginners in mind! You don't need to be a tech expert to use it. Plus, it has a complete ecosystem with a wallet, shopping mall, and ATM network all working together! And you can send RYO using just an email address - no complicated crypto addresses needed!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-purple-700 mb-2 flex items-center">
+                        <span class="w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center text-pink-500 mr-3 flex-shrink-0">Q</span>
+                        Can I really buy things with RYO?
+                    </h3>
+                    <div class="pl-11">
+                        <p class="text-gray-600">
+                            Absolutely! RYO's Global Mall lets you shop at many stores, and more businesses in Japan are starting to accept RYO for payments. The network is growing every day!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 bg-gradient-to-r from-purple-500 to-pink-500 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-6">Ready to Join the RYO Adventure?</h2>
+            <p class="text-xl mb-10 max-w-2xl mx-auto">
+                Start your journey with RYO Coin today and discover how cryptocurrency can be fun, easy, and useful in everyday life!
+            </p>
+            <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
+                <a href="#" class="px-8 py-4 bg-white text-purple-700 font-bold rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                    <i class="fas fa-wallet mr-2"></i> Get LIFE Wallet
+                </a>
+                <a href="#" class="px-8 py-4 bg-purple-800 text-white font-bold rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                    <i class="fas fa-shopping-cart mr-2"></i> Explore Global Mall
+                </a>
+                <a href="#" class="px-8 py-4 bg-pink-600 text-white font-bold rounded-full shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                    <i class="fas fa-book mr-2"></i> Learn More
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-purple-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">RYO<span class="text-pink-400">Coin</span></h3>
+                    <p class="text-purple-200">
+                        Making cryptocurrency fun and easy for everyone!
+                    </p>
+                    <div class="mt-4 flex space-x-4">
+                        <a href="#" class="text-purple-200 hover:text-pink-400 transition">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-purple-200 hover:text-pink-400 transition">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-purple-200 hover:text-pink-400 transition">
+                            <i class="fab fa-telegram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-purple-200 hover:text-pink-400 transition">
+                            <i class="fab fa-discord text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#what-is" class="text-purple-200 hover:text-pink-400 transition">What is RYO?</a></li>
+                        <li><a href="#features" class="text-purple-200 hover:text-pink-400 transition">Features</a></li>
+                        <li><a href="#use-cases" class="text-purple-200 hover:text-pink-400 transition">Use Cases</a></li>
+                        <li><a href="#reviews" class="text-purple-200 hover:text-pink-400 transition">Reviews</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-purple-200 hover:text-pink-400 transition">Get Started Guide</a></li>
+                        <li><a href="#" class="text-purple-200 hover:text-pink-400 transition">Wallet Tutorial</a></li>
+                        <li><a href="#" class="text-purple-200 hover:text-pink-400 transition">Vision Paper</a></li>
+                        <li><a href="#" class="text-purple-200 hover:text-pink-400 transition">Support Center</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Contact</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-pink-400 mr-2"></i>
+                            <a href="mailto:info@ryocoin.com" class="text-purple-200 hover:text-pink-400 transition">info@ryocoin.com</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-map-marker-alt text-pink-400 mr-2"></i>
+                            <span class="text-purple-200">Tokyo, Japan</span>
+                        </li>
+                    </ul>
+                    <div class="mt-4">
+                        <a href="#" class="px-4 py-2 bg-pink-500 text-white rounded-full text-sm font-bold inline-block hover:bg-pink-600 transition">
+                            Contact Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-10 pt-6 border-t border-purple-800 text-center text-purple-300 text-sm">
+                <p>© 2023 RYO Coin Research. This is an independent research site and not affiliated with the official RYO Coin project.</p>
+                <p class="mt-2">All trademarks belong to their respective owners.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple scroll animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            const elements = document.querySelectorAll('.feature-card, .speech-bubble, .bubble');
+            elements.forEach(el => {
+                el.classList.add('transition', 'duration-700', 'opacity-0', 'translate-y-8');
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
