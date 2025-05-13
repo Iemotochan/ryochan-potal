@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptocurrency Too Complicated!? RYO Coin Makes It Super Easy!</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f0f4ff;
+            color: #333;
+            line-height: 1.6;
+        }
+        .manga-bubble {
+            position: relative;
+            background: white;
+            border-radius: 20px;
+            padding: 15px;
+            border: 2px solid #000;
+            margin: 30px auto;
+            max-width: 85%;
+            transform: rotate(-1deg);
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+        }
+        .manga-bubble:after {
+            content: "";
+            position: absolute;
+            border: 20px solid transparent;
+            border-top-color: white;
+            bottom: -38px;
+            left: 50px;
+            transform: rotate(10deg);
+        }
+        .manga-bubble:before {
+            content: "";
+            position: absolute;
+            border: 22px solid transparent;
+            border-top-color: #000;
+            bottom: -42px;
+            left: 48px;
+            transform: rotate(10deg);
+            z-index: -1;
+        }
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #f43f5e;
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+            margin: 2rem 0;
+            text-align: center;
+            transform: rotate(-2deg);
+            background: #ffe259;
+            padding: 10px 20px;
+            display: inline-block;
+            border-radius: 8px;
+            border: 2px solid #000;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+        }
+        .pop-badge {
+            background: #ff3860;
+            color: white;
+            font-weight: bold;
+            padding: 5px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            transform: rotate(-3deg);
+            margin: 0 5px;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+            font-size: 0.9rem;
+        }
+        .speech-top-right {
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            transform: rotate(5deg);
+        }
+        .speech-bottom-left {
+            position: absolute;
+            bottom: 10%;
+            left: 10%;
+            transform: rotate(-3deg);
+        }
+        .feature-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 15px 0;
+            border: 2px solid #3b82f6;
+            box-shadow: 5px 5px 0 rgba(59, 130, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 7px 7px 0 rgba(59, 130, 246, 0.4);
+        }
+        .step-number {
+            background: #3b82f6;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+        }
+        .testimonial-bubble {
+            background: #f9fafb;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #3b82f6;
+            position: relative;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+        }
+        .testimonial-bubble:before {
+            content: """;
+            position: absolute;
+            top: -15px;
+            left: 10px;
+            font-size: 60px;
+            color: #d1d5db;
+            font-family: serif;
+        }
+        .star-rating {
+            color: #fbbf24;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+        }
+        .banner-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.7));
+            z-index: 1;
+            pointer-events: none;
+        }
+        .cta-button {
+            background: #f43f5e;
+            color: white;
+            font-weight: bold;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 0 #be123c;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            z-index: 1;
+            text-decoration: none;
+        }
+        .cta-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+        .cta-button:hover:before {
+            left: 100%;
+        }
+        .cta-button:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 #be123c;
+        }
+        .manga-panel {
+            border: 3px solid #000;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 5px 5px 0 rgba(0,0,0,0.2);
+            position: relative;
+        }
+        .comparison-table th {
+            background: #3b82f6;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .comparison-table td {
+            padding: 12px;
+            border: 1px solid #d1d5db;
+        }
+        .comparison-table tr:nth-child(even) {
+            background: #f3f4f6;
+        }
+        .highlight-cell {
+            background: #dcfce7 !important;
+            font-weight: bold;
+            color: #166534;
+        }
+        .manga-divider {
+            height: 30px;
+            background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.1'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            margin: 30px 0;
+        }
+        .action-icon {
+            display: inline-block;
+            padding: 10px;
+            background-color: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            margin-right: 10px;
+            width: 45px;
+            height: 45px;
+            text-align: center;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="relative">
+        <div class="w-full bg-blue-500 text-white text-center py-3">
+            <span class="font-bold">💥 LIMITED TIME OFFER 💥</span> Start your crypto journey with RYO Coin today!
+        </div>
+        
+        <!-- Banner Image -->
+        <div class="relative w-full mb-6">
+            <img src="https://cdn1.genspark.ai/user-upload-image/gpt_image_generated/af4a48f8-7038-4e81-a844-883ec5650860_wm" class="w-full" alt="RYO Coin Users Banner">
+        </div>
+        
+        <!-- Main Headline -->
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-black mb-4 text-blue-700">Cryptocurrency Too Complicated!?</h1>
+            <h2 class="text-3xl md:text-5xl font-bold text-rose-600">RYO Coin Makes It Super Easy!</h2>
+        </div>
+    </div>
+
+    <!-- Frustration vs Solution Section -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+            <!-- Frustrated User -->
+            <div class="lg:w-1/2 relative manga-panel">
+                <img src="https://cdn1.genspark.ai/user-upload-image/gpt_image_generated/86d84590-75d5-4ad9-9c35-a81d83cbac20_wm" alt="Frustrated with Cryptocurrency" class="w-full rounded">
+                <div class="manga-bubble speech-top-right">
+                    <p class="text-xl font-bold">All these charts and jargon... WHY IS CRYPTO SO DIFFICULT?!</p>
+                </div>
+            </div>
+            
+            <!-- Happy RYO User -->
+            <div class="lg:w-1/2 relative manga-panel">
+                <img src="https://cdn1.genspark.ai/user-upload-image/gpt_image_generated/764ebdb6-31ce-431e-beda-7793c8342464_wm" alt="Happy RYO Coin User" class="w-full rounded">
+                <div class="manga-bubble speech-bottom-left">
+                    <p class="text-xl font-bold">With RYO, cryptocurrency is finally EASY!</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Before/After Comparison -->
+        <div class="my-12">
+            <img src="https://cdn1.genspark.ai/user-upload-image/gpt_image_generated/ad75ab10-3e6f-4cee-b1df-ef0824030aa9_wm" alt="Before and After Using RYO Coin" class="w-full max-w-3xl mx-auto rounded-lg shadow-xl">
+        </div>
+    </div>
+
+    <div class="manga-divider"></div>
+
+    <!-- Problems with Traditional Cryptocurrency Section -->
+    <div class="container mx-auto px-4 py-12 bg-white rounded-lg shadow-md">
+        <div class="text-center mb-10">
+            <h2 class="section-title">Why Most People GIVE UP on Cryptocurrency</h2>
+            <p class="text-xl mb-6">Traditional cryptocurrency platforms are built for tech experts, not everyday users!</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="feature-card">
+                <div class="flex items-center mb-4">
+                    <div class="action-icon">🤯</div>
+                    <h3 class="text-xl font-bold">Overwhelmingly Complex</h3>
+                </div>
+                <p>Technical jargon, complicated charts, and confusing interfaces make cryptocurrency feel like a foreign language to most people.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="flex items-center mb-4">
+                    <div class="action-icon">⏱️</div>
+                    <h3 class="text-xl font-bold">Time-Consuming Process</h3>
+                </div>
+                <p>Setting up wallets, managing private keys, and navigating exchanges can take hours or even days to figure out.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="flex items-center mb-4">
+                    <div class="action-icon">💸</div>
+                    <h3 class="text-xl font-bold">Hidden Fees Everywhere</h3>
+                </div>
+                <p>Most platforms charge significant fees for transactions, withdrawals, and conversions that aren't clearly explained upfront.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="flex items-center mb-4">
+                    <div class="action-icon">🛑</div>
+                    <h3 class="text-xl font-bold">Security Concerns</h3>
+                </div>
+                <p>News of hacks and scams scare people away, and most don't know how to keep their digital assets secure.</p>
+            </div>
+        </div>
+        
+        <div class="mt-12 p-6 bg-red-50 rounded-lg border-2 border-red-300">
+            <h3 class="text-2xl font-bold text-red-700 mb-4 text-center">The Result?</h3>
+            <p class="text-lg text-center">Most people <span class="font-bold">GIVE UP</span> on cryptocurrency before they even start!</p>
+            <div class="flex justify-center mt-4">
+                <span class="pop-badge">Too Complicated!</span>
+                <span class="pop-badge">Too Risky!</span>
+                <span class="pop-badge">Too Confusing!</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="manga-divider"></div>
+
+    <!-- RYO Coin Solutions Section -->
+    <div class="container mx-auto px-4 py-12">
+        <div class="text-center mb-10">
+            <h2 class="section-title">How RYO Coin Solves Everything!</h2>
+            <p class="text-xl mb-6">We've reimagined cryptocurrency from the ground up with <span class="font-bold text-blue-600">YOU</span> in mind!</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <div class="bg-white p-8 rounded-lg shadow-lg border-t-8 border-green-500">
+                <h3 class="text-2xl font-bold mb-4 text-green-600">🌟 Incredibly Simple</h3>
+                <p class="mb-4">RYO's interface is designed to be as easy as using a banking app - no technical knowledge required!</p>
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <p class="font-bold">💯 User Rating: <span class="text-green-600">4.9/5</span></p>
+                    <p class="text-sm italic">"I couldn't believe how easy it was to get started with RYO!"</p>
+                </div>
+            </div>
+            
+            <div class="bg-white p-8 rounded-lg shadow-lg border-t-8 border-blue-500">
+                <h3 class="text-2xl font-bold mb-4 text-blue-600">⚡ Lightning Fast</h3>
+                <p class="mb-4">Send and receive transactions in seconds, not minutes or hours like other cryptocurrencies.</p>
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <p class="font-bold">💯 Speed Rating: <span class="text-blue-600">4.8/5</span></p>
+                    <p class="text-sm italic">"Transfers complete almost instantly - it's faster than my bank!"</p>
+                </div>
+            </div>
+            
+            <div class="bg-white p-8 rounded-lg shadow-lg border-t-8 border-purple-500">
+                <h3 class="text-2xl font-bold mb-4 text-purple-600">🔒 Bank-Level Security</h3>
+                <p class="mb-4">Built on a revolutionary hybrid blockchain with security that exceeds traditional banking systems.</p>
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <p class="font-bold">💯 Security Rating: <span class="text-purple-600">4.9/5</span></p>
+                    <p class="text-sm italic">"I feel safer using RYO than I do with my regular bank account!"</p>
+                </div>
+            </div>
+            
+            <div class="bg-white p-8 rounded-lg shadow-lg border-t-8 border-yellow-500">
+                <h3 class="text-2xl font-bold mb-4 text-yellow-600">💰 Low, Transparent Fees</h3>
+                <p class="mb-4">Know exactly what you're paying with clear, low-cost transaction fees - no hidden charges!</p>
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                    <p class="font-bold">💯 Value Rating: <span class="text-yellow-600">4.7/5</span></p>
+                    <p class="text-sm italic">"The fees are so small compared to other crypto platforms I've tried!"</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white p-8 rounded-lg shadow-lg mb-12">
+            <h3 class="text-2xl font-bold mb-6 text-center">Comparison: Traditional Crypto vs RYO Coin</h3>
+            <div class="overflow-x-auto">
+                <table class="comparison-table w-full">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Traditional Cryptocurrency</th>
+                            <th>RYO Coin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">Ease of Use</td>
+                            <td>Complex, technical, steep learning curve</td>
+                            <td class="highlight-cell">Simple, intuitive interface anyone can use</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Transaction Speed</td>
+                            <td>Minutes to hours</td>
+                            <td class="highlight-cell">Seconds</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Security</td>
+                            <td>Varies widely between platforms</td>
+                            <td class="highlight-cell">Bank-level security with hybrid blockchain</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Fee Structure</td>
+                            <td>Often hidden, complex, or high</td>
+                            <td class="highlight-cell">Low and transparent</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Support</td>
+                            <td>Limited or technical</td>
+                            <td class="highlight-cell">24/7 human support in multiple languages</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="bg-blue-50 p-8 rounded-lg shadow-lg border-2 border-blue-300">
+            <div class="text-center">
+                <h3 class="text-2xl font-bold mb-4">The Only Concern</h3>
+                <p class="text-lg mb-6">Industry experts have only one question: <span class="font-bold">Can something this revolutionary really work?</span></p>
+                <div class="star-rating mb-4">★★★★★</div>
+                <p class="italic">"If RYO Coin delivers on all its promises, it could transform the entire cryptocurrency landscape. It's almost too good to be true, which is our only hesitation - but the technology and partnerships are certainly impressive."</p>
+                <p class="mt-2 font-bold">- Blockchain Industry Review Panel</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="manga-divider"></div>
+
+    <!-- How to Use It Section -->
+    <div class="container mx-auto px-4 py-12 bg-white rounded-lg shadow-md">
+        <div class="text-center mb-10">
+            <h2 class="section-title">Getting Started is Super Easy!</h2>
+            <p class="text-xl mb-6">Follow these simple steps to begin your RYO journey</p>
+        </div>
+        
+        <div class="max-w-3xl mx-auto">
+            <div class="flex items-start mb-8 feature-card">
+                <div class="step-number">1</div>
+                <div>
+                    <h3 class="text-xl font-bold mb-2">Download the LIFE Wallet®</h3>
+                    <p class="mb-4">Get RYO's user-friendly wallet app from your app store - available for iOS and Android.</p>
+                    <div class="flex space-x-4 justify-center">
+                        <button class="bg-black text-white py-3 px-6 rounded-lg font-bold flex items-center">
+                            <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.5718 12.0297C17.5549 9.36995 19.7771 8.00359 19.8722 7.94463C18.6276 6.13198 16.6651 5.84646 15.9842 5.82982C14.2671 5.65757 12.6038 6.85267 11.7343 6.85267C10.8455 6.85267 9.47773 5.84646 7.99349 5.87973C6.10803 5.91299 4.34783 7.04462 3.38712 8.80069C1.41609 12.3623 2.88369 17.5761 4.77776 20.4906C5.73846 21.9263 6.85376 23.5324 8.30452 23.4769C9.72651 23.4166 10.2689 22.5407 11.9621 22.5407C13.636 22.5407 14.1513 23.4769 15.643 23.4435C17.1732 23.4166 18.136 21.9887 19.0623 20.5365C20.1629 18.8974 20.6225 17.2912 20.6398 17.2184C20.6042 17.2043 17.5936 16.0311 17.5718 12.0297Z"/>
+                                <path d="M14.9053 3.97197C15.685 2.97341 16.2123 1.62785 16.0705 0.265625C14.9362 0.313506 13.5352 1.07546 12.7191 2.05741C11.9965 2.92471 11.3531 4.31446 11.5129 5.62929C12.778 5.72137 14.0881 4.95388 14.9053 3.97197Z"/>
+                            </svg>
+                            App Store
+                        </button>
+                        <button class="bg-black text-white py-3 px-6 rounded-lg font-bold flex items-center">
+                            <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3.60637 1.5H20.309C21.5814 1.5 22.6367 2.5498 22.6367 3.81681V20.1832C22.6367 21.4502 21.5814 22.5 20.309 22.5H3.60637C2.33402 22.5 1.27879 21.4502 1.27879 20.1832V3.81681C1.27879 2.5498 2.33402 1.5 3.60637 1.5Z"/>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0622 5.76563L16.4197 13.2094L12.0058 20.25H14.3806L17.5513 15.0337L20.735 20.25H23.9919L19.3495 12.3265L23.3934 5.76563H20.9904L18.1458 10.4729L15.3013 5.76563H12.0622Z" fill="white"/>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.83044 17.582V5.76562H8.10612V17.582H5.83044Z" fill="white"/>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.07308 14.7478L10.3479 5.76562H12.9637L7.70762 14.7478H5.07308Z" fill="white"/>
+                            </svg>
+                            Google Play
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex items-start mb-8 feature-card">
+                <div class="step-number">2</div>
+                <div>
+                    <h3 class="text-xl font-bold mb-2">Create Your Account in Seconds</h3>
+                    <p class="mb-4">Just enter your email address and create a password - no complicated verification processes.</p>
+                    <div class="bg-green-100 p-4 rounded-lg">
+                        <p class="font-bold text-green-800">💡 Pro Tip: Use a strong, unique password for maximum security!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex items-start mb-8 feature-card">
+                <div class="step-number">3</div>
+                <div>
+                    <h3 class="text-xl font-bold mb-2">Add Funds Easily</h3>
+                    <p class="mb-4">Connect your bank account, credit card, or visit one of our partner ATM locations to add funds.</p>
+                    <p class="font-bold">Supported payment methods:</p>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        <span class="bg-gray-100 py-1 px-3 rounded-full text-sm">Bank Transfer</span>
+                        <span class="bg-gray-100 py-1 px-3 rounded-full text-sm">Credit Card</span>
+                        <span class="bg-gray-100 py-1 px-3 rounded-full text-sm">Debit Card</span>
+                        <span class="bg-gray-100 py-1 px-3 rounded-full text-sm">Cash (at ATMs)</span>
+                        <span class="bg-gray-100 py-1 px-3 rounded-full text-sm">Apple Pay</span>
+                        <span class="bg-gray-100 py-1 px-3 rounded-full text-sm">Google Pay</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex items-start feature-card">
+                <div class="step-number">4</div>
+                <div>
+                    <h3 class="text-xl font-bold mb-2">Start Using RYO Coin Immediately!</h3>
+                    <p class="mb-4">Send money to friends, shop at Global Mall® partners, or store value securely - it's that simple!</p>
+                    <div class="grid grid-cols-3 gap-4 text-center mt-6">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <div class="text-3xl mb-2">💸</div>
+                            <p class="font-bold">Send Money</p>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <div class="text-3xl mb-2">🛍️</div>
+                            <p class="font-bold">Shop Online</p>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <div class="text-3xl mb-2">💰</div>
+                            <p class="font-bold">Store Value</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="manga-divider"></div>
+
+    <!-- User Testimonials Section -->
+    <div class="container mx-auto px-4 py-12">
+        <div class="text-center mb-10">
+            <h2 class="section-title">People LOVE Using RYO Coin!</h2>
+            <p class="text-xl mb-6">Hear from real users who have made the switch</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="testimonial-bubble">
+                <div class="flex items-center mb-4">
+                    <div class="w-16 h-16 bg-gray-300 rounded-full mr-4 overflow-hidden">
+                        <div class="w-full h-full bg-gradient-to-br from-blue-300 to-purple-500"></div>
+                    </div>
+                    <div>
+                        <p class="font-bold text-lg">Yuki T.</p>
+                        <p class="text-sm text-gray-600">Student, 22</p>
+                        <div class="star-rating">★★★★★</div>
+                    </div>
+                </div>
+                <p class="italic">"I tried other cryptocurrency apps before but gave up because they were too technical. RYO Coin is different - I set it up in minutes and now use it to split bills with friends and shop online!"</p>
+            </div>
+            
+            <div class="testimonial-bubble">
+                <div class="flex items-center mb-4">
+                    <div class="w-16 h-16 bg-gray-300 rounded-full mr-4 overflow-hidden">
+                        <div class="w-full h-full bg-gradient-to-br from-green-300 to-blue-500"></div>
+                    </div>
+                    <div>
+                        <p class="font-bold text-lg">Takeshi M.</p>
+                        <p class="text-sm text-gray-600">Business Owner, 45</p>
+                        <div class="star-rating">★★★★★</div>
+                    </div>
+                </div>
+                <p class="italic">"As a small business owner, I've started accepting RYO payments. The transaction fees are incredibly low compared to credit cards, and the money appears in my account instantly. My customers love the convenience!"</p>
+            </div>
+            
+            <div class="testimonial-bubble">
+                <div class="flex items-center mb-4">
+                    <div class="w-16 h-16 bg-gray-300 rounded-full mr-4 overflow-hidden">
+                        <div class="w-full h-full bg-gradient-to-br from-yellow-300 to-red-500"></div>
+                    </div>
+                    <div>
+                        <p class="font-bold text-lg">Hiroshi S.</p>
+                        <p class="text-sm text-gray-600">Retired, 68</p>
+                        <div class="star-rating">★★★★★</div>
+                    </div>
+                </div>
+                <p class="italic">"I never thought I'd use cryptocurrency at my age, but my grandchildren convinced me to try RYO. The app is so simple that even I can use it! Now I send them money for their birthdays without bank fees."</p>
+            </div>
+            
+            <div class="testimonial-bubble">
+                <div class="flex items-center mb-4">
+                    <div class="w-16 h-16 bg-gray-300 rounded-full mr-4 overflow-hidden">
+                        <div class="w-full h-full bg-gradient-to-br from-pink-300 to-red-400"></div>
+                    </div>
+                    <div>
+                        <p class="font-bold text-lg">Mei L.</p>
+                        <p class="text-sm text-gray-600">Office Worker, 35</p>
+                        <div class="star-rating">★★★★☆</div>
+                    </div>
+                </div>
+                <p class="italic">"I was skeptical at first - can cryptocurrency really be this easy? But RYO has surprised me. Their customer support is amazing too - I had a question and got help within minutes through the chat feature."</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="manga-divider"></div>
+
+    <!-- Security and Partnerships Section -->
+    <div class="container mx-auto px-4 py-12 bg-white rounded-lg shadow-md">
+        <div class="text-center mb-10">
+            <h2 class="section-title">Trusted & Secure</h2>
+            <p class="text-xl mb-6">RYO Coin meets the highest standards for security and compliance</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-lg shadow-md border border-blue-100">
+                <h3 class="text-2xl font-bold mb-4 text-blue-700">🛡️ Enterprise-Grade Security</h3>
+                <ul class="space-y-4">
+                    <li class="flex">
+                        <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span>Military-grade encryption protects all your data and transactions</span>
+                    </li>
+                    <li class="flex">
+                        <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span>Biometric authentication options (fingerprint, face ID)</span>
+                    </li>
+                    <li class="flex">
+                        <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span>Two-factor authentication for all accounts</span>
+                    </li>
+                    <li class="flex">
+                        <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span>24/7 security monitoring with AI threat detection</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-8 rounded-lg shadow-md border border-green-100">
+                <h3 class="text-2xl font-bold mb-4 text-green-700">✅ Regulatory Compliance</h3>
+                <ul class="space-y-4">
+                    <li class="flex">
+                        <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span>Partnership with a licensed exchange approved by financial authorities</span>
+                    </li>
+                    <li class="flex">
+                        <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span>Full KYC/AML compliance for user protection</span>
+                    </li>
+                    <li class="flex">
+                        <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span>Regular security audits by independent third parties</span>
+                    </li>
+                    <li class="flex">
+                        <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span>Transparent operations with public reporting</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action Section -->
+    <div class="container mx-auto px-4 py-12">
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-lg shadow-xl p-8 text-white text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Experience the RYO Difference?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Join thousands of users who have already discovered how easy cryptocurrency can be!</p>
+            
+            <div class="mb-10">
+                <a href="#" class="cta-button">
+                    Get Started with RYO Coin Today!
+                </a>
+            </div>
+            
+            <div class="text-sm opacity-80">
+                <p>*RYO Coin is currently available in select countries. Please check availability in your region.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="container mx-auto px-4 py-12 bg-white rounded-lg shadow-md">
+        <div class="text-center mb-10">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+        </div>
+        
+        <div class="max-w-3xl mx-auto divide-y divide-gray-200">
+            <div class="py-5">
+                <h3 class="text-xl font-bold mb-2">Is RYO Coin really as easy to use as you claim?</h3>
+                <p>Yes! Our team has spent years developing an interface that removes all the complexity from cryptocurrency. If you can use a banking app, you can use RYO Coin.</p>
+            </div>
+            
+            <div class="py-5">
+                <h3 class="text-xl font-bold mb-2">How is RYO Coin different from Bitcoin or other cryptocurrencies?</h3>
+                <p>RYO is built on a next-generation hybrid blockchain that combines the best features of other cryptocurrencies while eliminating their drawbacks. We focus on speed, security, and most importantly - usability for everyday people.</p>
+            </div>
+            
+            <div class="py-5">
+                <h3 class="text-xl font-bold mb-2">Is my money safe with RYO Coin?</h3>
+                <p>Absolutely! RYO uses enterprise-grade security and partners with fully licensed and regulated exchanges. Your funds are protected by multiple layers of security, including encryption, secure cold storage, and regular audits.</p>
+            </div>
+            
+            <div class="py-5">
+                <h3 class="text-xl font-bold mb-2">What can I do with RYO Coin?</h3>
+                <p>You can send money to friends and family instantly, shop at partnered merchants through Global Mall®, store value securely, and convert between RYO and traditional currencies at partnered ATMs. The ecosystem continues to grow daily!</p>
+            </div>
+            
+            <div class="py-5">
+                <h3 class="text-xl font-bold mb-2">How do I get started?</h3>
+                <p>Simply download the LIFE Wallet® app from your app store, create an account in seconds, add funds through your preferred method, and start using RYO Coin immediately!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between">
+                <div class="mb-8 md:mb-0">
+                    <h3 class="text-2xl font-bold mb-4">RYO Coin</h3>
+                    <p class="max-w-xs opacity-80">A next-generation cryptocurrency designed for everyone. Simple, fast, secure, and easy to use.</p>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+                    <div>
+                        <h4 class="text-lg font-bold mb-4">Company</h4>
+                        <ul class="space-y-2 opacity-80">
+                            <li><a href="#" class="hover:text-blue-400">About Us</a></li>
+                            <li><a href="#" class="hover:text-blue-400">Team</a></li>
+                            <li><a href="#" class="hover:text-blue-400">Careers</a></li>
+                            <li><a href="#" class="hover:text-blue-400">Press</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-bold mb-4">Resources</h4>
+                        <ul class="space-y-2 opacity-80">
+                            <li><a href="#" class="hover:text-blue-400">Help Center</a></li>
+                            <li><a href="#" class="hover:text-blue-400">Blog</a></li>
+                            <li><a href="#" class="hover:text-blue-400">FAQs</a></li>
+                            <li><a href="#" class="hover:text-blue-400">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-bold mb-4">Legal</h4>
+                        <ul class="space-y-2 opacity-80">
+                            <li><a href="#" class="hover:text-blue-400">Privacy Policy</a></li>
+                            <li><a href="#" class="hover:text-blue-400">Terms of Service</a></li>
+                            <li><a href="#" class="hover:text-blue-400">Compliance</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-gray-800 text-center">
+                <p class="opacity-60 text-sm">© 2023 RYO Coin. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
