@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RYOコインってなぁに？｜暗号通貨の未来をわかりやすく解説</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <style>
+        :root {
+            --primary: #FF6B9D;
+            --secondary: #7C4DFF;
+            --accent: #23C9FF;
+            --background: #FFF8FE;
+            --text: #333333;
+        }
+        
+        body {
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.7;
+        }
+        
+        .hero-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FF6B9D' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .kawaii-button {
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(255, 107, 157, 0.25);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .kawaii-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 14px rgba(255, 107, 157, 0.3);
+        }
+        
+        .kawaii-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            border: 3px solid #F8E8FF;
+            transition: all 0.3s;
+        }
+        
+        .kawaii-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .kawaii-heading {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .kawaii-heading::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 5px;
+        }
+        
+        .rating-star {
+            color: #FFD700;
+        }
+        
+        .speech-bubble {
+            position: relative;
+            background: #FFFFFF;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20%;
+            width: 0;
+            height: 0;
+            border: 20px solid transparent;
+            border-top-color: #FFFFFF;
+            border-bottom: 0;
+            margin-left: -10px;
+            margin-bottom: -20px;
+        }
+        
+        .blob-shape {
+            border-radius: 71% 29% 65% 35% / 57% 30% 70% 43%;
+            background: linear-gradient(45deg, var(--primary) 0%, var(--accent) 100%);
+        }
+        
+        /* Cute animation classes */
+        .float-animation {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Custom star rating */
+        .star-container {
+            display: inline-block;
+            position: relative;
+        }
+        
+        .star-rating {
+            display: flex;
+            align-items: center;
+        }
+        
+        .star {
+            font-size: 24px;
+            color: #FFD700;
+        }
+        
+        .half-star {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .half-star::after {
+            content: '★';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 50%;
+            overflow: hidden;
+            color: #FFD700;
+        }
+        
+        .half-star::before {
+            content: '☆';
+            color: #ddd;
+        }
+        
+        .divider {
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            border-radius: 2px;
+            margin: 40px 0;
+        }
+        
+        .tool-tip {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .tool-tip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--secondary);
+            color: white;
+            text-align: center;
+            border-radius: 10px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        
+        .tool-tip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* Decoration elements */
+        .deco-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        /* For PDF export */
+        @media print {
+            .kawaii-card {
+                break-inside: avoid;
+            }
+            
+            section {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="relative overflow-hidden py-10 hero-pattern">
+        <!-- Decoration circles -->
+        <div class="deco-circle" style="width: 300px; height: 300px; top: -150px; right: -100px;"></div>
+        <div class="deco-circle" style="width: 200px; height: 200px; bottom: -100px; left: -50px;"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 text-center lg:text-left mb-10 lg:mb-0">
+                    <span class="inline-block py-1 px-3 rounded-full bg-white bg-opacity-50 text-sm font-medium text-pink-600 mb-4">暗号通貨を楽しく学ぼう！</span>
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                        <span class="text-pink-500">RYO</span>コインって<span class="text-purple-500">なぁに</span>？
+                    </h1>
+                    <p class="text-lg mb-8">日本発の次世代ブロックチェーン技術を<br class="hidden md:block">かわいく・わかりやすく解説しちゃいます♪</p>
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-4">
+                        <button class="kawaii-button bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600">
+                            もっと知りたい！
+                        </button>
+                        <button class="kawaii-button bg-white text-pink-500 border-2 border-pink-200 hover:bg-pink-50">
+                            公式サイトへGO
+                        </button>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 relative">
+                    <div class="blob-shape w-72 h-72 mx-auto flex items-center justify-center float-animation">
+                        <div class="text-center">
+                            <div class="text-white text-7xl font-bold">両</div>
+                            <div class="text-white text-xl font-bold mt-3">RYO COIN</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- What is RYO -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="kawaii-heading text-3xl font-bold">RYOコインって どんなコイン？</h2>
+                <p class="mt-6 text-gray-600">12世紀の日本で使われていた「両」からインスピレーションを得た<br>次世代の暗号通貨なんです！</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row items-center gap-10 mt-10">
+                <div class="lg:w-1/2">
+                    <div class="speech-bubble">
+                        <p class="text-lg font-medium mb-4">こんにちは！RYOちゃんだよ！</p>
+                        <p class="mb-3">RYOコインは普通の暗号通貨とはちょっと違うの。日本の伝統とハイテクを組み合わせた特別なコインなんだ♪</p>
+                        <p>複雑なブロックチェーン技術を使っているけど、使う人にとっては<span class="font-bold text-pink-500">超！簡単！</span>に使えるように作られているよ！</p>
+                    </div>
+                    <div class="mt-16 pl-10">
+                        <div class="speech-bubble">
+                            <p class="mb-3">RYOコインは<span class="font-bold text-purple-500">日本から世界へ</span>を目指しているんだ。</p>
+                            <p>銀行口座がない世界中の約20億人の人たちも、スマホ一つでお金のやりとりができるようになるんだよ！</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 text-center">
+                    <div class="blob-shape w-64 h-64 mx-auto p-5 flex items-center justify-center">
+                        <div class="text-4xl font-bold text-white">RYO<br>ちゃん</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="divider"></div>
+
+    <!-- Features -->
+    <section class="py-16">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="kawaii-heading text-3xl font-bold">すごい機能がいっぱい！</h2>
+                <p class="mt-6 text-gray-600">RYOコインの魅力的な特徴をご紹介！</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+                <!-- Feature 1 -->
+                <div class="kawaii-card p-6 pulse-animation">
+                    <div class="rounded-full bg-pink-100 w-16 h-16 flex items-center justify-center mb-4">
+                        <span class="text-2xl">💰</span>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3">LIFE ウォレット</h3>
+                    <p class="text-gray-600">メールアドレスだけで簡単送金！銀行レベルのセキュリティで安心♪チャット機能付きでお友達とやりとりも楽々！</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="kawaii-card p-6 pulse-animation" style="animation-delay: 0.2s;">
+                    <div class="rounded-full bg-purple-100 w-16 h-16 flex items-center justify-center mb-4">
+                        <span class="text-2xl">🛒</span>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3">グローバルモール</h3>
+                    <p class="text-gray-600">世界中のお店で買い物できる！RYOコインで決済するとポイントもたまる♪手数料も安くてお得！</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="kawaii-card p-6 pulse-animation" style="animation-delay: 0.4s;">
+                    <div class="rounded-full bg-blue-100 w-16 h-16 flex items-center justify-center mb-4">
+                        <span class="text-2xl">🏧</span>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3">ATMネットワーク</h3>
+                    <p class="text-gray-600">街中のATMでRYOコインと現金を交換できる！日本の金融庁が認可した取引所パートナーと提携して安心！</p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="kawaii-card p-6 pulse-animation" style="animation-delay: 0.6s;">
+                    <div class="rounded-full bg-green-100 w-16 h-16 flex items-center justify-center mb-4">
+                        <span class="text-2xl">🔒</span>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3">ハイブリッド技術</h3>
+                    <p class="text-gray-600">2つの異なる技術を組み合わせて、とっても速くて安全！そして環境にもやさしいブロックチェーン！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="divider"></div>
+
+    <!-- Daily use scenarios -->
+    <section class="py-16 bg-purple-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="kawaii-heading text-3xl font-bold">こんな時に使えるよ！</h2>
+                <p class="mt-6 text-gray-600">RYOコインが毎日の生活をもっと便利に♪</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                <!-- Scenario 1 -->
+                <div class="kawaii-card p-6 bg-white">
+                    <div class="rounded-full bg-pink-500 text-white w-10 h-10 flex items-center justify-center mb-4 font-bold">1</div>
+                    <h3 class="font-bold text-xl mb-3">海外のお友達にお金を送る</h3>
+                    <div class="h-48 bg-pink-100 rounded-lg mb-4 flex items-center justify-center">
+                        <div class="text-center">
+                            <div>😊→💰→🌏→😊</div>
+                            <div class="mt-2 text-sm">数秒で送金完了！</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">銀行より安い手数料で、しかも数秒で送金完了！週末や夜でも関係なし！いつでも送れちゃう♪</p>
+                </div>
+                
+                <!-- Scenario 2 -->
+                <div class="kawaii-card p-6 bg-white">
+                    <div class="rounded-full bg-purple-500 text-white w-10 h-10 flex items-center justify-center mb-4 font-bold">2</div>
+                    <h3 class="font-bold text-xl mb-3">ネットショッピング</h3>
+                    <div class="h-48 bg-purple-100 rounded-lg mb-4 flex items-center justify-center">
+                        <div class="text-center">
+                            <div>🛒+💳→🔄→📦</div>
+                            <div class="mt-2 text-sm">ポイントがたまる！</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">グローバルモールで世界中の商品をお買い物！RYO PAYでお支払いすると、お得なポイントも貯まるよ！</p>
+                </div>
+                
+                <!-- Scenario 3 -->
+                <div class="kawaii-card p-6 bg-white">
+                    <div class="rounded-full bg-blue-500 text-white w-10 h-10 flex items-center justify-center mb-4 font-bold">3</div>
+                    <h3 class="font-bold text-xl mb-3">旅行先でのお買い物</h3>
+                    <div class="h-48 bg-blue-100 rounded-lg mb-4 flex items-center justify-center">
+                        <div class="text-center">
+                            <div>✈️+🏧→💰→🛍️</div>
+                            <div class="mt-2 text-sm">為替レート心配なし！</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">海外でも現地のATMでRYOコインを現金に交換できる！両替所に行く手間もなくて便利！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="divider"></div>
+
+    <!-- Comparison -->
+    <section class="py-16">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="kawaii-heading text-3xl font-bold">他のコインとくらべてみた！</h2>
+                <p class="mt-6 text-gray-600">RYOコインがどれだけすごいか見てみよう！</p>
+            </div>
+            
+            <div class="overflow-x-auto mt-10">
+                <table class="w-full kawaii-card">
+                    <thead>
+                        <tr class="text-left bg-pink-100">
+                            <th class="p-4 rounded-tl-lg">機能</th>
+                            <th class="p-4 text-center text-pink-600">RYOコイン</th>
+                            <th class="p-4 text-center">ビットコイン</th>
+                            <th class="p-4 text-center">イーサリアム</th>
+                            <th class="p-4 text-center rounded-tr-lg">ステーブルコイン</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-pink-100">
+                            <td class="p-4 font-medium">処理速度</td>
+                            <td class="p-4 text-center">⚡ 超速い！</td>
+                            <td class="p-4 text-center">🐢 とても遅い</td>
+                            <td class="p-4 text-center">🐇 普通</td>
+                            <td class="p-4 text-center">🐇 普通</td>
+                        </tr>
+                        <tr class="border-b border-pink-100">
+                            <td class="p-4 font-medium">手数料</td>
+                            <td class="p-4 text-center">💰 とても安い</td>
+                            <td class="p-4 text-center">💸 高い</td>
+                            <td class="p-4 text-center">💸 高い</td>
+                            <td class="p-4 text-center">💰 安い</td>
+                        </tr>
+                        <tr class="border-b border-pink-100">
+                            <td class="p-4 font-medium">エコシステム</td>
+                            <td class="p-4 text-center">🌟 完璧！</td>
+                            <td class="p-4 text-center">⭐ 限定的</td>
+                            <td class="p-4 text-center">⭐⭐⭐ 良い</td>
+                            <td class="p-4 text-center">⭐⭐ 普通</td>
+                        </tr>
+                        <tr class="border-b border-pink-100">
+                            <td class="p-4 font-medium">使いやすさ</td>
+                            <td class="p-4 text-center">😊 超簡単！</td>
+                            <td class="p-4 text-center">😓 難しい</td>
+                            <td class="p-4 text-center">😕 やや難しい</td>
+                            <td class="p-4 text-center">🙂 簡単</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-medium rounded-bl-lg">実店舗連携</td>
+                            <td class="p-4 text-center">✅ ATM・店舗対応</td>
+                            <td class="p-4 text-center">❌ ほぼなし</td>
+                            <td class="p-4 text-center">⚠️ 限定的</td>
+                            <td class="p-4 text-center rounded-br-lg">⚠️ 限定的</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    
+    <div class="divider"></div>
+
+    <!-- Expert Rating -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="kawaii-heading text-3xl font-bold">暗号通貨のプロはこう評価！</h2>
+                <p class="mt-6 text-gray-600">ブロックチェーン専門家たちの評価を見てみよう！</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+                <!-- Rating 1 -->
+                <div class="kawaii-card p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-pink-200 flex items-center justify-center text-pink-600 font-bold text-lg mr-4">
+                            TK
+                        </div>
+                        <div>
+                            <h3 class="font-bold">高橋ケンイチ</h3>
+                            <p class="text-sm text-gray-500">暗号通貨アナリスト</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex items-center mb-2">
+                            <div class="font-medium w-32">技術革新性</div>
+                            <div class="star-rating">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="ml-2 text-sm text-gray-500">5.0</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center mb-2">
+                            <div class="font-medium w-32">使いやすさ</div>
+                            <div class="star-rating">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="ml-2 text-sm text-gray-500">5.0</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center mb-2">
+                            <div class="font-medium w-32">実現可能性</div>
+                            <div class="star-rating">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="half-star"></span>
+                                <span class="ml-2 text-sm text-gray-500">4.5</span>
+                                <span class="tool-tip ml-2 text-gray-400">
+                                    <i data-feather="info" class="w-4 h-4"></i>
+                                    <span class="tooltiptext">非常に革新的なシステムのため、完全実装には時間がかかる可能性があります。</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 border-t border-gray-100 pt-4">"ハイブリッドコンセンサスの採用は画期的です。これが実現すれば、暗号通貨の常識を変える可能性を秘めています。特に使いやすさを重視した設計は、一般ユーザーの暗号通貨への敷居を大きく下げるでしょう。"</p>
+                </div>
+                
+                <!-- Rating 2 -->
+                <div class="kawaii-card p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-purple-200 flex items-center justify-center text-purple-600 font-bold text-lg mr-4">
+                            MY
+                        </div>
+                        <div>
+                            <h3 class="font-bold">松本ユリ</h3>
+                            <p class="text-sm text-gray-500">フィンテック研究者</p>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex items-center mb-2">
+                            <div class="font-medium w-32">エコシステム</div>
+                            <div class="star-rating">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="ml-2 text-sm text-gray-500">5.0</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center mb-2">
+                            <div class="font-medium w-32">セキュリティ</div>
+                            <div class="star-rating">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="ml-2 text-sm text-gray-500">5.0</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center mb-2">
+                            <div class="font-medium w-32">市場性</div>
+                            <div class="star-rating">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="half-star"></span>
+                                <span class="ml-2 text-sm text-gray-500">4.5</span>
+                                <span class="tool-tip ml-2 text-gray-400">
+                                    <i data-feather="info" class="w-4 h-4"></i>
+                                    <span class="tooltiptext">革新的なアイデアですが、市場への浸透には時間がかかるでしょう。</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 border-t border-gray-100 pt-4">"LIFEウォレットからグローバルモール、ATMネットワークまで、RYOコインのエコシステムは非常に包括的です。特に金融庁認可の取引所パートナーとの連携は、日本市場での信頼性構築に大きく貢献するでしょう。"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="divider"></div>
+
+    <!-- FAQ -->
+    <section class="py-16 bg-pink-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="kawaii-heading text-3xl font-bold">よくある質問</h2>
+                <p class="mt-6 text-gray-600">みんなが気になるギモンに答えるよ！</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+                <!-- FAQ 1 -->
+                <div class="kawaii-card p-6">
+                    <h3 class="font-bold text-xl mb-3 text-pink-600">RYOコインはどうやって手に入れるの？</h3>
+                    <p class="text-gray-600">認可されている暗号資産取引所で購入できるよ！将来的には、日本全国の提携ATMでも購入できるようになる予定だよ♪</p>
+                </div>
+                
+                <!-- FAQ 2 -->
+                <div class="kawaii-card p-6">
+                    <h3 class="font-bold text-xl mb-3 text-pink-600">なぜRYOコインは速いの？</h3>
+                    <p class="text-gray-600">特別な「ハイブリッドコンセンサス」という仕組みを採用しているからだよ！2つの異なる仕組みのいいところを組み合わせているんだ！</p>
+                </div>
+                
+                <!-- FAQ 3 -->
+                <div class="kawaii-card p-6">
+                    <h3 class="font-bold text-xl mb-3 text-pink-600">LIFEウォレットってなに？</h3>
+                    <p class="text-gray-600">RYOコインを保管・送金できるスマホアプリだよ！メールアドレスだけでお友達にRYOコインを送れて、チャット機能もついているスグレモノ！</p>
+                </div>
+                
+                <!-- FAQ 4 -->
+                <div class="kawaii-card p-6">
+                    <h3 class="font-bold text-xl mb-3 text-pink-600">グローバルモールで何が買えるの？</h3>
+                    <p class="text-gray-600">世界中のいろんなお店の商品が買えるよ！日本のものも海外のものも、RYOコインで簡単に購入できちゃう♪しかもポイントも貯まるんだ！</p>
+                </div>
+                
+                <!-- FAQ 5 -->
+                <div class="kawaii-card p-6">
+                    <h3 class="font-bold text-xl mb-3 text-pink-600">ATMでどうやって使うの？</h3>
+                    <p class="text-gray-600">専用のATMが設置されたら、RYOコインと現金を交換できるようになるよ！スマホのQRコードをかざすだけで簡単に操作できるんだ！</p>
+                </div>
+                
+                <!-- FAQ 6 -->
+                <div class="kawaii-card p-6">
+                    <h3 class="font-bold text-xl mb-3 text-pink-600">安全なの？</h3>
+                    <p class="text-gray-600">とっても安全だよ！最新の暗号技術と、日本の法律に準拠した厳格なセキュリティ対策で守られているんだ。だからGAFAのエンジニアさんたちも協力してるんだよ！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="divider"></div>
+
+    <!-- Call to Action -->
+    <section class="py-16">
+        <div class="container mx-auto px-6">
+            <div class="kawaii-card p-10 text-center bg-gradient-to-r from-pink-500 to-purple-500 text-white relative overflow-hidden">
+                <!-- Decorative elements -->
+                <div class="absolute top-0 left-0 w-full h-full">
+                    <div class="absolute top-5 left-10 bg-white bg-opacity-10 rounded-full w-20 h-20"></div>
+                    <div class="absolute bottom-10 right-10 bg-white bg-opacity-10 rounded-full w-32 h-32"></div>
+                    <div class="absolute top-20 right-20 bg-white bg-opacity-10 rounded-full w-16 h-16"></div>
+                </div>
+                
+                <div class="relative z-10">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">未来のお金を、今すぐ体験しよう！</h2>
+                    <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">RYOコインで、お金のやりとりがもっと楽しく、もっと便利に！公式サイトで最新情報をチェックしてね♪</p>
+                    <button class="kawaii-button bg-white text-pink-500 hover:bg-pink-100 text-lg px-8 py-3">
+                        もっと詳しく知りたい！
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between">
+                <div class="mb-8 md:mb-0">
+                    <h3 class="text-2xl font-bold mb-4">RYOコイン<span class="text-pink-400">リサーチ</span></h3>
+                    <p class="text-gray-400 max-w-md">このサイトはRYOコインプロジェクトについて第三者の視点から情報をまとめたファンサイトです。より詳しい情報は公式サイトをご確認ください。</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4">リンク集</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-pink-400 transition">公式サイト</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-pink-400 transition">LIFEウォレット</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-pink-400 transition">グローバルモール</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-pink-400 transition">よくある質問</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm">© 2025 RYOコインリサーチ. All rights reserved.</p>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-pink-400 transition">
+                        <span class="sr-only">Twitter</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-pink-400 transition">
+                        <span class="sr-only">Instagram</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-pink-400 transition">
+                        <span class="sr-only">YouTube</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418zM15.194 12 10 15V9l5.194 3z" clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            feather.replace();
+        });
+    </script>
+</body>
+</html>
