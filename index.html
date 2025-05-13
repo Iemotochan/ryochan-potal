@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RYO-CHAN | JAPAN PRIDE "氣" | Project Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #c0392b;
+            --secondary-color: #2980b9;
+            --accent-color: #f1c40f;
+            --bg-dark: #0f0f0f;
+            --text-light: #f1f1f1;
+        }
+        body {
+            font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(192, 57, 43, 0.05) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(41, 128, 185, 0.05) 0%, transparent 25%);
+        }
+        .logo-container {
+            position: relative;
+        }
+        .logo-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, transparent 50%, var(--bg-dark) 100%);
+            pointer-events: none;
+        }
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: rgba(192, 57, 43, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(192, 57, 43, 0.3);
+        }
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: rgba(41, 128, 185, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(41, 128, 185, 0.3);
+        }
+        .accent-text {
+            color: var(--accent-color);
+        }
+        .language-switcher {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .language-switcher:hover {
+            color: var(--accent-color);
+        }
+        .section-title {
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        .file-card {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: rgba(15, 15, 15, 0.7);
+        }
+        .file-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-color);
+        }
+        .youtube-card {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: rgba(15, 15, 15, 0.7);
+        }
+        .youtube-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: #ff0000;
+        }
+        .hidden-content {
+            display: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <!-- Language Switcher -->
+    <div class="absolute top-4 right-4 z-50">
+        <button id="languageToggle" class="language-switcher flex items-center text-sm font-medium px-3 py-1 rounded-full border border-gray-700">
+            <span id="currentLang">日本語</span>
+            <i class="fas fa-exchange-alt ml-2"></i>
+        </button>
+    </div>
+
+    <!-- Header -->
+    <header class="w-full py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col items-center justify-center">
+                <div class="logo-container w-32 h-32 mb-4 overflow-hidden rounded-full shadow-2xl">
+                    <img src="https://page1.genspark.site/v1/base64_upload/5502009156d90db793e188d90c48acca" alt="RYO-CHAN" class="w-full h-full object-cover animate__animated animate__fadeIn">
+                </div>
+                <h1 class="text-4xl font-bold text-center mt-4 animate__animated animate__fadeInUp">
+                    <span class="jp">JAPAN PRIDE "氣" プロジェクト</span>
+                    <span class="en hidden-content">JAPAN PRIDE "氣" PROJECT</span>
+                </h1>
+                <p class="text-xl mt-2 text-gray-300 text-center animate__animated animate__fadeInUp">
+                    <span class="jp">RYO-CHAN の冒険</span>
+                    <span class="en hidden-content">THE ADVENTURES OF RYO-CHAN</span>
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <!-- Introduction -->
+        <section class="mb-12 text-center">
+            <h2 class="section-title text-2xl font-bold mb-8">
+                <span class="jp">プロジェクト紹介</span>
+                <span class="en hidden-content">PROJECT INTRODUCTION</span>
+            </h2>
+            <p class="max-w-2xl mx-auto text-gray-300 mb-6">
+                <span class="jp">日本の伝統的な「氣」の概念とWEB3技術を融合させた新しい物語体験へようこそ。</span>
+                <span class="en hidden-content">Welcome to a new storytelling experience that blends traditional Japanese "Ki" concepts with WEB3 technology.</span>
+            </p>
+        </section>
+
+        <!-- HTML Files Section -->
+        <section class="mb-12">
+            <h2 class="section-title text-2xl font-bold mb-8 text-center">
+                <span class="jp">プロジェクトファイル</span>
+                <span class="en hidden-content">PROJECT FILES</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- File 1 -->
+                <div class="file-card rounded-lg overflow-hidden shadow-lg p-6 flex flex-col">
+                    <h3 class="text-lg font-bold mb-3">
+                        <i class="fas fa-file-code text-red-600 mr-2"></i>
+                        <span class="jp">EPISODE 1 THE AWAKENING</span>
+                        <span class="en hidden-content">EPISODE 1 THE AWAKENING</span>
+                    </h3>
+                    <p class="text-sm text-gray-400 flex-grow mb-4">
+                        <span class="jp">英語版 第一話「覚醒」のHTMLファイル</span>
+                        <span class="en hidden-content">English version of Episode 1 "Awakening" HTML file</span>
+                    </p>
+                    <a href="https://page1.genspark.site/get_upload_url/a9097212b216d1b4ba0693a7a69a0f8c07c22626978f4c3f44d46f428dd8da6a/default/e49857f4-bba7-4fb8-8e26-9545ba7574fc" target="_blank" class="btn-primary text-center py-2 px-4 rounded-lg font-medium">
+                        <i class="fas fa-external-link-alt mr-2"></i>
+                        <span class="jp">アクセス</span>
+                        <span class="en hidden-content">ACCESS</span>
+                    </a>
+                </div>
+                
+                <!-- File 2 -->
+                <div class="file-card rounded-lg overflow-hidden shadow-lg p-6 flex flex-col">
+                    <h3 class="text-lg font-bold mb-3">
+                        <i class="fas fa-file-code text-blue-500 mr-2"></i>
+                        <span class="jp">ティザーサイト最終版</span>
+                        <span class="en hidden-content">FINAL TEASER SITE</span>
+                    </h3>
+                    <p class="text-sm text-gray-400 flex-grow mb-4">
+                        <span class="jp">プロジェクト紹介のためのティザーサイトHTML</span>
+                        <span class="en hidden-content">Teaser site HTML for project introduction</span>
+                    </p>
+                    <a href="https://page1.genspark.site/get_upload_url/a9097212b216d1b4ba0693a7a69a0f8c07c22626978f4c3f44d46f428dd8da6a/default/4de67c3d-04c7-4ebd-b681-1afd3b9781e0" target="_blank" class="btn-secondary text-center py-2 px-4 rounded-lg font-medium">
+                        <i class="fas fa-external-link-alt mr-2"></i>
+                        <span class="jp">アクセス</span>
+                        <span class="en hidden-content">ACCESS</span>
+                    </a>
+                </div>
+                
+                <!-- File 3 -->
+                <div class="file-card rounded-lg overflow-hidden shadow-lg p-6 flex flex-col">
+                    <h3 class="text-lg font-bold mb-3">
+                        <i class="fas fa-file-code text-yellow-500 mr-2"></i>
+                        <span class="jp">第一話 覚醒</span>
+                        <span class="en hidden-content">EPISODE 1 AWAKENING</span>
+                    </h3>
+                    <p class="text-sm text-gray-400 flex-grow mb-4">
+                        <span class="jp">日本語版 第一話「覚醒」のHTMLファイル</span>
+                        <span class="en hidden-content">Japanese version of Episode 1 "Awakening" HTML file</span>
+                    </p>
+                    <a href="https://page1.genspark.site/get_upload_url/a9097212b216d1b4ba0693a7a69a0f8c07c22626978f4c3f44d46f428dd8da6a/default/5da1e79c-32f4-426d-ab9f-4de0abb5cfea" target="_blank" class="btn-primary text-center py-2 px-4 rounded-lg font-medium">
+                        <i class="fas fa-external-link-alt mr-2"></i>
+                        <span class="jp">アクセス</span>
+                        <span class="en hidden-content">ACCESS</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- YouTube Channels Section -->
+        <section class="mb-12">
+            <h2 class="section-title text-2xl font-bold mb-8 text-center">
+                <span class="jp">YouTube チャンネル</span>
+                <span class="en hidden-content">YOUTUBE CHANNELS</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Channel 1 -->
+                <div class="youtube-card rounded-lg overflow-hidden shadow-lg p-6 flex flex-col">
+                    <h3 class="text-lg font-bold mb-3 flex items-center">
+                        <i class="fab fa-youtube text-red-600 mr-2"></i>
+                        <span class="jp">Crypto Radio Web3</span>
+                        <span class="en hidden-content">Crypto Radio Web3</span>
+                    </h3>
+                    <p class="text-sm text-gray-400 flex-grow mb-4">
+                        <span class="jp">ラジオ番組風の掛け合いでプロジェクトを紹介</span>
+                        <span class="en hidden-content">Introducing the project through radio-style interaction</span>
+                    </p>
+                    <a href="https://www.youtube.com/@cryptoradioweb3" target="_blank" class="bg-red-600 hover:bg-red-700 text-center py-2 px-4 rounded-lg font-medium transition-all duration-300">
+                        <i class="fab fa-youtube mr-2"></i>
+                        <span class="jp">チャンネルを見る</span>
+                        <span class="en hidden-content">VIEW CHANNEL</span>
+                    </a>
+                </div>
+                
+                <!-- Channel 2 -->
+                <div class="youtube-card rounded-lg overflow-hidden shadow-lg p-6 flex flex-col">
+                    <h3 class="text-lg font-bold mb-3 flex items-center">
+                        <i class="fab fa-youtube text-red-600 mr-2"></i>
+                        <span class="jp">RYO COIN LAB</span>
+                        <span class="en hidden-content">RYO COIN LAB</span>
+                    </h3>
+                    <p class="text-sm text-gray-400 flex-grow mb-4">
+                        <span class="jp">オカルト風の切り口でプロジェクトを深掘り</span>
+                        <span class="en hidden-content">Deep dive into the project with an occult-like approach</span>
+                    </p>
+                    <a href="https://www.youtube.com/@RYOCOINLAB" target="_blank" class="bg-red-600 hover:bg-red-700 text-center py-2 px-4 rounded-lg font-medium transition-all duration-300">
+                        <i class="fab fa-youtube mr-2"></i>
+                        <span class="jp">チャンネルを見る</span>
+                        <span class="en hidden-content">VIEW CHANNEL</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+<!-- Cushion Sites Section -->
+<section class="mb-12">
+    <h2 class="section-title text-2xl font-bold mb-8 text-center">
+        <span class="jp">クッションサイト</span>
+        <span class="en hidden-content">CUSHION SITES</span>
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- English Cushion Site 1 -->
+        <div class="youtube-card rounded-lg overflow-hidden shadow-lg p-6 flex flex-col">
+            <h3 class="text-lg font-bold mb-3 flex items-center">
+                <i class="fas fa-globe text-blue-600 mr-2"></i>
+                <span class="jp">RYOコイン総合リサーチ</span>
+                <span class="en hidden-content">RYO Coin Research</span>
+            </h3>
+            <p class="text-sm text-gray-400 flex-grow mb-4">
+                <span class="jp">日本発の次世代ブロックチェーン技術を徹底分析</span>
+                <span class="en hidden-content">In-depth Analysis of Next-Generation Blockchain</span>
+            </p>
+            <a href="https://page1.genspark.site/get_upload_url/a9097212b216d1b4ba0693a7a69a0f8c07c22626978f4c3f44d46f428dd8da6a/default/d88746a8-fa68-42d7-9bb3-1604443a59f7" class="bg-blue-600 hover:bg-blue-700 text-center py-2 px-4 rounded-lg font-medium transition-all duration-300 text-white">
+                <i class="fas fa-external-link-alt mr-2"></i>
+                <span class="jp">サイトを見る</span>
+                <span class="en hidden-content">VIEW SITE</span>
+            </a>
+        </div>
+        
+        <!-- English Cushion Site 2 -->
+        <div class="youtube-card rounded-lg overflow-hidden shadow-lg p-6 flex flex-col">
+            <h3 class="text-lg font-bold mb-3 flex items-center">
+                <i class="fas fa-question-circle text-pink-600 mr-2"></i>
+                <span class="jp">RYOコインって何？</span>
+                <span class="en hidden-content">What is RYO Coin?</span>
+            </h3>
+            <p class="text-sm text-gray-400 flex-grow mb-4">
+                <span class="jp">仮想通貨の未来をわかりやすく解説</span>
+                <span class="en hidden-content">The Future of Cryptocurrency Explained Simply</span>
+            </p>
+            <a href="https://page1.genspark.site/get_upload_url/a9097212b216d1b4ba0693a7a69a0f8c07c22626978f4c3f44d46f428dd8da6a/default/a3b1509b-e828-4f27-a197-ab256f7d5740" class="bg-pink-600 hover:bg-pink-700 text-center py-2 px-4 rounded-lg font-medium transition-all duration-300 text-white">
+                <i class="fas fa-external-link-alt mr-2"></i>
+                <span class="jp">サイトを見る</span>
+                <span class="en hidden-content">VIEW SITE</span>
+            </a>
+        </div>
+        
+        <!-- English Cushion Site 3 -->
+        <div class="youtube-card rounded-lg overflow-hidden shadow-lg p-6 flex flex-col">
+            <h3 class="text-lg font-bold mb-3 flex items-center">
+                <i class="fas fa-rocket text-purple-600 mr-2"></i>
+                <span class="jp">仮想通貨を簡単に！</span>
+                <span class="en hidden-content">Cryptocurrency Made Easy!</span>
+            </h3>
+            <p class="text-sm text-gray-400 flex-grow mb-4">
+                <span class="jp">仮想通貨がムズカシすぎ？RYOなら超カンタン</span>
+                <span class="en hidden-content">Cryptocurrency Too Complicated!? RYO Makes It Super Easy!</span>
+            </p>
+            <a href="https://page1.genspark.site/get_upload_url/a9097212b216d1b4ba0693a7a69a0f8c07c22626978f4c3f44d46f428dd8da6a/default/6a3ed2df-2aea-4762-9d25-18706ac3320c" class="bg-purple-600 hover:bg-purple-700 text-center py-2 px-4 rounded-lg font-medium transition-all duration-300 text-white">
+                <i class="fas fa-external-link-alt mr-2"></i>
+                <span class="jp">サイトを見る</span>
+                <span class="en hidden-content">VIEW SITE</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Japanese Cushion Sites (Secondary Row) -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        <!-- Japanese Cushion Site 1 -->
+        <div class="youtube-card rounded-lg overflow-hidden shadow-lg p-6 flex flex-col">
+            <h3 class="text-lg font-bold mb-3 flex items-center">
+                <i class="fas fa-search text-indigo-600 mr-2"></i>
+                <span class="jp">RYOコイン総合リサーチ（日本語）</span>
+                <span class="en hidden-content">RYO Coin Research (Japanese)</span>
+            </h3>
+            <p class="text-sm text-gray-400 flex-grow mb-4">
+                <span class="jp">ブロックチェーン技術を日本語で詳細分析</span>
+                <span class="en hidden-content">Blockchain analysis in Japanese</span>
+            </p>
+            <a href="https://page1.genspark.site/get_upload_url/a9097212b216d1b4ba0693a7a69a0f8c07c22626978f4c3f44d46f428dd8da6a/default/62a8cf41-5132-4a8e-a571-9c7aef1c96b4" class="bg-indigo-600 hover:bg-indigo-700 text-center py-2 px-4 rounded-lg font-medium transition-all duration-300 text-white">
+                <i class="fas fa-external-link-alt mr-2"></i>
+                <span class="jp">サイトを見る</span>
+                <span class="en hidden-content">VIEW SITE</span>
+            </a>
+        </div>
+        
+        <!-- Japanese Cushion Site 2 -->
+        <div class="youtube-card rounded-lg overflow-hidden shadow-lg p-6 flex flex-col">
+            <h3 class="text-lg font-bold mb-3 flex items-center">
+                <i class="fas fa-star text-yellow-500 mr-2"></i>
+                <span class="jp">RYOコインってなぁに？</span>
+                <span class="en hidden-content">What is RYO Coin? (Japanese)</span>
+            </h3>
+            <p class="text-sm text-gray-400 flex-grow mb-4">
+                <span class="jp">暗号通貨の未来をわかりやすく解説（日本語）</span>
+                <span class="en hidden-content">Future of cryptocurrency explained in Japanese</span>
+            </p>
+            <a href="https://page1.genspark.site/get_upload_url/a9097212b216d1b4ba0693a7a69a0f8c07c22626978f4c3f44d46f428dd8da6a/default/d6dd6eb5-3f01-4abb-9cad-fe0c1cc7086d" class="bg-yellow-500 hover:bg-yellow-600 text-center py-2 px-4 rounded-lg font-medium transition-all duration-300 text-white">
+                <i class="fas fa-external-link-alt mr-2"></i>
+                <span class="jp">サイトを見る</span>
+                <span class="en hidden-content">VIEW SITE</span>
+            </a>
+        </div>
+        
+        <!-- Japanese Cushion Site 3 -->
+        <div class="youtube-card rounded-lg overflow-hidden shadow-lg p-6 flex flex-col">
+            <h3 class="text-lg font-bold mb-3 flex items-center">
+                <i class="fas fa-lightbulb text-green-500 mr-2"></i>
+                <span class="jp">仮想通貨ムズカシすぎ!?</span>
+                <span class="en hidden-content">Cryptocurrency Too Difficult!? (Japanese)</span>
+            </h3>
+            <p class="text-sm text-gray-400 flex-grow mb-4">
+                <span class="jp">RYOコインなら超カンタン！日本語版</span>
+                <span class="en hidden-content">RYO makes it super easy! (Japanese version)</span>
+            </p>
+            <a href="https://page1.genspark.site/get_upload_url/a9097212b216d1b4ba0693a7a69a0f8c07c22626978f4c3f44d46f428dd8da6a/default/9dfe936c-2189-42ee-bf2a-7685ca6621cc/default/日本語クッションサイト3" target="_blank" class="bg-green-500 hover:bg-green-600 text-center py-2 px-4 rounded-lg font-medium transition-all duration-300 text-white">
+                <i class="fas fa-external-link-alt mr-2"></i>
+                <span class="jp">サイトを見る</span>
+                <span class="en hidden-content">VIEW SITE</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+        <!-- Marketing Hub Link -->
+        <div class="text-center mt-12">
+            <a href="https://glovxydu.gensparkspace.com/" target="_blank" class="inline-flex items-center px-4 py-2 border border-gray-700 rounded-lg hover:border-yellow-500 transition-all duration-300">
+                <i class="fas fa-chart-line text-yellow-500 mr-2"></i>
+                <span class="jp">マーケティングハブへ</span>
+                <span class="en hidden-content">GO TO MARKETING HUB</span>
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-6 bg-black bg-opacity-50">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-sm text-gray-500">
+                <span class="jp">© 2023 JAPAN PRIDE "氣" - RYO-CHAN プロジェクト. All rights reserved.</span>
+                <span class="en hidden-content">© 2023 JAPAN PRIDE "氣" - RYO-CHAN Project. All rights reserved.</span>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const languageToggle = document.getElementById('languageToggle');
+            const currentLang = document.getElementById('currentLang');
+            const jpElements = document.querySelectorAll('.jp');
+            const enElements = document.querySelectorAll('.en');
+            
+            // Language Toggle Function
+            languageToggle.addEventListener('click', function() {
+                const isJapanese = currentLang.textContent === '日本語';
+                
+                if (isJapanese) {
+                    // Switch to English
+                    jpElements.forEach(el => el.classList.add('hidden-content'));
+                    enElements.forEach(el => el.classList.remove('hidden-content'));
+                    currentLang.textContent = 'English';
+                } else {
+                    // Switch to Japanese
+                    jpElements.forEach(el => el.classList.remove('hidden-content'));
+                    enElements.forEach(el => el.classList.add('hidden-content'));
+                    currentLang.textContent = '日本語';
+                }
+            });
+
+            // Add animation classes to elements as they scroll into view
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Observe file cards and YouTube cards
+            document.querySelectorAll('.file-card, .youtube-card').forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
