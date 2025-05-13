@@ -1,1 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>The Adventures of RYO-CHAN</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Yuji+Syuku&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6366F1;
+            --text-shadow: 0 0 10px rgba(99, 102, 241, 0.7);
+            --red-aura: rgba(255, 32, 32, 0.9);
+            --blue-aura: rgba(32, 156, 255, 0.9);
+            --transition-speed: 1500ms;
+            --text-container-opacity: 0.7;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Noto Serif JP', serif;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+            touch-action: manipulation;
+        }
+
+        .title-font {
+            font-family: 'Yuji Syuku', serif;
+        }
+
+        /* Main container styles */
+        .novel-container {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Background styles */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: opacity var(--transition-speed) ease-in-out;
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .background.active {
+            opacity: 1;
+        }
+
+        /* Text container styles - Horizontal writing for English */
+        .text-container {
+            position: fixed;
+            bottom: 10vh;
+            width: 94%;
+            max-width: 800px;
+            height: 30vh;
+            margin: auto;
+            padding: 1.5rem;
+            background-color: rgba(0, 0, 0, var(--text-container-opacity));
+            border-radius: 8px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            text-align: left;
+            line-height: 1.8;
+            z-index: 10;
+            transition: font-size 0.3s ease, opacity 0.5s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .text-container.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .text-content {
+            width: 100%;
+            margin: 0;
+            padding: 0 0.5em;
+        }
+
+        .text-paragraph {
+            margin-bottom: 1em;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        .emphasis {
+            color: #ffcc00;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(255, 204, 0, 0.7);
+        }
+
+        .character-name {
+            font-weight: bold;
+            color: #6366F1;
+            text-shadow: var(--text-shadow);
+            margin-bottom: 0.3em;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Special effects styles */
+        .effect {
+            position: fixed;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .blue-aura {
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--blue-aura) 0%, rgba(32,156,255,0.2) 60%, rgba(32,156,255,0) 100%);
+            box-shadow: 0 0 30px rgba(32,156,255,0.8);
+            animation: pulse 1s ease-out forwards;
+        }
+
+        .red-aura {
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--red-aura) 0%, rgba(255,32,32,0.2) 60%, rgba(255,32,32,0) 100%);
+            box-shadow: 0 0 30px rgba(255,32,32,0.8);
+            animation: pulse 1s ease-out forwards;
+        }
+
+        /* Spark particle effects */
+        .spark {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkAnim 0.8s ease-out forwards;
+            opacity: 0.9;
+            transform-origin: center;
+            z-index: 15;
+        }
+
+        .blue-spark {
+            background-color: #4db8ff;
+            box-shadow: 0 0 10px 3px #4db8ff;
+        }
+
+        .red-spark {
+            background-color: #ff4d4d;
+            box-shadow: 0 0 10px 3px #ff4d4d;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(0.1); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+
+        @keyframes sparkAnim {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 1; }
+            70% { opacity: 0.7; }
+            100% { transform: translate(var(--x), var(--y)) scale(0) rotate(var(--r)); opacity: 0; }
+        }
+
+        /* Title screen styles */
+        .title-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            z-index: 100;
+            transition: opacity var(--transition-speed) ease-in-out;
+        }
+        
+        .loading-container {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .loading-text {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 1rem;
+        }
+
+        .loading-spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary-color);
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .title {
+            font-size: 2.2em;
+            font-weight: bold;
+            margin-bottom: 0.5em;
+            text-shadow: var(--text-shadow);
+            text-align: center;
+            padding: 0 0.5em;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            margin-bottom: 2em;
+            text-shadow: var(--text-shadow);
+            text-align: center;
+            padding: 0 1em;
+        }
+
+        .title-image {
+            max-width: 90%;
+            max-height: 40vh;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+        }
+
+        .start-button {
+            padding: 0.8em 2em;
+            background-color: rgba(99, 102, 241, 0.5);
+            border: 1px solid #6366F1;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 1.5em;
+        }
+
+        .start-button:hover, .start-button:active {
+            background-color: rgba(99, 102, 241, 0.8);
+        }
+        
+        .official-site-link {
+            color: #fff;
+            text-decoration: underline;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+        
+        .official-site-link:hover {
+            color: #ffcc00;
+        }
+
+        /* Control panels and buttons */
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 20;
+        }
+
+        .control-button {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 1px solid #6366F1;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            color: white;
+            font-size: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .control-button:hover {
+            background-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .control-button.active {
+            background-color: rgba(99, 102, 241, 0.5);
+        }
+
+        /* Click hint */
+        #click-prompt {
+            position: absolute;
+            bottom: 15px;
+            right: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            animation: blink 1.5s infinite;
+            font-size: 0.9rem;
+            z-index: 20;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Settings panel */
+        .settings-panel {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 1px solid #6366F1;
+            border-radius: 8px;
+            padding: 15px;
+            z-index: 30;
+            min-width: 200px;
+            display: none;
+        }
+
+        .settings-panel.active {
+            display: block;
+        }
+
+        .settings-title {
+            font-size: 1em;
+            margin-bottom: 10px;
+            color: #fff;
+            text-align: center;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.5);
+            padding-bottom: 5px;
+        }
+
+        .setting-group {
+            margin-bottom: 15px;
+        }
+
+        .setting-label {
+            display: block;
+            margin-bottom: 5px;
+            color: #fff;
+            font-size: 0.9em;
+        }
+
+        .range-with-value {
+            display: flex;
+            align-items: center;
+        }
+
+        .setting-range {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+
+        .setting-value {
+            width: 60px;
+            text-align: right;
+            color: #6366F1;
+        }
+
+        /* Decorative elements */
+        .petal {
+            position: absolute;
+            width: 15px;
+            height: 10px;
+            background-color: rgba(255, 183, 197, 0.7);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .text-container {
+                width: 95%;
+                height: 40vh;
+            }
+            
+            .title {
+                font-size: 1.8em;
+            }
+            
+            .subtitle {
+                font-size: 1.1em;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .text-container {
+                width: 90%;
+                max-width: 900px;
+            }
+        }
+/* Cherry blossom container - add this CSS */
+.petals-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+    overflow: hidden;
+}
+    </style>
+</head>
+<body>
+    <!-- Title Screen -->
+    <div class="title-screen" id="titleScreen">
+        <img src="https://page1.genspark.site/v1/base64_upload/5502009156d90db793e188d90c48acca" alt="RYO-CHAN" class="title-image">
+        <h1 class="title title-font">JAPAN PRIDE "氣" Presents</h1>
+        <h2 class="subtitle title-font">"THE ADVENTURES OF RYO-CHAN"</h2>
+        
+        <div class="loading-container" id="loadingContainer">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Loading...</div>
+        </div>
+        
+        <button class="start-button" id="startButton" style="display:none;">Begin Adventure</button>
+        <a href="https://ryochan.com" class="official-site-link" target="_blank">Visit the Official RYO-CHAN Website</a>
+    </div>
+    
+    <!-- Main Novel Container -->
+    <div class="novel-container" id="novelContainer">
+        <!-- Background Images -->
+        <div class="background" id="bg1" style="background-image: url('https://page1.genspark.site/v1/base64_upload/72412271ae0f7a34f746979ac0a50cef');"></div>
+        <div class="background" id="bg2" style="background-image: url('https://page1.genspark.site/v1/base64_upload/1ffcf0c9393f7b45822cdc074b8fa9b4');"></div>
+        <div class="background" id="bg3" style="background-image: url('https://page1.genspark.site/v1/base64_upload/1c74c3c852608027848d9ff24af17863');"></div>
+        <div class="background" id="bg4" style="background-image: url('https://page1.genspark.site/v1/base64_upload/79b9f817e9c9a1cac6a230a4fccd2d4c');"></div>
+        <div class="background" id="bg5" style="background-image: url('https://page1.genspark.site/v1/base64_upload/ee1c4ff3ca59d3ccc5c2df8138a3fc5c');"></div>
+        <div class="background" id="bg6" style="background-image: url('https://page1.genspark.site/v1/base64_upload/ec2fe0faf0cb257067a7e6cd8fedf1b8');"></div>
+        <div class="background" id="bg7" style="background-image: url('https://page1.genspark.site/v1/base64_upload/f993705b8beece06962fc5a32905ba35');"></div>
+        <div class="background" id="bg8" style="background-image: url('https://page1.genspark.site/v1/base64_upload/c8c6ce27bbf15dacc44bc8b41aa96d97');"></div>
+        <div class="background" id="bg9" style="background-image: url('https://page1.genspark.site/v1/base64_upload/d6cdedad4a26f59fb569534748e143af');"></div>
+        <div class="background" id="bg10" style="background-image: url('https://page1.genspark.site/v1/base64_upload/5502009156d90db793e188d90c48acca');"></div>
+        <div class="background" id="bg11" style="background-image: url('https://page1.genspark.site/v1/base64_upload/66ae7b6b7a1708f1b4976659c392fd2f');"></div>
+ <div class="background" id="bg12" style="background-image: url('https://iemotochan.github.io/ryochan-potal/image/bg12.png');"></div>
+
+        
+        <!-- Text Display Area -->
+        <div class="text-container" id="textContainer">
+            <div class="text-content" id="textContent"></div>
+        </div>
+        
+        <!-- Click Hint -->
+        <div id="click-prompt">Click to continue</div>
+        
+        <!-- Container for visual effects -->
+        <div class="effects-container" id="effectsContainer"></div>
+        
+        <!-- Control Buttons -->
+        <div class="controls">
+            <div class="control-button" id="settingsButton" title="Settings"><i class="fas fa-cog"></i></div>
+            <div class="control-button" id="hideTextButton" title="Show/Hide Text"><i class="fas fa-eye"></i></div>
+            <div class="control-button" id="muteButton" title="Sound On/Off"><i class="fas fa-volume-up"></i></div>
+            <div class="control-button" id="autoButton" title="Auto Play"><i class="fas fa-play"></i></div>
+            <div class="control-button" id="clearButton" title="Clear Text"><i class="fas fa-eraser"></i></div>
+        </div>
+
+        <!-- Settings Panel -->
+        <div class="settings-panel" id="settingsPanel">
+            <div class="settings-title">Settings</div>
+            
+            <div class="setting-group">
+                <label class="setting-label" for="fontSizeRange">Font Size</label>
+                <div class="range-with-value">
+                    <input type="range" id="fontSizeRange" class="setting-range" min="12" max="24" value="20">
+                    <span class="setting-value" id="fontSizeValue">20px</span>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label class="setting-label" for="textSpeedRange">Text Speed</label>
+                <div class="range-with-value">
+                    <input type="range" id="textSpeedRange" class="setting-range" min="10" max="100" value="50">
+                    <span class="setting-value" id="textSpeedValue">Standard</span>
+                </div>
+            </div>
+
+            <div class="setting-group">
+                <label class="setting-label" for="opacityRange">Background Opacity</label>
+                <div class="range-with-value">
+                    <input type="range" id="opacityRange" class="setting-range" min="0" max="10" value="7">
+                    <span class="setting-value" id="opacityValue">70%</span>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label class="setting-label">Effects</label>
+                <div class="flex items-center">
+                    <input type="checkbox" id="effectToggle" checked class="mr-2">
+                    <label for="effectToggle">Enable visual effects</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Audio Elements -->
+    <audio id="bgm" loop>
+        <source src="https://cdn.jsdelivr.net/gh/twingly/audio-assets@master/music/traditional-japanese-music.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="clickSound">
+        <source src="https://cdn.jsdelivr.net/gh/twingly/audio-assets@master/sfx/interface-click.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="effectSound">
+        <source src="https://cdn.jsdelivr.net/gh/twingly/audio-assets@master/sfx/magical-effect.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="importantSound">
+        <source src="https://cdn.jsdelivr.net/gh/twingly/audio-assets@master/sfx/magical-chime.mp3" type="audio/mpeg">
+    </audio>
+    
+    <script>
+        /**
+         * STORY CONTENT
+         * Story content for "The Adventures of RYO-CHAN"
+         */
+const storyContent = [
+ 
+ { text: "<span class='emphasis'>EPISODE 1: THE AWAKENING</span>", bg: "bg1", speed: 1.5, important: true },
+    
+    { text: "", bg: "bg1", speed: 1.5 },
+    
+    { text: "A night dominated by a full moon that illuminated the stone steps of an ancient shrine. Beyond the weathered torii gate, a single beam of light crept along the moss-covered stone pavement, stopping at the main hall.", bg: "bg1", speed: 1.5 },
+    
+    { text: "The light revealed a small figure sleeping there. As if guided by fate, a dog had wandered into this shrine and fallen asleep from exhaustion.", bg: "bg1", speed: 1.8 },
+    
+    { text: "This was RYO-CHAN, a Miniature Schnauzer. The small samurai armor covering his body faintly glowed, reflecting the moonlight.", bg: "bg1", speed: 2.1 },
+    
+    { text: "Despite the windless night, the cherry trees began to sway, and blossoms danced in the air. The moment the full moon reached its zenith, a strong beam of light struck RYO-CHAN.", bg: "bg2", speed: 2.1, effect: "blue_aura" },
+    
+    { text: "This wasn't ordinary moonlight—it was <span class='celestial'>bluish-white</span> and pulsating as if alive. RYO-CHAN's body trembled, and <span class='celestial'>blue light</span> began to leak through the gaps in his armor.", bg: "bg2", speed: 1.5, important: true },
+    
+    { text: "Slowly, his eyes opened...", bg: "bg2", speed: 1.5 },
+    
+    { speaker: "RYO", text: "Ugh... where am I...?", bg: "bg2", speed: 0.6 },
+    
+    { text: "RYO-CHAN looked around with a dazed mind. An unfamiliar shrine. Cherry blossoms that had begun falling without notice. And a strange warmth welling up from within his body.", bg: "bg2", speed: 2.1 },
+    
+    { speaker: "RYO", text: "Why am I here?", bg: "bg2", speed: 0.9 },
+    
+    { text: "There was no one to answer. Only cherry blossoms continued to dance around him. ", bg: "bg2", speed: 0.7, effect: "blue_aura" },  
+
+  { text: "Suddenly, the petals began to gather, swirling into a vortex, and from the light emerged an old man with a mystical aura.", bg: "bg12", speed: 1, effect: "blue_aura" },
+    
+    { text: "His eyes reflected deep wisdom, and he had a warm smile.", bg: "bg12", speed: 2.1 },
+    
+    { speaker: "OLD MAN", text: "It seems you have awakened from your long slumber, RYO-CHAN.", bg: "bg12", speed: 0.6 },
+    
+    { text: "His voice was deep and resonant, like the sound of ancient wood. RYO-CHAN tensed, alert.", bg: "bg12", speed: 2.1 },
+    
+    { speaker: "RYO", text: "Who are you? How do you know my name?", bg: "bg12", speed: 0.9 },
+    
+    { speaker: "OLD MAN", text: "I am the guardian of this shrine, and I have been waiting for you.", bg: "bg12", speed: 0.9 },
+    
+    { speaker: "RYO", text: "Waiting? For me?", bg: "bg12", speed: 0.9 },
+    
+    { text: "The old man nodded and spread his hands toward the moon.", bg: "bg3", speed: 2.1 },
+    
+    { speaker: "OLD MAN", text: "Tonight is a special night. A night when the power of the full moon is strongest. And the time when the power sleeping within you awakens.", bg: "bg3", speed: 0.6, important: true },
+    
+    { speaker: "RYO", text: "Power? Inside me?", bg: "bg3", speed: 0.9 },
+    
+    { speaker: "OLD MAN", text: "Yes.", bg: "bg3", speed: 0.9 },
+    
+    { text: "The old man approached quietly.", bg: "bg3", speed: 2.1 },
+    
+    { speaker: "OLD MAN", text: "Japan once had an awesome power called 'Ki'. A force that connected all things, full of life.", bg: "bg4", speed: 0.9 },
+    
+    { text: "The old man tapped his staff on the ground, and the character '<span class='emphasis'>氣</span>' appeared in <span class='celestial'>blue light</span> in the air.", bg: "bg4", speed: 1.5, effect: "blue_aura" },
+    
+    { speaker: "OLD MAN", text: "Look at this character. It is composed of '米' and '气'. The form of earth's bounty and sky's energy combined. Japanese people have felt and lived with this power.", bg: "bg4", speed: 0.9 },
+    
+    { text: "His expression darkened.", bg: "bg4", speed: 2.1 },
+    
+    { speaker: "OLD MAN", text: "But after the war, many characters were simplified. '氣' became '気', and its essence was lost. This wasn't just a change in characters. A part of the Japanese soul was erased.", bg: "bg4", speed: 0.6, important: true },
+    
+    { text: "RYO-CHAN listened silently. Strangely, he could feel the word 'Ki' that the old man spoke resonating within his body.", bg: "bg4", speed: 2.1 },
+    
+    { speaker: "RYO", text: "What does this have to do with me?", bg: "bg4", speed: 0.9 },
+    
+    { speaker: "OLD MAN", text: "A great deal.", bg: "bg4", speed: 0.9 },
+    
+    { text: "The old man's eyes gleamed.", bg: "bg4", speed: 2.1 },
+    
+    { speaker: "OLD MAN", text: "You have been chosen as a guardian with the power to see '<span class='emphasis'>Ki</span>'. Tonight, that power has awakened.", bg: "bg4", speed: 0.6, important: true },
+    
+    { text: "At that moment, RYO-CHAN's vision changed. The world looked different. <span class='celestial'>Blue streams of light</span> surrounded the shrine, and <span class='negative'>ominous red lines</span> extended from the direction of the city.", bg: "bg5", speed: 1.5, effect: "blue_aura" },
+    
+    { speaker: "RYO", text: "What is... that?", bg: "bg5", speed: 0.6 },
+    
+    { text: "The old man pointed toward the city.", bg: "bg5", speed: 2.1 },
+    
+    { speaker: "OLD MAN", text: "You see, that is <span class='negative'>malevolent</span> 'Ki' in the modern world. It takes different forms to <span class='negative'>threaten</span> & <span class='negative'>harm</span> people.", bg: "bg5", speed: 0.9 },
+    
+    { text: "The old man waved his staff, and an image appeared in RYO-CHAN's mind. A figure hunched over a computer in a <span class='negative'>dark room</span>. Complex code flowed across the screen, surrounded by swirling <span class='negative'>red mist</span>.", bg: "bg6", speed: 1.5, effect: "red_aura" },
+    
+    { speaker: "OLD MAN", text: "This person is <span class='negative'>misusing</span> a new technology called blockchain to <span class='negative'>steal people's assets</span>. Ordinary eyes cannot see it, but your eyes can.", bg: "bg6", speed: 0.6, important: true },
+    
+    { speaker: "RYO", text: "Blockchain?", bg: "bg6", speed: 0.9 },
+    
+    { text: "The term was unfamiliar to RYO-CHAN.", bg: "bg6", speed: 2.1 },
+    
+    { speaker: "OLD MAN", text: "It's a technology that will change the future. But where there is light, there is also <span class='negative'>darkness</span>. Your role is to find and expose the <span class='negative'>darkness</span> and protect people from it. You are the bridge that connects ancient wisdom with new technology.", bg: "bg7", speed: 0.6, important: true },
+    
+    { text: "RYO-CHAN gazed toward the city with complex emotions. Indeed, he could see the flow of <span class='negative'>red 'Ki'</span>. And he could sense the <span class='negative'>danger</span> lurking beyond it.", bg: "bg5", speed: 2.1 },
+    
+    { speaker: "RYO", text: "But... can I really do such a thing?", bg: "bg5", speed: 0.6 },
+    
+    { speaker: "OLD MAN", text: "You won't be alone.", bg: "bg8", speed: 0.9 },
+    
+    { text: "The old man smiled.", bg: "bg8", speed: 2.1 },
+    
+    { speaker: "OLD MAN", text: "Tomorrow, you will meet my granddaughter. She is a blockchain researcher. When your power combines with her skills, true protection will begin.", bg: "bg8", speed: 0.6, important: true },
+    
+    { text: "RYO-CHAN contemplated deeply. There were things only he could see. And with that power, he might be able to help many.", bg: "bg8", speed: 2.1 },
+    
+    { speaker: "RYO", text: "I understand. I'll try.", bg: "bg7", speed: 0.9 },
+    
+    { speaker: "OLD MAN", text: "There is no trying… only doing. You must bark with courage, bite with honor!", bg: "bg8", speed: 0.6, important: true },
+    
+    { text: "RYO-CHAN courageously barks! A look of satisfaction spread across the old man's face.", bg: "bg7", speed: 1.5, effect: "blue_aura" },
+    
+    { speaker: "OLD MAN", text: "Thank you, RYO-CHAN. Your journey has only just begun.", bg: "bg8", speed: 0.9 },
+    
+    { text: "The old man starts transforming into cherry blossoms that scatter in the wind.", bg: "bg9", speed: 1.5, effect: "blue_aura" },
+    
+    { speaker: "OLD MAN", text: "<span class='emphasis'>Sakura will find you. 'Ki' will connect the two of you...</span>", bg: "bg9", speed: 0.6, important: true },
+    
+    { text: "The final words vanished in the wind, and the shrine returned to its original stillness. But RYO-CHAN's world had changed forever. His armor <span class='celestial'>glowed blue</span>, and his eyes were filled with determination.", bg: "bg5", speed: 2.1 },
+    
+    { text: "RYO-CHAN stands up and looks toward the <span class='negative'>evil 'Ki'</span> flowing up from the city.", bg: "bg5", speed: 2.1 },
+    
+    { speaker: "RYO", text: "<span class='emphasis'>If this is my destiny, I'll accept it.</span>", bg: "bg7", speed: 0.6, important: true },
+    
+    { text: "RYO-CHAN could see the 'Ki' flowing everywhere. With small paws, he runs down the shrine steps toward the city guided by an <span class='negative'>ominous aura</span> in the distance.", bg: "bg5", speed: 2.1 },
+    
+    { text: "His figure melts into the darkness in the moonlight. And so began The Adventures Of RYO-CHAN, the warrior guardian of 'Ki'.", bg: "bg10", speed: 0.6, important: true },
+    
+    { text: "<span class='emphasis'>To be continued...</span>", bg: "bg11", speed: 0.6 }
+
+];
+        
+        /**
+         * GLOBAL VARIABLES
+         * Track current state of the novel and UI
+         */
+        let currentTextIndex = 0;        // Current position in the story
+        let currentCharIndex = 0;        // Index of character currently being displayed
+        let isTyping = false;            // Whether text is currently being displayed
+        let isAutoMode = false;          // Whether auto-advance mode is enabled
+        let autoModeTimer = null;        // Timer for auto-advance mode
+        let isMuted = false;             // Whether sound is muted
+        let baseTypeDelay = 40;          // Base interval for character display (milliseconds)
+        let typeDelay = baseTypeDelay;   // Current character display speed (adjustable)
+        let accumulatedText = [];        // Array to store displayed text paragraphs
+        let effectsEnabled = true;       // Whether visual effects are enabled
+        let isTextHidden = false;        // Whether text is hidden
+        
+        // DOM elements
+        const bgm = document.getElementById('bgm');
+        const clickSound = document.getElementById('clickSound');
+        const effectSound = document.getElementById('effectSound');
+        const importantSound = document.getElementById('importantSound');
+        const textContainer = document.getElementById('textContainer');
+        const textContent = document.getElementById('textContent');
+        const effectsContainer = document.getElementById('effectsContainer');
+        const titleScreen = document.getElementById('titleScreen');
+        const loadingContainer = document.getElementById('loadingContainer');
+        const startButton = document.getElementById('startButton');
+        const muteButton = document.getElementById('muteButton');
+        const autoButton = document.getElementById('autoButton');
+        const clearButton = document.getElementById('clearButton');
+        const settingsButton = document.getElementById('settingsButton');
+        const hideTextButton = document.getElementById('hideTextButton');
+        const settingsPanel = document.getElementById('settingsPanel');
+        const fontSizeRange = document.getElementById('fontSizeRange');
+        const fontSizeValue = document.getElementById('fontSizeValue');
+        const textSpeedRange = document.getElementById('textSpeedRange');
+        const textSpeedValue = document.getElementById('textSpeedValue');
+        const opacityRange = document.getElementById('opacityRange');
+        const opacityValue = document.getElementById('opacityValue');
+        const effectToggle = document.getElementById('effectToggle');
+        const clickPrompt = document.getElementById('click-prompt');
+        const backgrounds = document.querySelectorAll('.background');
+        
+        /**
+         * Initialization
+         * Set up event listeners and initial state
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            // Simulate loading
+            setTimeout(() => {
+                loadingContainer.style.display = 'none';
+                startButton.style.display = 'block';
+            }, 2000);
+            
+            // Create background cherry petals
+            createPetals();
+            
+            // Event listeners
+            startButton.addEventListener('click', startNovel);
+            textContainer.addEventListener('click', handleTouch);
+            muteButton.addEventListener('click', toggleMute);
+            autoButton.addEventListener('click', toggleAutoMode);
+            clearButton.addEventListener('click', clearText);
+            settingsButton.addEventListener('click', toggleSettings);
+            hideTextButton.addEventListener('click', toggleTextVisibility);
+            
+            // Settings controls
+            fontSizeRange.addEventListener('input', updateFontSize);
+            textSpeedRange.addEventListener('input', updateTextSpeed);
+            opacityRange.addEventListener('input', updateOpacity);
+            effectToggle.addEventListener('change', toggleEffects);
+            
+            // Initialize values
+            let fontSize = 20;
+            fontSizeRange.value = fontSize;
+            fontSizeValue.textContent = `${fontSize}px`;
+            updateTextSpeed();
+            updateOpacity();
+        });
+        
+        /**
+         * Start the novel
+         * Begin the visual novel experience
+         */
+        function startNovel() {
+            titleScreen.style.opacity = '0';
+            setTimeout(() => {
+                titleScreen.style.display = 'none';
+                bgm.volume = 0.3;
+                bgm.play().catch(e => console.log('Auto-play prevented: ', e));
+                showBackground(storyContent[0].bg);
+                typeText();
+            }, 1500);
+        }
+
+        /**
+         * Handle touch/click
+         * Process interaction with the novel
+         */
+        function handleTouch(e) {
+            e.preventDefault();
+            
+            // Close settings panel if open
+            if (settingsPanel.classList.contains('active')) {
+                settingsPanel.classList.remove('active');
+                return;
+            }
+            
+            // Create effect at touch position (if enabled)
+            if (effectsEnabled) {
+                createSparkEffect(e.clientX || e.touches[0].clientX, e.clientY || e.touches[0].clientY);
+            }
+            
+            // Advance text
+            advanceText();
+        }
+        
+        /**
+         * Advance text
+         * Move to next text segment
+         */
+        function advanceText() {
+            if (isTyping) {
+                // If still displaying, show all text immediately
+                isTyping = false;
+                currentCharIndex = storyContent[currentTextIndex].text.length;
+                completeCurrentText();
+                return;
+            }
+            
+            // Play click sound
+            if (!isMuted) {
+                clickSound.currentTime = 0;
+                clickSound.play().catch(e => console.log('Sound play prevented: ', e));
+            }
+            
+            // Add current text to accumulated text
+            if (currentTextIndex < storyContent.length) {
+                // Save current text before advancing
+                accumulatedText.push({
+                    text: storyContent[currentTextIndex].text,
+                    speaker: storyContent[currentTextIndex].speaker || null,
+                    important: storyContent[currentTextIndex].important || false
+                });
+                
+                // Show effect for current text if needed
+                if (storyContent[currentTextIndex].effect && effectsEnabled) {
+                    showEffect(storyContent[currentTextIndex].effect);
+                }
+            }
+            
+            // Move to next text segment
+            currentTextIndex++;
+            
+            if (currentTextIndex < storyContent.length) {
+                // Change background if needed
+                if (currentTextIndex > 0 && storyContent[currentTextIndex].bg !== storyContent[currentTextIndex-1].bg) {
+                    showBackground(storyContent[currentTextIndex].bg);
+                }
+                
+                // Adjust display speed if specified
+                if (storyContent[currentTextIndex].speed) {
+                    typeDelay = baseTypeDelay / storyContent[currentTextIndex].speed;
+                } else {
+                    typeDelay = baseTypeDelay;
+                }
+                
+                // Begin displaying next text
+                currentCharIndex = 0;
+                refreshTextDisplay();
+                typeText();
+            } else {
+                // End of story
+                const endParagraph = document.createElement('p');
+                endParagraph.className = 'text-paragraph';
+                endParagraph.innerHTML = "<span class='emphasis'>【Chapter 1: Complete】</span>";
+                textContent.appendChild(endParagraph);
+            }
+        }
+        
+        /**
+         * Complete current text
+         * Immediately complete current text display
+         */
+        function completeCurrentText() {
+            if (currentTextIndex >= storyContent.length) return;
+            
+            const currentParagraph = document.querySelector('#currentParagraph');
+            if (currentParagraph) {
+                const current = storyContent[currentTextIndex];
+                let content = current.text;
+                
+                if (current.important) {
+                    content = `<span class="emphasis">${content}</span>`;
+                }
+                
+                currentParagraph.innerHTML = content;
+                currentParagraph.id = ''; // Remove ID as it's no longer current
+            }
+            
+            isTyping = false;
+            
+            // If auto mode is on, advance after delay
+            if (isAutoMode) {
+                const current = storyContent[currentTextIndex];
+                const autoDelay = current.important ? 3000 : 2000; // Longer pause for important text
+                autoModeTimer = setTimeout(advanceText, autoDelay);
+            }
+        }
+
+        /**
+         * Refresh text display
+         * Update display with accumulated text
+         */
+        function refreshTextDisplay() {
+            // Clear existing content
+            textContent.innerHTML = '';
+            
+            // Add accumulated paragraphs
+            for (let i = 0; i < accumulatedText.length; i++) {
+                const paragraph = document.createElement('p');
+                paragraph.className = 'text-paragraph';
+                
+                // Set opacity directly to 1 to avoid animation
+                paragraph.style.opacity = '1';
+                
+                // Add speaker name if present
+                if (accumulatedText[i].speaker) {
+                    const speakerEl = document.createElement('div');
+                    speakerEl.className = 'character-name';
+                    speakerEl.textContent = accumulatedText[i].speaker;
+                    paragraph.appendChild(speakerEl);
+                }
+                
+                // Add text content
+                const textEl = document.createElement('div');
+                if (accumulatedText[i].important) {
+                    textEl.innerHTML = `<span class="emphasis">${accumulatedText[i].text}</span>`;
+                } else {
+                    textEl.textContent = accumulatedText[i].text;
+                }
+                paragraph.appendChild(textEl);
+                
+                textContent.appendChild(paragraph);
+            }
+            
+            // Add new paragraph for current text being displayed
+            // Only this paragraph receives animation effects
+            const currentParagraph = document.createElement('p');
+            currentParagraph.className = 'text-paragraph';
+            currentParagraph.id = 'currentParagraph'; // ID for later reference
+            
+            // Add speaker name for current text if present
+            if (currentTextIndex < storyContent.length && storyContent[currentTextIndex].speaker) {
+                const speakerEl = document.createElement('div');
+                speakerEl.className = 'character-name';
+                speakerEl.textContent = storyContent[currentTextIndex].speaker;
+                currentParagraph.appendChild(speakerEl);
+            }
+            
+            // Add empty text element for typing
+            const textEl = document.createElement('div');
+            textEl.id = 'typingText';
+            currentParagraph.appendChild(textEl);
+            
+            textContent.appendChild(currentParagraph);
+            
+            // Auto-adjust scroll position to show latest text
+            textContainer.scrollTop = textContainer.scrollHeight;
+        }
+        
+        /**
+         * Type text
+         * Display text with typewriter effect
+         */
+        function typeText() {
+            if (currentTextIndex >= storyContent.length) return;
+            
+            isTyping = true;
+            const current = storyContent[currentTextIndex];
+            const text = current.text;
+            const isImportant = current.important;
+            
+            // Play special sound for first character of important text
+            if (currentCharIndex === 0 && isImportant && !isMuted) {
+                importantSound.currentTime = 0;
+                importantSound.play().catch(e => console.log('Sound play prevented: ', e));
+            }
+            
+            const typingEl = document.getElementById('typingText');
+            
+            if (typingEl) {
+                if (currentCharIndex < text.length) {
+                    // Display emphasized or normal text based on importance
+                    if (isImportant) {
+                        typingEl.innerHTML = `<span class="emphasis">${text.substring(0, currentCharIndex + 1)}</span>`;
+                    } else {
+                        typingEl.textContent = text.substring(0, currentCharIndex + 1);
+                    }
+                    
+                    currentCharIndex++;
+                    setTimeout(typeText, typeDelay);
+                    
+                    // Auto-scroll to keep latest text visible
+                    textContainer.scrollTop = textContainer.scrollHeight;
+                } else {
+                    // Finished displaying this segment
+                    isTyping = false;
+                    
+                    // If auto mode is on, advance after delay
+                    if (isAutoMode) {
+                        const autoDelay = isImportant ? 3000 : 2000; // Longer pause for important text
+                        autoModeTimer = setTimeout(advanceText, autoDelay);
+                    }
+                }
+            }
+        }
+        
+        /**
+         * Show background
+         * Display background with specified ID
+         */
+        function showBackground(bgId) {
+            backgrounds.forEach(bg => {
+                bg.classList.remove('active');
+            });
+            
+            document.getElementById(bgId).classList.add('active');
+        }
+        
+        /**
+         * Show effect
+         * Display effect of specified type
+         */
+        function showEffect(type) {
+            if (!isMuted) {
+                effectSound.currentTime = 0;
+                effectSound.play().catch(e => console.log('Effect sound prevented: ', e));
+            }
+            
+            // Multiple positions for effects
+            const positions = [];
+            for (let i = 0; i < 3; i++) {
+                positions.push({
+                    x: Math.random() * window.innerWidth * 0.8 + window.innerWidth * 0.1,
+                    y: Math.random() * window.innerHeight * 0.8 + window.innerHeight * 0.1
+                });
+            }
+            
+            // Create effects at multiple positions with slight delay
+            positions.forEach((pos, index) => {
+                setTimeout(() => {
+                    createSparkEffect(pos.x, pos.y, type);
+                }, index * 200);
+            });
+        }
+        
+        /**
+         * Create spark effect
+         * Create spark effect at specified position
+         */
+        function createSparkEffect(x, y, forceType = null) {
+            // Determine color theme (blue or red)
+            const colorType = forceType === "red_aura" ? 'red' : 
+                             forceType === "blue_aura" ? 'blue' : 
+                             Math.random() > 0.5 ? 'blue' : 'red';
+            const sparkClass = colorType === 'blue' ? 'blue-spark' : 'red-spark';
+            
+            // Create main aura effect
+            const aura = document.createElement('div');
+            aura.className = `effect ${colorType === 'blue' ? 'blue-aura' : 'red-aura'}`;
+            aura.style.width = '150px';
+            aura.style.height = '150px';
+            aura.style.left = (x - 75) + 'px';
+            aura.style.top = (y - 75) + 'px';
+            document.body.appendChild(aura);
+            
+            // Create spark particles
+            const sparkCount = 30;
+            
+            for (let i = 0; i < sparkCount; i++) {
+                // Create main spark particle
+                const spark = document.createElement('div');
+                spark.className = `spark ${sparkClass}`;
+                
+                // Calculate random angle and distance
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 150 + 50;
+                const rotation = Math.random() * 360;
+                
+                // Set movement variables
+                const xMove = Math.cos(angle) * distance;
+                const yMove = Math.sin(angle) * distance;
+                
+                spark.style.setProperty('--x', `${xMove}px`);
+                spark.style.setProperty('--y', `${yMove}px`);
+                spark.style.setProperty('--r', `${rotation}deg`);
+                
+                // Position at click/touch point
+                spark.style.left = (x - 2) + 'px';
+                spark.style.top = (y - 2) + 'px';
+                
+                // Add to document
+                document.body.appendChild(spark);
+                
+                // Remove after animation
+                setTimeout(() => {
+                    document.body.removeChild(spark);
+                }, 800);
+            }
+            
+            // Remove aura after animation
+            setTimeout(() => {
+                document.body.removeChild(aura);
+            }, 1000);
+        }
+        
+
+/**
+ * Create petals
+ * Create background cherry blossom petals with optimized container
+ */
+function createPetals() {
+    // Create dedicated container for petals
+    const container = document.createElement('div');
+    container.className = 'petals-container';
+    container.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:3; overflow:hidden;';
+    document.body.appendChild(container);
+    
+    const petalCount = 15;
+    
+    for (let i = 0; i < petalCount; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        // Add GPU acceleration styles
+        petal.style.cssText = `
+            position: absolute;
+            width: 15px;
+            height: 10px;
+            background-color: rgba(255, 183, 197, 0.7);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            will-change: transform;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+        `;
+        
+        // Random starting position
+        const startX = Math.random() * window.innerWidth;
+        const startY = -30;
+        
+        petal.style.left = startX + 'px';
+        petal.style.top = startY + 'px';
+        
+        // Add to container instead of document.body
+        container.appendChild(petal);
+        
+        // Save animation info for each petal
+        const petalInfo = {
+            element: petal,
+            startX: startX,
+            animationDuration: Math.random() * 10000 + 5000,
+            rotationSpeed: Math.random() * 360,
+            amplitude: Math.random() * 100 + 50,
+            startTime: Date.now()
+        };
+        
+        // Start animation
+        animatePetal(petalInfo);
+    }
+}
+
+        
+  
+/**
+ * Animate petal with optimized rendering
+ * Animate petal falling using transform for better performance
+ */
+function animatePetal(petalInfo) {
+    function updatePetalPosition() {
+        const elapsed = Date.now() - petalInfo.startTime;
+        const progress = elapsed / petalInfo.animationDuration;
+        
+        if (progress >= 1) {
+            // Reset petal position
+            const newStartX = Math.random() * window.innerWidth;
+            petalInfo.element.style.left = newStartX + 'px';
+            petalInfo.element.style.top = '-30px';
+            petalInfo.startX = newStartX;
+            petalInfo.startTime = Date.now();
+            requestAnimationFrame(() => updatePetalPosition());
+            return;
+        }
+        
+        const newY = window.innerHeight * progress;
+        const newX = petalInfo.startX + Math.sin(progress * Math.PI * 2) * petalInfo.amplitude;
+        const rotation = petalInfo.rotationSpeed * progress;
+        
+        // Use transform for GPU acceleration
+        petalInfo.element.style.transform = `translate3d(${newX - petalInfo.startX}px, ${newY}px, 0) rotate(${rotation}deg)`;
+        
+        requestAnimationFrame(updatePetalPosition);
+    }
+    
+    requestAnimationFrame(updatePetalPosition);
+}
+
+        
+        /**
+         * Clear text
+         * Clear accumulated text history and show only current text
+         */
+        function clearText() {
+            // Clear text history but maintain current position
+            accumulatedText = [];
+            
+            // Refresh display
+            refreshTextDisplay();
+            
+            // Resume from current paragraph if typing
+            if (isTyping) {
+                currentCharIndex = 0;
+                typeText();
+            }
+        }
+        
+        /**
+         * Toggle text visibility
+         * Toggle showing/hiding the text container
+         */
+        function toggleTextVisibility() {
+            isTextHidden = !isTextHidden;
+            
+            if (isTextHidden) {
+                textContainer.classList.add('hidden');
+                hideTextButton.innerHTML = '<i class="fas fa-eye-slash"></i>';
+                hideTextButton.classList.add('active');
+                clickPrompt.style.display = 'none';
+            } else {
+                textContainer.classList.remove('hidden');
+                hideTextButton.innerHTML = '<i class="fas fa-eye"></i>';
+                hideTextButton.classList.remove('active');
+                clickPrompt.style.display = 'block';
+            }
+        }
+        
+        /**
+         * Toggle mute
+         * Toggle sound on/off
+         */
+        function toggleMute() {
+            isMuted = !isMuted;
+            
+            if (isMuted) {
+                bgm.pause();
+                muteButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            } else {
+                bgm.play().catch(e => console.log('Music play prevented: ', e));
+                muteButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+            }
+        }
+        
+        /**
+         * Toggle auto mode
+         * Toggle auto-advance mode on/off
+         */
+        function toggleAutoMode() {
+            isAutoMode = !isAutoMode;
+            
+            if (isAutoMode) {
+                autoButton.innerHTML = '<i class="fas fa-pause"></i>';
+                autoButton.classList.add('active');
+                
+                // Start advancing if not currently typing
+                if (!isTyping && currentTextIndex < storyContent.length) {
+                    autoModeTimer = setTimeout(advanceText, 2000);
+                }
+            } else {
+                autoButton.innerHTML = '<i class="fas fa-play"></i>';
+                autoButton.classList.remove('active');
+                
+                // Clear pending auto-advance
+                if (autoModeTimer) {
+                    clearTimeout(autoModeTimer);
+                }
+            }
+        }
+        
+        /**
+         * Toggle settings
+         * Toggle showing/hiding the settings panel
+         */
+        function toggleSettings() {
+            settingsPanel.classList.toggle('active');
+        }
+        
+        /**
+         * Update font size
+         * Update font size of text container
+         */
+        function updateFontSize() {
+            const fontSize = fontSizeRange.value;
+            textContainer.style.fontSize = `${fontSize}px`;
+            fontSizeValue.textContent = `${fontSize}px`;
+        }
+        
+        /**
+         * Update text speed
+         * Update text display speed
+         */
+        function updateTextSpeed() {
+            const speedValue = textSpeedRange.value;
+            baseTypeDelay = 100 - speedValue; // 100 - speed value (lower is faster)
+            
+            // Set speed name
+            let speedName;
+            if (speedValue < 20) {
+                speedName = 'Very Slow';
+            } else if (speedValue < 40) {
+                speedName = 'Slow';
+            } else if (speedValue < 60) {
+                speedName = 'Standard';
+            } else if (speedValue < 80) {
+                speedName = 'Fast';
+            } else {
+                speedName = 'Very Fast';
+            }
+            
+            textSpeedValue.textContent = speedName;
+        }
+        
+        /**
+         * Update opacity
+         * Update background opacity of text container
+         */
+        function updateOpacity() {
+            const opacityVal = opacityRange.value / 10;
+            document.documentElement.style.setProperty('--text-container-opacity', opacityVal);
+            opacityValue.textContent = `${opacityVal * 100}%`;
+        }
+        
+        /**
+         * Toggle effects
+         * Toggle visual effects on/off
+         */
+        function toggleEffects() {
+            effectsEnabled = effectToggle.checked;
+        }
+    </script>
+</body>
+</html>
 
