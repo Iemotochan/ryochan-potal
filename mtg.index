@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RYO-CHAN Marketing Hub | JAPAN PRIDE "氣" Project</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e81c24;
+            --secondary: #375bdb;
+            --accent: #ffbd00;
+            --dark: #0a0a14;
+            --light: #f9f9fc;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: linear-gradient(to bottom, #0a0a14, #161630);
+            color: #f9f9fc;
+            min-height: 100vh;
+        }
+        
+        .jp-title {
+            font-family: 'Noto Serif JP', serif;
+            font-weight: 700;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        .glow {
+            text-shadow: 0 0 10px rgba(231, 28, 36, 0.7), 0 0 20px rgba(55, 91, 219, 0.5);
+        }
+        
+        .card {
+            background: rgba(10, 10, 20, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(231, 28, 36, 0.2), 0 10px 10px rgba(55, 91, 219, 0.15);
+        }
+        
+        .file-card {
+            background: linear-gradient(135deg, rgba(10, 10, 20, 0.9), rgba(22, 22, 48, 0.8));
+            border-left: 4px solid var(--accent);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+        
+        .shine {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .shine::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.1) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            animation: shine 6s infinite linear;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(30deg); }
+            100% { transform: translateX(100%) rotate(30deg); }
+        }
+
+        .language-toggle {
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        /* 修正された言語切り替えCSS */
+        body[lang="en"] .jp-content {
+            display: none !important;
+        }
+        
+        body[lang="en"] .en-content {
+            display: block !important;
+        }
+        
+        body[lang="ja"] .en-content {
+            display: none !important;
+        }
+        
+        body[lang="ja"] .jp-content {
+            display: block !important;
+        }
+        
+        .content-section {
+            margin-bottom: 4rem;
+        }
+        
+        .hexagon {
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        .pattern-bg {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            transform: translateX(-50%);
+        }
+        
+        .project-banner {
+            background-image: radial-gradient(circle at 10% 20%, rgba(231, 28, 36, 0.2) 0%, rgba(55, 91, 219, 0.2) 90%);
+        }
+        
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .card, .file-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                background: white;
+                border: 1px solid #ddd;
+            }
+            
+            .timeline-line {
+                background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            }
+        }
+    </style>
+</head>
+<body lang="en" class="pattern-bg">
+    <!-- ナビゲーションバー / Navigation Bar -->
+    <header class="sticky top-0 z-50 bg-opacity-90 bg-gray-900 backdrop-filter backdrop-blur-lg border-b border-gray-800">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <img src="https://page1.genspark.site/v1/base64_upload/5502009156d90db793e188d90c48acca" alt="RYO-CHAN" class="h-10">
+                <div>
+                    <h1 class="text-xl font-bold">
+                        <span class="jp-content">マーケティングハブ</span>
+                        <span class="en-content">Marketing Hub</span>
+                    </h1>
+                    <p class="text-xs text-gray-400">JAPAN PRIDE "氣"</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button class="language-toggle px-3 py-1 rounded border border-gray-700 hover:border-accent text-sm" onclick="toggleLanguage()">
+                    <span class="jp-content">English</span>
+                    <span class="en-content">日本語</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ヒーローセクション / Hero Section -->
+    <section class="project-banner py-16 md:py-24">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-6 inline-block hexagon p-1">
+                <div class="bg-gray-900 p-4 hexagon">
+                    <span class="text-4xl font-bold jp-title">氣</span>
+                </div>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 glow">
+                <span class="jp-content">『RYO-CHANの冒険』</span>
+                <span class="en-content">"THE ADVENTURES OF RYO-CHAN"</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-gray-300">
+                <span class="jp-content">失われた「氣」の力を取り戻し、真の本質を探求する冒険</span>
+                <span class="en-content">A journey to reclaim the lost power of "Ki" and explore true essence</span>
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#project-files" class="btn-primary shine px-6 py-3 rounded-lg font-medium text-white">
+                    <span class="jp-content">プロジェクトファイル</span>
+                    <span class="en-content">Project Files</span>
+                </a>
+                <a href="#project-overview" class="bg-gray-800 hover:bg-gray-700 px-6 py-3 rounded-lg font-medium text-white border border-gray-700">
+                    <span class="jp-content">プロジェクト概要</span>
+                    <span class="en-content">Project Overview</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- プロジェクト概要 / Project Overview -->
+    <section id="project-overview" class="content-section py-16 md:py-24">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">
+                <span class="gradient-text jp-content">プロジェクト概要</span>
+                <span class="gradient-text en-content">Project Overview</span>
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-8 items-center mb-16">
+                <div class="card p-6 rounded-xl">
+                    <h3 class="text-2xl font-bold mb-4 jp-title">
+                        <span class="jp-content">「氣」の真髄</span>
+                        <span class="en-content">The Essence of "Ki"</span>
+                    </h3>
+                    <p class="mb-4 text-gray-300">
+                        <span class="jp-content">「氣の流れが正しければ、すべては正しい場所に落ち着く」- 古代日本の知恵</span>
+                        <span class="en-content">"When the flow of Ki is right, everything settles into its proper place" - Ancient Japanese wisdom</span>
+                    </p>
+                    <p class="mb-4">
+                        <span class="jp-content">「氣」は単なるエネルギーではなく、宇宙の根源的な生命力です。漢字「氣」は「米」（地の恵み）と「气」（空気/エネルギー）から成り、「地から立ち昇る生命エネルギー」を視覚的に表現しています。この概念は日本文化の基盤となり、武道、医学、芸術、日常生活に浸透しています。</span>
+                        <span class="en-content">"Ki" is not merely energy but the fundamental life force of the universe. The kanji "氣" consists of "米" (rice/earth's bounty) and "气" (air/energy), visually expressing "life energy rising from the earth." This concept forms the foundation of Japanese culture, permeating martial arts, medicine, art, and daily life.</span>
+                    </p>
+                    <p>
+                        <span class="jp-content">戦後の言語改革で「氣」は簡略化され「気」となりました。表面的には「教育効率化」のためとされましたが、実は日本の伝統的な精神文化を弱体化させる意図があったと多くの人が考えています。「氣」から「米」の要素を取り除くことで、「地とのつながり」や「生命力の源」という本質的な意味が希薄化されました。これは単なる表記の変更ではなく、日本人のスピリチュアルなアイデンティティへの介入でした。</span>
+                        <span class="en-content">During post-war language reforms, "氣" was simplified to "気". While superficially for "educational efficiency," many believe there was an intention to weaken Japan's traditional spiritual culture. By removing the "米" element from "氣", the essential meanings of "connection to the earth" and "source of life force" were diluted. This was not just a change in notation but an intervention in the Japanese spiritual identity.</span>
+                    </p>
+                </div>
+                
+                <div class="card p-6 rounded-xl">
+                    <h3 class="text-2xl font-bold mb-4 jp-title">
+                        <span class="jp-content">RYO-CHANの物語</span>
+                        <span class="en-content">RYO-CHAN's Story</span>
+                    </h3>
+                    <p class="mb-4">
+                        <span class="jp-content">『RYO-CHANの冒険』は、現代日本を舞台に、失われた「氣」の力を取り戻すための冒険を描いたWEB3プロジェクトです。主人公のRYO-CHANは、「氣」の力を持つ特別な存在として、伝統と現代が交差する世界で重要な使命を担っています。</span>
+                        <span class="en-content">"The Adventures of RYO-CHAN" is a WEB3 project set in modern Japan that depicts an adventure to reclaim the lost power of "Ki". The protagonist, RYO-CHAN, as a special being with the power of "Ki," carries an important mission in a world where tradition and modernity intersect.</span>
+                    </p>
+                    <p class="mb-4">
+                        <span class="jp-content">物語は「月の満ち欠けと「氣」の流れ」をテーマに展開し、赤い満月と青い満月、そして三日月がもたらす神秘的なエネルギーの変化を描いています。特に神秘的な「金色の氣」は、赤と青の三日月が同時に空に現れる稀な瞬間にのみ顕現するとされています。</span>
+                        <span class="en-content">The story develops around the theme of "The Moon's Phases and the Flow of Ki," depicting the mysterious energy changes brought by red full moons, blue full moons, and crescent moons. The especially mysterious "golden Ki" is said to manifest only in the rare moment when red and blue crescents appear in the sky simultaneously.</span>
+                    </p>
+                    <p>
+                        <span class="jp-content">このプロジェクトは、日本の伝統文化と精神性を現代のデジタルメディアとWEB3技術で表現する新しい試みです。マーケティングチームは、この壮大な物語を多角的なアプローチで展開しています。</span>
+                        <span class="en-content">This project is a new attempt to express Japanese traditional culture and spirituality through modern digital media and WEB3 technology. The marketing team is developing this epic story through a multi-faceted approach.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- プロジェクトファイル / Project Files -->
+    <section id="project-files" class="content-section py-16 md:py-24 bg-gray-900 bg-opacity-60">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">
+                <span class="gradient-text jp-content">プロジェクトファイル</span>
+                <span class="gradient-text en-content">Project Files</span>
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-6 mb-12">
+                <!-- File 1 -->
+                <div class="file-card rounded-lg overflow-hidden shadow-lg">
+                    <div class="p-6">
+                        <div class="flex items-start mb-4">
+                            <div class="bg-gray-800 p-2 rounded-lg mr-3">
+                                <i class="fas fa-file-code text-accent text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">EPISODE 1 THE AWAKENING.html</h3>
+                                <p class="text-sm text-gray-400">HTML / 52.9 KB</p>
+                            </div>
+                        </div>
+                        <p class="mb-4 text-sm text-gray-300">
+                            <span class="jp-content">第一章：覚醒。RYO-CHANの物語の始まりを描くエピソード。</span>
+                            <span class="en-content">Episode 1: The Awakening. The episode that depicts the beginning of RYO-CHAN's story.</span>
+                        </p>
+                        <div class="flex justify-between">
+                            <a href="https://page1.genspark.site/get_upload_url/a9097212b216d1b4ba0693a7a69a0f8c07c22626978f4c3f44d46f428dd8da6a/default/e49857f4-bba7-4fb8-8e26-9545ba7574fc" target="_blank" class="btn-primary px-4 py-2 rounded text-white text-sm inline-flex items-center">
+                                <i class="fas fa-eye mr-2"></i> 
+                                <span class="jp-content">プレビュー</span>
+                                <span class="en-content">Preview</span>
+                            </a>
+                            <a href="https://page1.genspark.site/get_upload_url/a9097212b216d1b4ba0693a7a69a0f8c07c22626978f4c3f44d46f428dd8da6a/default/e49857f4-bba7-4fb8-8e26-9545ba7574fc" download="EPISODE 1 THE AWAKENING.html" class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded text-white text-sm inline-flex items-center">
+                                <i class="fas fa-download mr-2"></i> 
+                                <span class="jp-content">ダウンロード</span>
+                                <span class="en-content">Download</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- File 2 -->
+                <div class="file-card rounded-lg overflow-hidden shadow-lg">
+                    <div class="p-6">
+                        <div class="flex items-start mb-4">
+                            <div class="bg-gray-800 p-2 rounded-lg mr-3">
+                                <i class="fas fa-file-code text-accent text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">ティザーサイト最終版.html</h3>
+                                <p class="text-sm text-gray-400">HTML / 52.3 KB</p>
+                            </div>
+                        </div>
+                        <p class="mb-4 text-sm text-gray-300">
+                            <span class="jp-content">プロジェクト紹介ティザーサイトの最終版。「氣」の概念や月の満ち欠けの意味を解説。</span>
+                            <span class="en-content">Final version of the project teaser site. Explains the concept of "Ki" and the meaning of moon phases.</span>
+                        </p>
+                        <div class="flex justify-between">
+                            <a href="https://page1.genspark.site/get_upload_url/a9097212b216d1b4ba0693a7a69a0f8c07c22626978f4c3f44d46f428dd8da6a/default/4de67c3d-04c7-4ebd-b681-1afd3b9781e0" target="_blank" class="btn-primary px-4 py-2 rounded text-white text-sm inline-flex items-center">
+                                <i class="fas fa-eye mr-2"></i> 
+                                <span class="jp-content">プレビュー</span>
+                                <span class="en-content">Preview</span>
+                            </a>
+                            <a href="https://page1.genspark.site/get_upload_url/a9097212b216d1b4ba0693a7a69a0f8c07c22626978f4c3f44d46f428dd8da6a/default/4de67c3d-04c7-4ebd-b681-1afd3b9781e0" download="ティザーサイト最終版.html" class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded text-white text-sm inline-flex items-center">
+                                <i class="fas fa-download mr-2"></i> 
+                                <span class="jp-content">ダウンロード</span>
+                                <span class="en-content">Download</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- File 3 -->
+                <div class="file-card rounded-lg overflow-hidden shadow-lg">
+                    <div class="p-6">
+                        <div class="flex items-start mb-4">
+                            <div class="bg-gray-800 p-2 rounded-lg mr-3">
+                                <i class="fas fa-file-code text-accent text-2xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">第一話 覚醒.html</h3>
+                                <p class="text-sm text-gray-400">HTML / 76.6 KB</p>
+                            </div>
+                        </div>
+                        <p class="mb-4 text-sm text-gray-300">
+                            <span class="jp-content">第一話「覚醒」の日本語版ストーリー。RYO-CHANが「氣」の力に目覚める物語。</span>
+                            <span class="en-content">Japanese version of Episode 1 "Awakening". The story of RYO-CHAN awakening to the power of "Ki".</span>
+                        </p>
+                        <div class="flex justify-between">
+                            <a href="https://page1.genspark.site/get_upload_url/a9097212b216d1b4ba0693a7a69a0f8c07c22626978f4c3f44d46f428dd8da6a/default/5da1e79c-32f4-426d-ab9f-4de0abb5cfea" target="_blank" class="btn-primary px-4 py-2 rounded text-white text-sm inline-flex items-center">
+                                <i class="fas fa-eye mr-2"></i> 
+                                <span class="jp-content">プレビュー</span>
+                                <span class="en-content">Preview</span>
+                            </a>
+                            <a href="https://page1.genspark.site/get_upload_url/a9097212b216d1b4ba0693a7a69a0f8c07c22626978f4c3f44d46f428dd8da6a/default/5da1e79c-32f4-426d-ab9f-4de0abb5cfea" download="第一話 覚醒.html" class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded text-white text-sm inline-flex items-center">
+                                <i class="fas fa-download mr-2"></i> 
+                                <span class="jp-content">ダウンロード</span>
+                                <span class="en-content">Download</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <p class="text-gray-400 mb-4">
+                    <span class="jp-content">これらのファイルは開発中のものです。マーケティングチームのみご利用ください。</span>
+                    <span class="en-content">These files are under development. For marketing team use only.</span>
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- マーケティングチャネル / Marketing Channels -->
+    <section class="content-section py-16 md:py-24">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">
+                <span class="gradient-text jp-content">マーケティングチャネル</span>
+                <span class="gradient-text en-content">Marketing Channels</span>
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-16">
+                <!-- YouTube Channel 1 -->
+                <div class="card p-6 rounded-xl">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-red-600 p-3 rounded-full mr-4">
+                            <i class="fab fa-youtube text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">Crypto Radio Web3</h3>
+                            <a href="https://www.youtube.com/@cryptoradioweb3" target="_blank" class="text-blue-400 hover:text-blue-300 text-sm">youtube.com/@cryptoradioweb3</a>
+                        </div>
+                    </div>
+                    <p class="mb-4">
+                        <span class="jp-content">ラジオ番組風のアプローチで、男女二名の掛け合いによってプロジェクトについて語るYouTubeチャンネル。カジュアルな雰囲気の中で、WEB3技術とRYOプロジェクトの関係性や可能性について紹介しています。</span>
+                        <span class="en-content">A YouTube channel that discusses the project through the interaction of two hosts (male and female) in a radio program style. It introduces the relationship and possibilities between WEB3 technology and the RYO project in a casual atmosphere.</span>
+                    </p>
+                    <div class="flex justify-center">
+                        <a href="https://www.youtube.com/@cryptoradioweb3" target="_blank" class="btn-primary px-5 py-2 rounded-full text-white inline-flex items-center">
+                            <i class="fab fa-youtube mr-2"></i> 
+                            <span class="jp-content">チャンネルを見る</span>
+                            <span class="en-content">Visit Channel</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- YouTube Channel 2 -->
+                <div class="card p-6 rounded-xl">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-red-600 p-3 rounded-full mr-4">
+                            <i class="fab fa-youtube text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">RYOCOIN LAB</h3>
+                            <a href="https://www.youtube.com/@RYOCOINLAB" target="_blank" class="text-blue-400 hover:text-blue-300 text-sm">youtube.com/@RYOCOINLAB</a>
+                        </div>
+                    </div>
+                    <p class="mb-4">
+<span class="jp-content">オカルト風の切り口でRYOプロジェクトを深掘りするYouTubeチャンネル。「氣」のエネルギーや日本の神秘的な伝統文化、精神世界とブロックチェーン技術の融合について探求しています。</span>
+                        <span class="en-content">A YouTube channel that delves into the RYO project from an occult-like perspective. It explores the energy of "Ki", Japan's mystical traditional culture, and the fusion of the spiritual world with blockchain technology.</span>
+                    </p>
+                    <div class="flex justify-center">
+                        <a href="https://www.youtube.com/@RYOCOINLAB" target="_blank" class="btn-primary px-5 py-2 rounded-full text-white inline-flex items-center">
+                            <i class="fab fa-youtube mr-2"></i> 
+                            <span class="jp-content">チャンネルを見る</span>
+                            <span class="en-content">Visit Channel</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- マーケティングロードマップ / Marketing Roadmap -->
+    <section class="content-section py-16 md:py-24 bg-gray-900 bg-opacity-60">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">
+                <span class="gradient-text jp-content">マーケティングロードマップ</span>
+                <span class="gradient-text en-content">Marketing Roadmap</span>
+            </h2>
+            
+            <div class="relative max-w-3xl mx-auto">
+                <div class="timeline-line"></div>
+                
+                <!-- Phase 1 -->
+                <div class="relative z-10 mb-12 md:ml-8 md:pl-8">
+                    <div class="flex items-start">
+                        <div class="absolute left-0 ml-[-16px] mt-1 bg-primary w-8 h-8 rounded-full flex items-center justify-center border-4 border-gray-900">
+                            <span class="text-xs font-bold">1</span>
+                        </div>
+                        <div class="card p-6 rounded-xl ml-6 md:ml-0">
+                            <h3 class="text-xl font-bold mb-2">
+                                <span class="jp-content">ティザーフェーズ（進行中）</span>
+                                <span class="en-content">Teaser Phase (In Progress)</span>
+                            </h3>
+                            <ul class="space-y-2 text-gray-300">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-400 mr-2 mt-1"></i>
+                                    <span class="jp-content">プロジェクト紹介ティザーサイトの公開</span>
+                                    <span class="en-content">Release of project introduction teaser site</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-400 mr-2 mt-1"></i>
+                                    <span class="jp-content">YouTube両チャンネルの立ち上げと初期コンテンツ制作</span>
+                                    <span class="en-content">Launch of both YouTube channels and initial content production</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-spinner text-blue-400 mr-2 mt-1 fa-spin"></i>
+                                    <span class="jp-content">「第一話：覚醒」のプロモーション展開</span>
+                                    <span class="en-content">Promotion expansion of "Episode 1: Awakening"</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Phase 2 -->
+                <div class="relative z-10 mb-12 md:mr-8 md:text-right">
+                    <div class="flex items-start md:flex-row-reverse">
+                        <div class="absolute left-0 ml-[-16px] mt-1 bg-secondary w-8 h-8 rounded-full flex items-center justify-center border-4 border-gray-900">
+                            <span class="text-xs font-bold">2</span>
+                        </div>
+                        <div class="card p-6 rounded-xl ml-6 md:ml-0 md:mr-6">
+                            <h3 class="text-xl font-bold mb-2">
+                                <span class="jp-content">ストーリー展開フェーズ（予定）</span>
+                                <span class="en-content">Story Development Phase (Planned)</span>
+                            </h3>
+                            <ul class="space-y-2 text-gray-300 md:text-right">
+                                <li class="flex items-start md:flex-row-reverse">
+                                    <i class="fas fa-clock text-yellow-400 mr-2 md:ml-2 md:mr-0 mt-1"></i>
+                                    <span class="jp-content">エピソード2-5の制作と公開</span>
+                                    <span class="en-content">Production and release of Episodes 2-5</span>
+                                </li>
+                                <li class="flex items-start md:flex-row-reverse">
+                                    <i class="fas fa-clock text-yellow-400 mr-2 md:ml-2 md:mr-0 mt-1"></i>
+                                    <span class="jp-content">キャラクターのデジタルアセット開発</span>
+                                    <span class="en-content">Development of character digital assets</span>
+                                </li>
+                                <li class="flex items-start md:flex-row-reverse">
+                                    <i class="fas fa-clock text-yellow-400 mr-2 md:ml-2 md:mr-0 mt-1"></i>
+                                    <span class="jp-content">コミュニティ参加型イベントの企画</span>
+                                    <span class="en-content">Planning of community participation events</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Phase 3 -->
+                <div class="relative z-10 md:ml-8 md:pl-8">
+                    <div class="flex items-start">
+                        <div class="absolute left-0 ml-[-16px] mt-1 bg-accent w-8 h-8 rounded-full flex items-center justify-center border-4 border-gray-900">
+                            <span class="text-xs font-bold">3</span>
+                        </div>
+                        <div class="card p-6 rounded-xl ml-6 md:ml-0">
+                            <h3 class="text-xl font-bold mb-2">
+                                <span class="jp-content">WEB3連携フェーズ（計画中）</span>
+                                <span class="en-content">WEB3 Integration Phase (Planning)</span>
+                            </h3>
+                            <ul class="space-y-2 text-gray-300">
+                                <li class="flex items-start">
+                                    <i class="fas fa-lightbulb text-gray-400 mr-2 mt-1"></i>
+                                    <span class="jp-content">NFTコレクションの立ち上げ</span>
+                                    <span class="en-content">Launch of NFT collection</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-lightbulb text-gray-400 mr-2 mt-1"></i>
+                                    <span class="jp-content">メタバース空間での「氣」体験デモ</span>
+                                    <span class="en-content">"Ki" experience demo in metaverse space</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-lightbulb text-gray-400 mr-2 mt-1"></i>
+                                    <span class="jp-content">日本の伝統文化とWEB3の融合イベント</span>
+                                    <span class="en-content">Fusion event of Japanese traditional culture and WEB3</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- チームコンタクト / Team Contact -->
+    <section class="content-section py-16 md:py-24">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12">
+                <span class="gradient-text jp-content">マーケティングチーム</span>
+                <span class="gradient-text en-content">Marketing Team</span>
+            </h2>
+            
+            <div class="card p-8 rounded-xl max-w-2xl mx-auto">
+                <div class="mb-6">
+                    <i class="fas fa-users text-4xl text-accent"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-2">JAPAN PRIDE "氣" Team</h3>
+                <p class="mb-6 text-gray-300">
+                    <span class="jp-content">私たちは伝統と革新が融合する未来を創造します</span>
+                    <span class="en-content">We create a future where tradition and innovation merge</span>
+                </p>
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div class="bg-gray-800 p-4 rounded">
+                        <h4 class="font-bold mb-1">
+                            <span class="jp-content">制作状況</span>
+                            <span class="en-content">Production Status</span>
+                        </h4>
+                        <p class="text-accent">
+                            <span class="jp-content">積極的に進行中</span>
+                            <span class="en-content">Actively in Progress</span>
+                        </p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded">
+                        <h4 class="font-bold mb-1">
+                            <span class="jp-content">次回アップデート</span>
+                            <span class="en-content">Next Update</span>
+                        </h4>
+                        <p class="text-accent">2023 Q4</p>
+                    </div>
+                </div>
+                <div class="flex justify-center space-x-4">
+                    <a href="mailto:contact@japanpride-ki.com" class="btn-primary px-6 py-3 rounded-lg font-medium text-white inline-flex items-center">
+                        <i class="fas fa-envelope mr-2"></i> 
+                        <span class="jp-content">お問い合わせ</span>
+                        <span class="en-content">Contact Us</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- フッター / Footer -->
+    <footer class="bg-gray-900 py-8 border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <img src="https://page1.genspark.site/v1/base64_upload/5502009156d90db793e188d90c48acca" alt="RYO-CHAN" class="h-10 mr-3">
+                    <div>
+                        <p class="font-bold">JAPAN PRIDE "氣"</p>
+                        <p class="text-xs text-gray-500">© 2023 All Rights Reserved</p>
+                    </div>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="https://www.youtube.com/@cryptoradioweb3" target="_blank" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-youtube text-xl"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@RYOCOINLAB" target="_blank" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-youtube text-xl"></i>
+                    </a>
+                    <a href="https://twitter.com/japanpride_ki" target="_blank" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="https://discord.gg/japanpride-ki" target="_blank" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-discord text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 修正版の言語切り替え関数
+        function toggleLanguage() {
+            const body = document.body;
+            const currentLang = body.getAttribute('lang');
+            console.log("Current language:", currentLang);
+            
+            if (currentLang === 'ja') {
+                body.setAttribute('lang', 'en');
+                console.log("Language switched to English");
+                document.querySelectorAll('.jp-content').forEach(el => {
+                    el.style.display = 'none';
+                });
+                document.querySelectorAll('.en-content').forEach(el => {
+                    el.style.display = 'block';
+                });
+            } else {
+                body.setAttribute('lang', 'ja');
+                console.log("Language switched to Japanese");
+                document.querySelectorAll('.en-content').forEach(el => {
+                    el.style.display = 'none';
+                });
+                document.querySelectorAll('.jp-content').forEach(el => {
+                    el.style.display = 'block';
+                });
+            }
+        }
+        
+        // ページ読み込み時に初期言語表示を設定
+        document.addEventListener('DOMContentLoaded', function() {
+            const body = document.body;
+            const currentLang = body.getAttribute('lang');
+            console.log("Initial language:", currentLang);
+            
+            // 初期表示を正しく設定
+            if (currentLang === 'en') {
+                document.querySelectorAll('.jp-content').forEach(el => {
+                    el.style.display = 'none';
+                });
+                document.querySelectorAll('.en-content').forEach(el => {
+                    el.style.display = 'block';
+                });
+            } else {
+                document.querySelectorAll('.en-content').forEach(el => {
+                    el.style.display = 'none';
+                });
+                document.querySelectorAll('.jp-content').forEach(el => {
+                    el.style.display = 'block';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
