@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAPAN PRIDE "氣" PRESENTS: THE ADVENTURES OF RYO-CHAN</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red-ki: #ff3b30;
+            --blue-ki: #0a84ff;
+            --gold-ki: #ffd700;
+            --accent-color: #f0f0f0;
+            --text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --transition-main: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        
+        /* Base Styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4, h5 {
+            font-family: 'Cinzel', 'Noto Sans JP', serif;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .text-gradient-red {
+            background: linear-gradient(to right, var(--red-ki), #ff8a80);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .text-gradient-blue {
+            background: linear-gradient(to right, var(--blue-ki), #80d8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .text-gradient-gold {
+            background: linear-gradient(to right, var(--gold-ki), #ffe082);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Header & Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            transition: var(--transition-main);
+            padding: 15px 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header.scrolled {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .lang-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-main);
+        }
+        
+        .lang-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            padding: 100px 20px;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+            z-index: -2;
+        }
+        
+        .hero-content {
+            position: relative;
+            text-align: center;
+            max-width: 1200px;
+        }
+        
+        .hero-title {
+            display: inline-block;
+            font-size: min(6vw, 4rem);
+            margin-bottom: 20px;
+            text-shadow: var(--text-shadow);
+            animation: fadeInUp 1.2s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .hero-subtitle {
+            font-size: min(4vw, 1.5rem);
+            margin-bottom: 30px;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1.2s ease-out 0.3s forwards;
+            opacity: 0;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1s forwards, bounce 2s ease-in-out 2s infinite;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 7vw;
+                width: 100%;
+                padding: 0 10px;
+            }
+            
+            .hero-subtitle {
+                font-size: 4.5vw;
+                width: 100%;
+                padding: 0 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 8vw;
+            }
+            
+            .hero-subtitle {
+                font-size: 5vw;
+            }
+        }
+        
+        /* Moon Phases Section */
+        .moon-phases {
+            position: relative;
+            padding: 100px 20px;
+            overflow: hidden;
+        }
+        
+        .moon-phase {
+            position: relative;
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: var(--transition-main);
+        }
+        
+        .moon-phase.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* 月の画像コンテナのスタイル修正 - 黒い丸い背景を除去 */
+        .moon-image {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            margin: 0 auto 20px;
+            transition: var(--transition-main);
+            /* border-radius: 50%; を削除 */
+            /* box-shadow を削除または調整 */
+            background-color: transparent; /* 背景を透明に設定 */
+        }
+        
+        .moon-image:hover {
+            transform: scale(1.05);
+        }
+        
+        /* 月の画像自体のスタイル */
+        .moon-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .phase-title {
+            margin-bottom: 15px;
+            font-size: 2.5rem;
+        }
+        
+        .phase-description {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        /* Three Colors of Ki */
+        .ki-colors {
+            position: relative;
+            padding: 100px 20px;
+            overflow: hidden;
+        }
+        
+        .ki-color {
+            position: relative;
+            margin-bottom: 100px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: var(--transition-main);
+        }
+        
+        .ki-color.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .ki-energy {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            margin-bottom: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .ki-energy-inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-position: center;
+            background-size: cover;
+            filter: brightness(0.85) contrast(1.2);
+            transition: var(--transition-main);
+        }
+        
+        .ki-energy:hover .ki-energy-inner {
+            transform: scale(1.05);
+            filter: brightness(1) contrast(1.3);
+        }
+        
+        .red-ki-energy {
+            background: radial-gradient(circle at center, var(--red-ki) 0%, transparent 70%), url('https://page1.genspark.site/v1/base64_upload/fe2d882b72eda88520471d261d6be8d2') center/cover;
+        }
+        
+        .blue-ki-energy {
+            background: radial-gradient(circle at center, var(--blue-ki) 0%, transparent 70%), url('https://page1.genspark.site/v1/base64_upload/713d2454294fd24fa4b040a51417d517') center/cover;
+        }
+        
+        .gold-ki-energy {
+            background: radial-gradient(circle at center, var(--gold-ki) 0%, transparent 70%), url('https://page1.genspark.site/v1/base64_upload/5a6c51ffc6c5ffb5c6a7de3b6fa23c4b') center/cover;
+        }
+        
+        .ki-title {
+            margin-bottom: 15px;
+            font-size: 2.5rem;
+        }
+        
+        .ki-description {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        /* Characters Section */
+        .characters {
+            position: relative;
+            padding: 100px 20px;
+            overflow: hidden;
+        }
+        
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 60px auto 0;
+        }
+        
+        .character-card {
+            position: relative;
+            aspect-ratio: 16/9;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            cursor: pointer;
+            transition: var(--transition-main);
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        
+        .character-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .character-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .character-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-main);
+        }
+        
+        .character-card:hover .character-image {
+            transform: scale(1.1);
+        }
+        
+        .character-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            transform: translateY(20%);
+            opacity: 0;
+            transition: var(--transition-main);
+        }
+        
+        .character-card:hover .character-info {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .character-name {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .character-role {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Spiritual Essence Section */
+        .spiritual-essence {
+            position: relative;
+            padding: 100px 20px;
+            overflow: hidden;
+        }
+        
+        .essence-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .essence-image {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto 40px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .essence-image img {
+            width: 100%;
+            height: auto;
+            transition: var(--transition-main);
+        }
+        
+        .essence-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .essence-text {
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: var(--transition-main);
+        }
+        
+        .essence-text.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .essence-quote {
+            font-size: 1.8rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .essence-explanation {
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        /* Mystery Section */
+        .mystery {
+            position: relative;
+            padding: 100px 20px;
+            overflow: hidden;
+        }
+        
+        .mystery-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .mystery-image {
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .mystery-image img {
+            width: 100%;
+            height: auto;
+            transition: var(--transition-main);
+        }
+        
+        .mystery-text {
+            position: relative;
+            text-align: center;
+            max-width: 800px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: var(--transition-main);
+        }
+        
+        .mystery-text.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .mystery-quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--red-ki);
+            line-height: 1.5;
+        }
+        
+        /* Footer */
+        .footer {
+            position: relative;
+            padding: 100px 20px 50px;
+            background-color: rgba(0, 0, 0, 0.9);
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .footer-copyright {
+            margin-top: 50px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Cherry Blossom Animation */
+        .petals-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+            overflow: hidden;
+        }
+        
+        .petal {
+            position: absolute;
+            background-color: rgba(255, 183, 197, 0.8);
+            border-radius: 150% 0 150% 0;
+            box-shadow: 0 0 5px rgba(255, 183, 197, 0.5);
+            will-change: transform;
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-20px); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+        
+        .float-animation {
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .pulse-animation {
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        /* Responsive Design Adjustments */
+        @media (max-width: 1024px) {
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .phase-title, .ki-title {
+                font-size: 2rem;
+            }
+            
+            .essence-quote, .mystery-quote {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .phase-title, .ki-title {
+                font-size: 1.8rem;
+            }
+            
+            .essence-quote, .mystery-quote {
+                font-size: 1.3rem;
+            }
+            
+            .character-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .phase-title, .ki-title {
+                font-size: 1.5rem;
+            }
+            
+            .essence-quote, .mystery-quote {
+                font-size: 1.2rem;
+            }
+            
+            .character-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Section Title General Styles */
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: var(--transition-main);
+        }
+        
+        .section-title.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: currentColor;
+        }
+        
+        /* Helper Classes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<!-- Header Navigation -->
+    <header class="header">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="logo text-white text-xl font-bold">
+                <span class="text-gradient-red">JAPAN PRIDE</span> <span class="text-gradient-gold">"氣"</span>
+            </div>
+            <div class="lang-toggle" id="lang-toggle">EN</div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="https://page1.genspark.site/v1/base64_upload/08d63f3114b78d97b0e4007a48bd4d87" alt="Red Moon" class="hero-bg">
+        <div class="hero-content">
+            <h1 class="hero-title" data-lang-ja="JAPAN PRIDE &quot;氣&quot; PRESENTS: &quot;THE ADVENTURES OF RYO-CHAN&quot;" data-lang-en="JAPAN PRIDE &quot;氣&quot; PRESENTS: &quot;THE ADVENTURES OF RYO-CHAN&quot;">
+                JAPAN PRIDE "氣" PRESENTS: "THE ADVENTURES OF RYO-CHAN"
+            </h1>
+            <h2 class="hero-subtitle" data-lang-ja="失われた「氣」の力を取り戻し、真の本質を探求する冒険" data-lang-en="A quest to reclaim the lost power of &quot;Ki&quot; and explore the true essence">
+                失われた「氣」の力を取り戻し、真の本質を探求する冒険
+            </h2>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down text-white text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- Moon Phases Section -->
+    <section class="moon-phases">
+        <div class="container">
+            <h2 class="section-title text-gradient-blue" data-lang-ja="月の満ち欠けと「氣」の流れ" data-lang-en="Moon Phases and the Flow of &quot;Ki&quot;">
+                月の満ち欠けと「氣」の流れ
+            </h2>
+            
+            <!-- Red Full Moon Phase -->
+            <div class="moon-phase">
+                <div class="flex flex-col md:flex-row items-center md:space-x-10">
+                    <div class="w-full md:w-1/3 mb-8 md:mb-0">
+                        <div class="moon-image float-animation">
+                            <img src="https://i.ibb.co/zTFqt9ky/IMG-5574.png" alt="Red Full Moon" class="w-full h-auto">
+                        </div>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <h3 class="phase-title text-gradient-red" data-lang-ja="赤い満月 - 危険と忠告" data-lang-en="Red Full Moon - Danger and Warning">赤い満月 - 危険と忠告</h3>
+                        <p class="phase-description" data-lang-ja="赤い満月は古来より凶兆とされてきた。血のように赤い月が現れると、それは「氣」の均衡が崩れ、悪意ある力が活性化する時。RYO-CHANはこの赤い月の夜に、異常な「氣」の流れを感じ取る能力が高まる。この現象は科学的には「地球の大気中の塵や光の屈折」で説明されるが、実は「氣」の世界では、月が地球のエネルギー場に与える影響の視覚的な現れである。" data-lang-en="The red full moon has been considered an omen of danger since ancient times. When the blood-red moon appears, it signals that the balance of 'Ki' has been disrupted and malevolent forces are activating. RYO-CHAN's ability to sense abnormal 'Ki' flows is heightened on these red moon nights. While scientifically explained as 'dust in Earth's atmosphere and light refraction,' in the world of 'Ki,' it is a visual manifestation of the moon's influence on Earth's energy field.">
+                            赤い満月は古来より凶兆とされてきた。血のように赤い月が現れると、それは「氣」の均衡が崩れ、悪意ある力が活性化する時。RYO-CHANはこの赤い満月の夜に、異常な「氣」の流れを感じ取る能力が高まる。この現象は科学的には「地球の大気中の塵や光の屈折」で説明されるが、実は「氣」の世界では、月が地球のエネルギー場に与える影響の視覚的な現れである。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Blue Moon Phase -->
+            <div class="moon-phase">
+                <div class="flex flex-col md:flex-row-reverse items-center md:space-x-reverse md:space-x-10">
+                    <div class="w-full md:w-1/3 mb-8 md:mb-0">
+                        <div class="moon-image float-animation">
+                            <img src="https://i.ibb.co/6R1Gjjsq/c638fb3f-5641-49e8-a71b-c85cb90515e6.png" alt="Blue Full Moon" class="w-full h-auto">
+                        </div>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <h3 class="phase-title text-gradient-blue" data-lang-ja="青い満月 - 調和と知恵" data-lang-en="Blue Full Moon - Harmony and Wisdom">青い満月 - 調和と知恵</h3>
+                        <p class="phase-description" data-lang-ja="青い月は稀にしか現れない特別な月相で、「知恵の月」とも呼ばれる。この時期には「氣」の浄化力が高まり、心身の調和をもたらす。伝説によれば、青い満月が現れる夜に神社で祈りを捧げると、守護精霊が現れ導きを与えるという。科学的には存在しない「青い満月」だが、「氣」の世界では青い月は物理的な月ではなく、精神の領域で輝く特別な状態を意味している。" data-lang-en="The blue moon is a rare lunar phase, also called the 'Moon of Wisdom.' During this time, the purifying power of 'Ki' intensifies, bringing harmony to mind and body. Legend has it that if you pray at a shrine on the night of the blue moon, guardian spirits will appear and provide guidance. While scientifically, a 'blue moon' doesn't literally exist, in the world of 'Ki,' the blue moon represents not a physical moon but a special state that shines in the realm of the spirit.">
+                            青い月は稀にしか現れない特別な月相で、「知恵の月」とも呼ばれる。この時期には「氣」の浄化力が高まり、心身の調和をもたらす。伝説によれば、青い月が現れる夜に神社で祈りを捧げると、守護精霊が現れ導きを与えるという。科学的には存在しない「青い月」だが、「氣」の世界では青い月は物理的な月ではなく、精神の領域で輝く特別な状態を意味している。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Red Crescent Moon Phase -->
+            <div class="moon-phase">
+                <div class="flex flex-col md:flex-row items-center md:space-x-10">
+                    <div class="w-full md:w-1/3 mb-8 md:mb-0">
+                        <div class="moon-image float-animation">
+                            <img src="https://i.ibb.co/fzxhCqx5/IMG-5575.png" alt="Red Crescent Moon" class="w-full h-auto">
+                        </div>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <h3 class="phase-title text-gradient-red" data-lang-ja="赤い三日月 - 変化と始まりと予感" data-lang-en="Red Crescent Moon - Change Beginnings and Premonition">三日月 - 変化と始まりと予感</h3>
+                        <p class="phase-description" data-lang-ja="三日月は新しい始まりと変化の象徴。この形の月が現れる時、世界は変革のエネルギーに満たされる。三日月の形は「陰と陽」の境界、「見えるもの」と「見えないもの」の狭間を表す。赤と青の三日月が同時に空に現れる言い伝えがある。この現象は「二月同輝」と呼ばれ…。" data-lang-en="The crescent moon is a symbol of new beginnings and transformation. When this shape appears in the sky, the world is filled with the energy of change. The crescent represents the boundary between yin and yang, and the threshold between what is seen and unseen. In RYO-CHAN’s world, both the red and blue crescent moons may appear, each strengthening the power of the red ki and the blue ki. There is a legend that, on rare occasions, the red and blue crescents appear together in the sky. This phenomenon is called "Nigetudouki"...">
+                            三日月は新しい始まりと変化の象徴。この形の月が現れる時、世界は変革のエネルギーに満たされる。三日月の形は「陰と陽」の境界、「見えるもの」と「見えないもの」の狭間を表す。RYO-CHANの世界では、赤い三日月と青い三日月が現れ、それぞれが「赤い氣」と「青い氣」の力を強める。特に神秘的な「金色の氣」は、赤と青の三日月が同時に空に現れる稀な瞬間にのみ顕現するとされる。この現象は「二月同輝」と呼ばれ…。
+                        </p>
+                    </div>
+                </div>
+            </div>
+           <!-- Blue Crescent moon Phase -->
+            <div class="moon-phase">
+                <div class="flex flex-col md:flex-row-reverse items-center md:space-x-reverse md:space-x-10">
+                    <div class="w-full md:w-1/3 mb-8 md:mb-0">
+                        <div class="moon-image float-animation">
+                            <img src="https://i.ibb.co/Wv6cKC5h/Chat-GPT-Image-2025-5-12-11-45-16.png" alt="Blue Cresent Moon" class="w-full h-auto">
+                        </div>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <h3 class="phase-title text-gradient-blue" data-lang-ja="青い三日月 ― 静寂なる啓示と約束の月" data-lang-en="Blue Crescent Moon — Silent Revelation and Sacred Vows">青い三日月 ― 静寂なる啓示と約束の月</h3>
+                        <p class="phase-description" data-lang-ja="赤い三日月が激しい変化や情熱、現実の「陽」を表すのに対し、青い三日月は内省、直感、精神世界の調和を象徴する。夜空に青い弧がかかるとき、「氣」の流れは外向きの動きから内側へと静かに転ずる。
+
+青い三日月の下で交わされた約束や誓いは、表立つものよりも心の奥底や精神世界で深く結びつき、長きにわたり守られると信じられてきた。
+
+青い三日月は、見えるものと見えないもの、語られることと沈黙のあいだ、そして過去と未来の境界にそっと輝く、静けさのなかの啓示と約束の月である。" data-lang-en="While the red crescent moon represents intense change, passion, and the “yang” of reality, the blue crescent stands for introspection, intuition, and the harmony of the spiritual realm. When a blue arc graces the night sky, the flow of “ki” quietly shifts from outward movement to an inner stillness.
+
+Promises and vows exchanged beneath the blue crescent moon are believed to be bound not just on the surface, but deep within the heart and the spiritual world, enduring across time.">
+                       赤い三日月が激しい変化や情熱、現実の「陽」を表すのに対し、青い三日月は内省、直感、精神世界の調和を象徴する。夜空に青い弧がかかるとき、「氣」の流れは外向きの動きから内側へと静かに転ずる。
+青い三日月の下で交わされた約束や誓いは、表立つものよりも心の奥底や精神世界で深く結びつき、長きにわたり守られると信じられてきた。
+青い三日月は、見えるものと見えないもの、語られることと沈黙のあいだ、そして過去と未来の境界にそっと輝く、静けさのなかの啓示と約束の月である。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+    <!-- Three Colors of Ki -->
+    <section class="ki-colors">
+        <div class="container">
+            <h2 class="section-title text-gradient-gold" data-lang-ja="三色の「氣」の秘密" data-lang-en="The Secret of the Three Colors of &quot;Ki&quot;">
+                三色の「氣」の秘密
+            </h2>
+            
+            <!-- Red Ki -->
+            <div class="ki-color">
+                <div class="ki-energy">
+                    <div class="ki-energy-inner red-ki-energy pulse-animation"></div>
+                </div>
+                <h3 class="ki-title text-gradient-red" data-lang-ja="赤い氣 - 悪意・詐欺・欺瞞" data-lang-en="Red Ki - Malice, Deception, Fraud">赤い氣 - 悪意・詐欺・欺瞞</h3>
+                <p class="ki-description" data-lang-ja="赤い氣は否定的なエネルギーの形態で、詐欺師やサイバー犯罪者から発せられる波動です。この氣は渦を巻き、脈動し、不安定な動きをする特徴があります。戦後の近代化と共に力を増し、特にデジタル空間において強力に拡散します。RYOSCANはこの赤い氣を検出することに特化し、危険なスマートコントラクトやブロックチェーン上の詐欺から人々を守ります。この氣に触れると、心に不安や疑念、恐怖を生じさせる危険な力です。" data-lang-en="Red Ki is a form of negative energy, a wave emitted by fraudsters and cybercriminals. This Ki is characterized by swirling, pulsating, and unstable movements. It has grown stronger with post-war modernization and spreads powerfully, especially in digital spaces. RYOSCAN specializes in detecting this red Ki, protecting people from dangerous smart contracts and blockchain fraud. It is a dangerous force that creates anxiety, doubt, and fear in the heart when touched.">
+                    赤い氣は否定的なエネルギーの形態で、詐欺師やサイバー犯罪者から発せられる波動です。この氣は渦を巻き、脈動し、不安定な動きをする特徴があります。戦後の近代化と共に力を増し、特にデジタル空間において強力に拡散します。RYOSCANはこの赤い氣を検出することに特化し、危険なスマートコントラクトやブロックチェーン上の詐欺から人々を守ります。この氣に触れると、心に不安や疑念、恐怖を生じさせる危険な力です。
+                </p>
+            </div>
+            
+            <!-- Blue Ki -->
+            <div class="ki-color">
+                <div class="ki-energy">
+                    <div class="ki-energy-inner blue-ki-energy pulse-animation"></div>
+                </div>
+                <h3 class="ki-title text-gradient-blue" data-lang-ja="青い氣 - 善意・誠実・信頼" data-lang-en="Blue Ki - Goodwill, Sincerity, Trust">青い氣 - 善意・誠実・信頼</h3>
+                <p class="ki-description" data-lang-ja="青い氣は善なるエネルギーの形態で、誠実な人々や正直な取引から生まれる波動です。この氣は穏やかに流れ、安定した動きをする特徴があります。古来より日本人の精神性に深く根ざしていましたが、戦後の価値観の変化と共に徐々に弱まってきました。RYO-CHANとその仲間たちはこの青い氣を強め、詐欺に対する防御力として機能させます。青い氣に触れると心に安らぎと信頼感をもたらし、正しい判断へと導く力となります。" data-lang-en="Blue Ki is a form of benevolent energy, a wave born from sincere people and honest transactions. This Ki is characterized by its gentle flow and stable movement. It has been deeply rooted in the Japanese spirituality since ancient times but has gradually weakened with the changing values after the war. RYO-CHAN and his companions strengthen this blue Ki and make it function as a defense against fraud. When touched by blue Ki, it brings peace and trust to the heart, becoming a force that guides correct judgment.">
+                    青い氣は善なるエネルギーの形態で、誠実な人々や正直な取引から生まれる波動です。この氣は穏やかに流れ、安定した動きをする特徴があります。古来より日本人の精神性に深く根ざしていましたが、戦後の価値観の変化と共に徐々に弱まってきました。RYO-CHANとその仲間たちはこの青い氣を強め、詐欺に対する防御力として機能させます。青い氣に触れると心に安らぎと信頼感をもたらし、正しい判断へと導く力となります。
+                </p>
+            </div>
+            
+            <!-- Gold Ki -->
+            <div class="ki-color">
+                <div class="ki-energy">
+                    <div class="ki-energy-inner gold-ki-energy pulse-animation"></div>
+                </div>
+                <h3 class="ki-title text-gradient-gold" data-lang-ja="金色の氣 - 伝統・智慧・調和" data-lang-en="Golden Ki - Tradition, Wisdom, Harmony">金色の氣 - 伝統・智慧・調和</h3>
+                <p class="ki-description" data-lang-ja="金色の氣は最も高次元のエネルギー形態で、日本の伝統的価値観と精神性の象徴です。この氣は上昇する粒子のように輝き、星屑のような動きをする特徴があります。通常は目に見えませんが、特別な状況下で「青い氣」が進化・昇華した姿として現れます。特に古来からの伝統を守り続ける場所、日本の美意識が結晶化した瞬間、あるいは現代に生きる日本精神の中に宿ります。金色の氣は単なる詐欺対策を超えた、より深い智慧と調和の力をもたらし、対立を超えた「第三の道」を示す創造的な解決策を導きます。" data-lang-en="Golden Ki is the highest dimensional form of energy, symbolizing Japanese traditional values and spirituality. This Ki shines like rising particles, characterized by movements like stardust. Usually invisible, it appears as an evolved and sublimated form of 'Blue Ki' under special circumstances. It dwells especially in places that preserve ancient traditions, in moments where Japanese aesthetics crystallize, or within the Japanese spirit living in modern times. Golden Ki brings deeper wisdom and harmony beyond mere fraud prevention, leading to creative solutions that show a 'third path' beyond conflict.">
+                    金色の氣は最も高次元のエネルギー形態で、日本の伝統的価値観と精神性の象徴です。この氣は上昇する粒子のように輝き、星屑のような動きをする特徴があります。通常は目に見えませんが、特別な状況下で「青い氣」が進化・昇華した姿として現れます。特に古来からの伝統を守り続ける場所、日本の美意識が結晶化した瞬間、あるいは現代に生きる日本精神の中に宿ります。金色の氣は単なる詐欺対策を超えた、より深い智慧と調和の力をもたらし、対立を超えた「第三の道」を示す創造的な解決策を導きます。
+                </p>
+            </div>
+        </div>
+    </section>
+
+<!-- Characters Section -->
+    <section class="characters">
+        <div class="container">
+            <h2 class="section-title text-white" data-lang-ja="氣の守護者たち" data-lang-en="The Guardians of Ki">
+                氣の守護者たち
+            </h2>
+            
+            <div class="character-grid">
+                <!-- RYO-CHAN -->
+                <div class="character-card">
+                    <img src="https://page1.genspark.site/v1/base64_upload/2eda2d24ac148c2e5d92adeec2b8e1fc" alt="RYO-CHAN" class="character-image">
+                    <div class="character-info">
+                        <h3 class="character-name" data-lang-ja="RYO-CHAN" data-lang-en="RYO-CHAN">RYO-CHAN</h3>
+                        <p class="character-role" data-lang-ja="「氣」を見る犬" data-lang-en="The Dog who Sees 'Ki'">「氣」を見る犬</p>
+                    </div>
+                </div>
+                
+                <!-- Temple Guardian -->
+                <div class="character-card">
+                    <img src="https://page1.genspark.site/v1/base64_upload/5a6c51ffc6c5ffb5c6a7de3b6fa23c4b" alt="Temple Guardian" class="character-image">
+                    <div class="character-info">
+                        <h3 class="character-name" data-lang-ja="神社の守り人" data-lang-en="Temple Guardian">神社の守り人</h3>
+                        <p class="character-role" data-lang-ja="古の知恵の伝承者" data-lang-en="Custodian of Ancient Wisdom">古の知恵の伝承者</p>
+                    </div>
+                </div>
+                
+                <!-- Sakura -->
+                <div class="character-card">
+                    <img src="https://page1.genspark.site/v1/base64_upload/96442d6ff06682da208e9d06c7412daa" alt="Sakura" class="character-image">
+                    <div class="character-info">
+                        <h3 class="character-name" data-lang-ja="サクラ" data-lang-en="Sakura">サクラ</h3>
+                        <p class="character-role" data-lang-ja="現代と伝統の架け橋" data-lang-en="Bridge Between Modern and Traditional">現代と伝統の架け橋</p>
+                    </div>
+                </div>
+                
+                <!-- Mysterious Hacker -->
+                <div class="character-card">
+                    <img src="https://page1.genspark.site/v1/base64_upload/86ba672a2bd368143492c8e2a97e788a" alt="Mysterious Hacker" class="character-image">
+                    <div class="character-info">
+                        <h3 class="character-name" data-lang-ja="謎のハッカー" data-lang-en="Mysterious Hacker">謎のハッカー</h3>
+                        <p class="character-role" data-lang-ja="デジタル世界の操り手" data-lang-en="Master of the Digital World">デジタル世界の操り手</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Spiritual Essence Section -->
+    <section class="spiritual-essence">
+        <div class="container">
+            <h2 class="section-title text-gradient-gold" data-lang-ja="「氣」の本質 - 精神性の探究" data-lang-en="The Essence of 'Ki' - Spiritual Exploration">
+                「氣」の本質 - 精神性の探究
+            </h2>
+            
+            <div class="essence-container">
+                <div class="essence-image">
+                    <img src="https://page1.genspark.site/v1/base64_upload/d6cdedad4a26f59fb569534748e143af" alt="Ki Energy Flow" class="w-full">
+                </div>
+                
+                <div class="essence-text">
+                    <p class="essence-quote" data-lang-ja="「氣の流れが正しければ、すべては正しい場所に落ち着く」- 古代日本の知恵" data-lang-en="'When the Ki flows properly, everything falls into place.' - Ancient Japanese Wisdom">
+                        「氣の流れが正しければ、すべては正しい場所に落ち着く」- 古代日本の知恵
+                    </p>
+                    
+  <p class="essence-explanation" data-lang-ja="「氣」は単なるエネルギーではなく、宇宙の根源的な生命力です。漢字「氣」は「米」（地の恵み）と「气」（空気/エネルギー）から成り、「地から立ち昇る生命エネルギー」を視覚的に表現しています。この概念は日本文化の基盤となり、武道、医学、芸術、日常生活に浸透しています。" data-lang-en="'Ki' is not just energy, but the fundamental life force of the universe. The kanji '氣' is composed of '米' (earth's bounty) and '气' (air/energy), visually representing 'life energy rising from the earth.' This concept forms the foundation of Japanese culture, permeating martial arts, medicine, arts, and daily life.">
+    「氣」は単なるエネルギーではなく、宇宙の根源的な生命力です。漢字「氣」は「米」（地の恵み）と「气」（空気/エネルギー）から成り、「地から立ち昇る生命エネルギー」を視覚的に表現しています。この概念は日本文化の基盤となり、武道、医学、芸術、日常生活に浸透しています。
+</p>
+
+<p class="essence-explanation mt-4" data-lang-ja="戦後の言語改革で「氣」は簡略化され「気」となりました。表面的には「教育効率化」のためとされましたが、実は日本の伝統的な精神文化を弱体化させる意図があったと多くの人が考えています。「氣」から「米」の要素を取り除くことで、「地とのつながり」や「生命力の源」という本質的な意味が希薄化されました。これは単なる表記の変更ではなく、日本人のスピリチュアルなアイデンティティへの介入でした。" data-lang-en="During the post-war language reforms, '氣' was simplified to '気.' While officially done for 'educational efficiency,' many believe there was an intention to weaken Japan's traditional spiritual culture. By removing the '米' element from '氣,' the essential meaning of 'connection to the earth' and 'source of life force' was diminished. This was not merely a change in notation but an intervention into the Japanese spiritual identity.">
+    戦後の言語改革で「氣」は簡略化され「気」となりました。表面的には「教育効率化」のためとされましたが、実は日本の伝統的な精神文化を弱体化させる意図があったと多くの人が考えています。「氣」から「米」の要素を取り除くことで、「地とのつながり」や「生命力の源」という本質的な意味が希薄化されました。これは単なる表記の変更ではなく、日本人のスピリチュアルなアイデンティティへの介入でした。
+</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mystery Section -->
+    <section class="mystery">
+        <div class="mystery-container">
+            <div class="mystery-image">
+                <img src="https://page1.genspark.site/v1/base64_upload/fed748c8fc58fbd27b9b4ba9edeac2cc" alt="Mysterious Figure" class="w-full">
+            </div>
+            
+            <div class="mystery-text">
+                <p class="mystery-quote" data-lang-ja="「面白い…。戦後70年以上かけて弱体化してきた日本の『氣』が、一匹の犬によって復活しようとしているとはな…」- ???" data-lang-en="'Interesting... to think that Japan's 'Ki' which has been weakened over 70 years since the war, is about to be revived by a single dog...' - ???">
+                    「面白い…。戦後70年以上かけて弱体化してきた日本の『氣』が、一匹の犬によって復活しようとしているとはな…」- ???
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo text-gradient-gold">
+                JAPAN PRIDE "氣"
+            </div>
+            <div class="footer-copyright" data-lang-ja="© 2025 JAPAN PRIDE. All Rights Reserved." data-lang-en="© 2025 JAPAN PRIDE. All Rights Reserved.">
+                © 2025 JAPAN PRIDE. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cherry Blossom Container -->
+    <div class="petals-container" id="petals-container"></div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize cherry blossoms
+            initializeCherryBlossoms();
+            
+            // Scroll detection for header
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('.header');
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+                
+                // Check elements in viewport
+                checkElementsInViewport();
+            });
+            
+            // Language switcher
+            const langToggle = document.getElementById('lang-toggle');
+            langToggle.addEventListener('click', function() {
+                const html = document.documentElement;
+                const currentLang = html.getAttribute('lang') || 'ja';
+                const newLang = currentLang === 'ja' ? 'en' : 'ja';
+                
+                html.setAttribute('lang', newLang);
+                langToggle.textContent = newLang === 'ja' ? 'EN' : 'JP';
+                
+                // Update all translatable elements
+                document.querySelectorAll('[data-lang-ja][data-lang-en]').forEach(el => {
+                    const text = el.getAttribute(`data-lang-${newLang}`);
+                    el.textContent = text;
+                });
+            });
+            
+            // Initial check for elements in viewport
+            checkElementsInViewport();
+        });
+        
+        // Initialize Cherry Blossoms
+        function initializeCherryBlossoms() {
+            const container = document.getElementById('petals-container');
+            const petalCount = 15;
+            const petals = [];
+            
+            for (let i = 0; i < petalCount; i++) {
+                // Create petal element
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                
+                // Randomize size
+                const size = Math.random() * 10 + 8;
+                petal.style.width = `${size}px`;
+                petal.style.height = `${size * 0.6}px`;
+                petal.style.opacity = Math.random() * 0.6 + 0.4;
+                
+                // Initial position (always from top of screen)
+                const x = Math.random() * window.innerWidth;
+                const y = -size; // Start above the screen
+                
+                // Add to DOM
+                container.appendChild(petal);
+                
+                // Track in array
+                petals.push({
+                    element: petal,
+                    x: x,
+                    y: y,
+                    size: size,
+                    vx: Math.random() * 2 - 1,
+                    vy: Math.random() * 2 + 1,
+                    rotation: Math.random() * 360,
+                    rotationSpeed: (Math.random() * 2 - 1) * 2
+                });
+            }
+            
+            // Animation frame control
+            let lastTime = 0;
+            const fps = 30;
+            const interval = 1000 / fps;
+            
+            // Animation loop
+            function animate(currentTime) {
+                // Control frame rate
+                if (currentTime - lastTime < interval) {
+                    requestAnimationFrame(animate);
+                    return;
+                }
+                lastTime = currentTime;
+                
+                // Update petal positions
+                const updates = [];
+                
+                petals.forEach(petal => {
+                    // Update position and rotation
+                    petal.y += petal.vy;
+                    petal.x += petal.vx + Math.sin(petal.y * 0.01) * 0.5;
+                    petal.rotation += petal.rotationSpeed;
+                    
+                    // Reset when offscreen
+                    if (petal.y > window.innerHeight) {
+                        petal.y = -petal.size;
+                        petal.x = Math.random() * window.innerWidth;
+                    }
+                    
+                    // Collect updates
+                    updates.push({
+                        element: petal.element,
+                        transform: `translate3d(${petal.x}px, ${petal.y}px, 0) rotate(${petal.rotation}deg)`
+                    });
+                });
+                
+                // Apply updates in a batch for better performance
+                requestAnimationFrame(() => {
+                    updates.forEach(update => {
+                        update.element.style.transform = update.transform;
+                    });
+                });
+                
+                // Continue animation loop
+                requestAnimationFrame(animate);
+            }
+            
+            // Start animation
+            requestAnimationFrame(animate);
+        }
+        
+        // Check elements in viewport for animations
+        function checkElementsInViewport() {
+            const elements = document.querySelectorAll('.section-title, .moon-phase, .ki-color, .character-card, .essence-text, .mystery-text');
+            
+            elements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+                
+                // If element is in viewport
+                if (rect.top <= windowHeight * 0.85) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
