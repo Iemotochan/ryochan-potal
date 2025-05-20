@@ -44,23 +44,38 @@
             align-items: center;
         }
 
-        /* 背景スタイル */
+        /* 背景動画スタイル */
         .background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
             transition: opacity var(--transition-speed) ease-in-out;
             opacity: 0;
             z-index: 1;
         }
 
+        .background video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .background.active {
             opacity: 1;
+        }
+
+        .background img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         /* 縦書きテキストコンテナスタイル */
@@ -413,17 +428,6 @@
             border-radius: 3px;
         }
 
-        /* 装飾要素 */
-        .petal {
-            position: absolute;
-            width: 15px;
-            height: 10px;
-            background-color: rgba(255, 183, 197, 0.7);
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            pointer-events: none;
-            z-index: 3;
-        }
-
         /* データリセットボタン */
         .reset-button {
             margin-top: 10px;
@@ -489,19 +493,45 @@
     
     <!-- メインノベルコンテナ -->
     <div class="novel-container" id="novelContainer">
-        <!-- 背景画像 -->
-        <div class="background" id="bg1" style="background-image: url('https://iemotochan.github.io/ryochan-potal/image/backvideo1.gif');"></div>
-        <div class="background" id="bg2" style="background-image: url('https://page1.genspark.site/v1/base64_upload/1ffcf0c9393f7b45822cdc074b8fa9b4');"></div>
-        <div class="background" id="bg3" style="background-image: url('https://page1.genspark.site/v1/base64_upload/1c74c3c852608027848d9ff24af17863');"></div>
-        <div class="background" id="bg4" style="background-image: url('https://page1.genspark.site/v1/base64_upload/79b9f817e9c9a1cac6a230a4fccd2d4c');"></div>
-        <div class="background" id="bg5" style="background-image: url('https://page1.genspark.site/v1/base64_upload/ee1c4ff3ca59d3ccc5c2df8138a3fc5c');"></div>
-        <div class="background" id="bg6" style="background-image: url('https://page1.genspark.site/v1/base64_upload/ec2fe0faf0cb257067a7e6cd8fedf1b8');"></div>
-        <div class="background" id="bg7" style="background-image: url('https://page1.genspark.site/v1/base64_upload/f993705b8beece06962fc5a32905ba35');"></div>
-        <div class="background" id="bg8" style="background-image: url('https://page1.genspark.site/v1/base64_upload/c8c6ce27bbf15dacc44bc8b41aa96d97');"></div>
-        <div class="background" id="bg9" style="background-image: url('https://page1.genspark.site/v1/base64_upload/d6cdedad4a26f59fb569534748e143af');"></div>
-        <div class="background" id="bg10" style="background-image: url('https://page1.genspark.site/v1/base64_upload/5502009156d90db793e188d90c48acca');"></div>
-        <div class="background" id="bg11" style="background-image: url('https://page1.genspark.site/v1/base64_upload/66ae7b6b7a1708f1b4976659c392fd2f');"></div>
-        <div class="background" id="bg12" style="background-image: url('https://iemotochan.github.io/ryochan-potal/image/bg12.png');"></div>
+        <!-- 背景動画と画像 -->
+        <div class="background" id="bg1">
+            <video autoplay loop muted playsinline webkit-playsinline>
+                <source src="https://iemotochan.github.io/ryochan-potal/image/backvideo1.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="background" id="bg2">
+            <img src="https://iemotochan.github.io/ryochan-potal/image/backvideo2.mp4" alt="Background 2">
+        </div>
+        <div class="background" id="bg3">
+            <img src="https://iemotochan.github.io/ryochan-potal/image/backvideo3.mp4" alt="Background 3">
+        </div>
+        <div class="background" id="bg4">
+            <img src="https://iemotochan.github.io/ryochan-potal/image/backvideo4.mp4" alt="Background 4">
+        </div>
+        <div class="background" id="bg5">
+            <img src="https://iemotochan.github.io/ryochan-potal/image/backvideo5.mp4" alt="Background 5">
+        </div>
+        <div class="background" id="bg6">
+            <img src="https://iemotochan.github.io/ryochan-potal/image/backvideo6.mp4" alt="Background 6">
+        </div>
+        <div class="background" id="bg7">
+            <img src="https://iemotochan.github.io/ryochan-potal/image/backvideo7.mp4" alt="Background 7">
+        </div>
+        <div class="background" id="bg8">
+            <img src="https://iemotochan.github.io/ryochan-potal/image/backvideo8.mp4" alt="Background 8">
+        </div>
+        <div class="background" id="bg9">
+            <img src="https://iemotochan.github.io/ryochan-potal/image/backvideo9.mp4" alt="Background 9">
+        </div>
+        <div class="background" id="bg10">
+            <img src="https://iemotochan.github.io/ryochan-potal/image/backvideo10.mp4" alt="Background 10">
+        </div>
+        <div class="background" id="bg11">
+            <img src="https://iemotochan.github.io/ryochan-potal/image/backvideo11.mp4" alt="Background 11">
+        </div>
+        <div class="background" id="bg12">
+            <img src="https://iemotochan.github.io/ryochan-potal/image/backvideo12.mp4" alt="Background 12">
+        </div>
         
         <!-- テキスト表示領域 -->
         <div class="text-container" id="textContainer">
@@ -712,101 +742,6 @@
 
         ];
 
-        //==================================================
-        // 桜の花びらモジュール
-        //==================================================
- const cherryblossom = {
-  petals: [],
-  isActive: true,
-  
-  init: function() {
-    // 花びらのコンテナを作成（重要な最適化）
-    const container = document.createElement('div');
-    container.className = 'petals-container';
-    container.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:3; overflow:hidden;';
-    document.body.appendChild(container);
-    
-    this.container = container;
-    this.createPetals();
-    
-    if (this.isActive) {
-      this.animate();
-    }
-  },
-  
-  createPetals: function() {
-    for (let i = 0; i < 15; i++) {
-      const petal = document.createElement('div');
-      petal.className = 'petal';
-      
-      // GPU高速化のためのCSS設定を追加
-      petal.style.cssText = `
-        will-change: transform;
-        position: absolute;
-        backface-visibility: hidden;
-        transform-style: preserve-3d;
-      `;
-      
-      const size = Math.random() * 10 + 8;
-      petal.style.width = `${size}px`;
-      petal.style.height = `${size * 0.6}px`;
-      petal.style.opacity = Math.random() * 0.6 + 0.4;
-      
-      const x = Math.random() * window.innerWidth;
-      const y = -size;
-      
-      this.petals.push({
-        element: petal,
-        x: x,
-        y: y,
-        vx: Math.random() * 2 - 1,
-        vy: Math.random() * 2 + 1,
-        rotation: Math.random() * 360,
-        rotationSpeed: (Math.random() * 2 - 1) * 2,
-        size: size
-      });
-      
-      // 専用コンテナに追加（document.bodyには直接追加しない）
-      this.container.appendChild(petal);
-    }
-  },
-  
-  animate: function() {
-    // 位置計算とDOM更新を分離して最適化
-    const updates = [];
-    
-    for (let i = 0; i < this.petals.length; i++) {
-      const petal = this.petals[i];
-      
-      // 位置の計算のみ行う（DOM操作なし）
-      petal.y += petal.vy;
-      petal.x += petal.vx + Math.sin(petal.y * 0.01) * 0.5;
-      petal.rotation += petal.rotationSpeed;
-      
-      if (petal.y > window.innerHeight + petal.size) {
-        petal.y = -petal.size;
-        petal.x = Math.random() * window.innerWidth;
-      }
-      
-      // 更新情報を記録
-      updates.push({
-        element: petal.element,
-        transform: `translate3d(${petal.x}px, ${petal.y}px, 0) rotate(${petal.rotation}deg)`
-      });
-    }
-    
-    // 一括でDOM更新（重要な最適化ポイント）
-    window.requestAnimationFrame(() => {
-      updates.forEach(update => {
-        update.element.style.transform = update.transform;
-      });
-    });
-    
-    if (this.isActive) {
-      requestAnimationFrame(() => this.animate());
-    }
-  }
-};
         //==================================================
         // タイプライターモジュール - HTML対応
         //==================================================
@@ -1129,57 +1064,57 @@
             // 強化されたパーティクル生成（数を増やし、動きを改良）
 
         createEnhancedParticles: function(x, y, count) {
-    // 赤と青のみの色設定
-    const colors = ['#4db8ff', '#ff4d4d'];
-    
-    for (let i = 0; i < count; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        
-        // ランダムカラー（赤か青のみ）
-        const colorIndex = Math.floor(Math.random() * colors.length);
-        particle.style.backgroundColor = colors[colorIndex];
-        
-        // サイズのランダム化
-        const size = Math.random() * 6 + 2;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        
-        // 強化された発光効果
-        particle.style.boxShadow = `0 0 ${Math.floor(size * 2)}px ${colors[colorIndex]}`;
-        
-        // ランダムな飛散方向と距離
-        const angle = Math.random() * Math.PI * 2;
-        const distance = Math.random() * 200 + 50;
-        const xMove = Math.cos(angle) * distance;
-        const yMove = Math.sin(angle) * distance;
-        
-        // アニメーションの回転も追加
-        const rotation = Math.random() * 720 - 360;
-        
-        // カスタムプロパティ設定
-        particle.style.setProperty('--x', `${xMove}px`);
-        particle.style.setProperty('--y', `${yMove}px`);
-        particle.style.setProperty('--r', `${rotation}deg`);
-        
-        // 初期位置
-        particle.style.left = (x - size/2) + 'px';
-        particle.style.top = (y - size/2) + 'px';
-        
-        // アニメーション速度のランダム化
-        const duration = Math.random() * 700 + 800;
-        particle.style.animationDuration = `${duration}ms`;
-        
-        document.body.appendChild(particle);
-        
-        // アニメーション終了時に削除
-        setTimeout(() => {
-            if (particle.parentNode) {
-                particle.parentNode.removeChild(particle);
+            // 赤と青のみの色設定
+            const colors = ['#4db8ff', '#ff4d4d'];
+            
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // ランダムカラー（赤か青のみ）
+                const colorIndex = Math.floor(Math.random() * colors.length);
+                particle.style.backgroundColor = colors[colorIndex];
+                
+                // サイズのランダム化
+                const size = Math.random() * 6 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // 強化された発光効果
+                particle.style.boxShadow = `0 0 ${Math.floor(size * 2)}px ${colors[colorIndex]}`;
+                
+                // ランダムな飛散方向と距離
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 200 + 50;
+                const xMove = Math.cos(angle) * distance;
+                const yMove = Math.sin(angle) * distance;
+                
+                // アニメーションの回転も追加
+                const rotation = Math.random() * 720 - 360;
+                
+                // カスタムプロパティ設定
+                particle.style.setProperty('--x', `${xMove}px`);
+                particle.style.setProperty('--y', `${yMove}px`);
+                particle.style.setProperty('--r', `${rotation}deg`);
+                
+                // 初期位置
+                particle.style.left = (x - size/2) + 'px';
+                particle.style.top = (y - size/2) + 'px';
+                
+                // アニメーション速度のランダム化
+                const duration = Math.random() * 700 + 800;
+                particle.style.animationDuration = `${duration}ms`;
+                
+                document.body.appendChild(particle);
+                
+                // アニメーション終了時に削除
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.parentNode.removeChild(particle);
+                    }
+                }, duration);
             }
-        }, duration);
-    }
-}
+        }
         };
 
         //==================================================
@@ -1386,6 +1321,12 @@
                     const bg = document.getElementById(bgId);
                     if (bg) {
                         bg.classList.add('active');
+                        
+                        // 背景が動画の場合、再生を開始
+                        const video = bg.querySelector('video');
+                        if (video) {
+                            video.play().catch(e => console.log('Video autoplay prevented: ', e));
+                        }
                     }
                     
                     // スクロール位置を復元
@@ -1546,9 +1487,6 @@
                 // リソース読み込み完了後の処理
                 checkResourcesLoaded();
                 
-                // 桜の花びらアニメーション初期化
-                cherryblossom.init();
-                
                 // ストーリーコントローラー初期化
                 storyController.init();
             } catch (error) {
@@ -1586,7 +1524,7 @@
         }
         
         function checkResourcesLoaded() {
-            // 背景画像の読み込み状態を確認
+            // 背景画像と動画の読み込み状態を確認
             const backgrounds = document.querySelectorAll('.background');
             let loadedCount = 0;
             let totalCount = backgrounds.length;
@@ -1600,17 +1538,26 @@
                 }
             }
             
-            // 各背景画像の読み込み完了イベント
+            // 各背景の読み込み完了イベント
             backgrounds.forEach(bg => {
-                const imgUrl = bg.style.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/, '$1');
-                
-                if (imgUrl) {
-                    const img = new Image();
-                    img.onload = checkComplete;
-                    img.onerror = checkComplete;
-                    img.src = imgUrl;
+                // 動画要素の確認
+                const video = bg.querySelector('video');
+                if (video) {
+                    video.addEventListener('loadeddata', checkComplete);
+                    video.addEventListener('error', checkComplete);
                 } else {
-                    checkComplete();
+                    // 画像要素の確認
+                    const img = bg.querySelector('img');
+                    if (img) {
+                        if (img.complete) {
+                            checkComplete();
+                        } else {
+                            img.onload = checkComplete;
+                            img.onerror = checkComplete;
+                        }
+                    } else {
+                        checkComplete();
+                    }
                 }
             });
             
@@ -1708,15 +1655,27 @@
         }
         
         function showBackground(bgId) {
-            // 背景画像の切り替え
+            // 背景の切り替え
             const backgrounds = document.querySelectorAll('.background');
             backgrounds.forEach(bg => {
                 bg.classList.remove('active');
+                // 動画の一時停止
+                const video = bg.querySelector('video');
+                if (video) {
+                    video.pause();
+                }
             });
             
+            // 指定された背景を表示
             const bg = document.getElementById(bgId);
             if (bg) {
                 bg.classList.add('active');
+                // 動画の場合、再生を開始
+                const video = bg.querySelector('video');
+                if (video) {
+                    video.currentTime = 0;
+                    video.play().catch(e => console.log('Video play prevented: ', e));
+                }
             }
         }
         
@@ -1726,9 +1685,19 @@
             if (isMuted) {
                 bgm.pause();
                 muteButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                
+                // 全ての動画音声をミュート
+                document.querySelectorAll('video').forEach(video => {
+                    video.muted = true;
+                });
             } else {
                 bgm.play().catch(e => console.log('Music play prevented: ', e));
                 muteButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+                
+                // ミュート状態を維持（ブラウザの自動再生ポリシーに対応）
+                document.querySelectorAll('video').forEach(video => {
+                    video.muted = true;
+                });
             }
         }
         
