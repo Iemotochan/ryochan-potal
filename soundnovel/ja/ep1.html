@@ -69,15 +69,6 @@
             opacity: 1;
         }
 
-        .background img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
         /* 縦書きテキストコンテナスタイル */
         .text-container {
             position: fixed;
@@ -259,12 +250,13 @@
             padding: 0 1em;
         }
 
-        .title-image {
+        .title-video {
             max-width: 90%;
             max-height: 40vh;
             margin-bottom: 2rem;
             border-radius: 8px;
             box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+            object-fit: cover;
         }
 
         .start-button {
@@ -471,7 +463,7 @@
     </style>
 </head>
 <body>
-   <!-- タイトル画面 -->
+    <!-- タイトル画面 -->
     <div class="title-screen" id="titleScreen">
         <video class="title-video" autoplay loop muted playsinline webkit-playsinline>
             <source src="https://iemotochan.github.io/ryochan-potal/image/title.mp4" type="video/mp4">
@@ -495,43 +487,67 @@
     
     <!-- メインノベルコンテナ -->
     <div class="novel-container" id="novelContainer">
-        <!-- 背景動画と画像 -->
+        <!-- 背景動画 -->
         <div class="background" id="bg1">
             <video autoplay loop muted playsinline webkit-playsinline>
                 <source src="https://iemotochan.github.io/ryochan-potal/image/backvideo1.mp4" type="video/mp4">
             </video>
         </div>
-      <div class="background" id="bg2">
+        <div class="background" id="bg2">
             <video autoplay loop muted playsinline webkit-playsinline>
                 <source src="https://iemotochan.github.io/ryochan-potal/image/backvideo2.mp4" type="video/mp4">
             </video>
-      <div class="background" id="bg3">
+        </div>
+        <div class="background" id="bg3">
             <video autoplay loop muted playsinline webkit-playsinline>
                 <source src="https://iemotochan.github.io/ryochan-potal/image/backvideo3.mp4" type="video/mp4">
             </video>
         </div>
-      <div class="background" id="bg4">
+        <div class="background" id="bg4">
             <video autoplay loop muted playsinline webkit-playsinline>
                 <source src="https://iemotochan.github.io/ryochan-potal/image/backvideo4.mp4" type="video/mp4">
             </video>
-      <div class="background" id="bg5">
+        </div>
+        <div class="background" id="bg5">
             <video autoplay loop muted playsinline webkit-playsinline>
                 <source src="https://iemotochan.github.io/ryochan-potal/image/backvideo5.mp4" type="video/mp4">
             </video>
         </div>
-      <div class="background" id="bg6">
+        <div class="background" id="bg6">
             <video autoplay loop muted playsinline webkit-playsinline>
                 <source src="https://iemotochan.github.io/ryochan-potal/image/backvideo6.mp4" type="video/mp4">
             </video>
-      <div class="background" id="bg7">
+        </div>
+        <div class="background" id="bg7">
             <video autoplay loop muted playsinline webkit-playsinline>
                 <source src="https://iemotochan.github.io/ryochan-potal/image/backvideo7.mp4" type="video/mp4">
             </video>
         </div>
-      <div class="background" id="bg8">
+        <div class="background" id="bg8">
             <video autoplay loop muted playsinline webkit-playsinline>
                 <source src="https://iemotochan.github.io/ryochan-potal/image/backvideo8.mp4" type="video/mp4">
             </video>
+        </div>
+        <div class="background" id="bg9">
+            <video autoplay loop muted playsinline webkit-playsinline>
+                <source src="https://iemotochan.github.io/ryochan-potal/image/backvideo9.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="background" id="bg10">
+            <video autoplay loop muted playsinline webkit-playsinline>
+                <source src="https://iemotochan.github.io/ryochan-potal/image/backvideo10.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="background" id="bg11">
+            <video autoplay loop muted playsinline webkit-playsinline>
+                <source src="https://iemotochan.github.io/ryochan-potal/image/backvideo11.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="background" id="bg12">
+            <video autoplay loop muted playsinline webkit-playsinline>
+                <source src="https://iemotochan.github.io/ryochan-potal/image/backvideo12.mp4" type="video/mp4">
+            </video>
+        </div>
         
         <!-- テキスト表示領域 -->
         <div class="text-container" id="textContainer">
@@ -642,57 +658,57 @@
     
     { text: "答えてくれる者はいなかった。ただ桜の花びらだけが舞い続けていた。", bg: "bg2", speed: 0.5, effect: "blue_aura" },
 
-    { text: "突然、花びらが渦を巻き始め、光の中から一人の老人が現れた。", bg: "bg12", speed: 0.5, effect: "blue_aura" },
+    { text: "突然、花びらが渦を巻き始め、光の中から一人の老人が現れた。", bg: "bg3", speed: 0.5, effect: "blue_aura" },
     
-    { text: "神秘的な雰囲気を纏い、深い知恵を宿した目と温かな笑顔を持つ老人だった。", bg: "bg12", speed: 0.7 },
+    { text: "神秘的な雰囲気を纏い、深い知恵を宿した目と温かな笑顔を持つ老人だった。", bg: "bg3", speed: 0.7 },
     
-    { speaker: "老人", text: "目覚めたようじゃな、RYOCHAN", bg: "bg12", speed: 0.2 },
+    { speaker: "老人", text: "目覚めたようじゃな、RYOCHAN", bg: "bg3", speed: 0.2 },
     
-    { text: "その声は、古い木が鳴るような深みと響きを持っていた。RYO-CHANは身構え、警戒心を表した。", bg: "bg12", speed: 0.7 },
+    { text: "その声は、古い木が鳴るような深みと響きを持っていた。RYO-CHANは身構え、警戒心を表した。", bg: "bg3", speed: 0.7 },
     
-    { speaker: "RYO", text: "あなたは誰だ？どうしておいらの名前を知っているんだ？", bg: "bg12", speed: 0.3 },
+    { speaker: "RYO", text: "あなたは誰だ？どうしておいらの名前を知っているんだ？", bg: "bg3", speed: 0.3 },
     
-    { speaker: "老人", text: "わしはこの神社の守り人じゃ。そなたを待っておったのじゃよ", bg: "bg12", speed: 0.3 },
+    { speaker: "老人", text: "わしはこの神社の守り人じゃ。そなたを待っておったのじゃよ", bg: "bg3", speed: 0.3 },
     
-    { speaker: "RYO", text: "待っていた？おいらを？", bg: "bg12", speed: 0.3 },
+    { speaker: "RYO", text: "待っていた？おいらを？", bg: "bg3", speed: 0.3 },
     
-    { text: "老人はうなずき、月に向かって両手を広げた。", bg: "bg3", speed: 0.7 },
+    { text: "老人はうなずき、月に向かって両手を広げた。", bg: "bg4", speed: 0.7 },
     
-    { speaker: "老人", text: "今宵は特別な夜じゃ。満月の力が最も強まる夜。そして、そなたの中で眠りし力が目覚める時じゃ", bg: "bg3", speed: 0.2, important: true },
+    { speaker: "老人", text: "今宵は特別な夜じゃ。満月の力が最も強まる夜。そして、そなたの中で眠りし力が目覚める時じゃ", bg: "bg4", speed: 0.2, important: true },
     
-    { speaker: "RYO", text: "力？おいらの中に？", bg: "bg3", speed: 0.3 },
+    { speaker: "RYO", text: "力？おいらの中に？", bg: "bg4", speed: 0.3 },
     
-    { speaker: "老人", text: "そうじゃ", bg: "bg3", speed: 0.3 },
+    { speaker: "老人", text: "そうじゃ", bg: "bg4", speed: 0.3 },
     
-    { text: "老人は静かに近づいた。", bg: "bg3", speed: 0.7 },
+    { text: "老人は静かに近づいた。", bg: "bg4", speed: 0.7 },
     
     { speaker: "老人", text: "かつて日本には<span class='emphasis'>『氣』</span>という素晴らしい力があった。すべてを繋ぎ、生命に満ちた力じゃ", bg: "bg4", speed: 0.3 },
     
-    { text: "老人は杖を地面に突くと、空中に<span class='celestial'>青い光</span>で<span class='emphasis'>「氣」</span>の文字が浮かび上がった。", bg: "bg4", speed: 0.5, effect: "blue_aura" },
+    { text: "老人は杖を地面に突くと、空中に<span class='celestial'>青い光</span>で<span class='emphasis'>「氣」</span>の文字が浮かび上がった。", bg: "bg5", speed: 0.5, effect: "blue_aura" },
     
-    { speaker: "老人", text: "この文字を見るがよい。『米』と『气』から成っておる。大地の恵みと空のエネルギーが合わさった形じゃ。日本人はこの力を感じ、共に生きてきたのじゃ", bg: "bg4", speed: 0.3 },
+    { speaker: "老人", text: "この文字を見るがよい。『米』と『气』から成っておる。大地の恵みと空のエネルギーが合わさった形じゃ。日本人はこの力を感じ、共に生きてきたのじゃ", bg: "bg5", speed: 0.3 },
     
-    { text: "その表情が曇った。", bg: "bg4", speed: 0.7 },
+    { text: "その表情が曇った。", bg: "bg5", speed: 0.7 },
     
-    { speaker: "老人", text: "だが戦後、多くの文字が簡略化された。『氣』は『気』となり、その本質が失われてしまった。これは単なる文字の変化ではない。<span class='emphasis'>日本の魂の一部が消し去られたのじゃ</span>", bg: "bg4", speed: 0.2, important: true },
+    { speaker: "老人", text: "だが戦後、多くの文字が簡略化された。『氣』は『気』となり、その本質が失われてしまった。これは単なる文字の変化ではない。<span class='emphasis'>日本の魂の一部が消し去られたのじゃ</span>", bg: "bg5", speed: 0.2, important: true },
     
-    { text: "RYOCHANは黙って聞いていた。不思議なことに、老人の語る「氣」という言葉が、自分の体の中で共鳴しているのを感じた。", bg: "bg4", speed: 0.7 },
+    { text: "RYOCHANは黙って聞いていた。不思議なことに、老人の語る「氣」という言葉が、自分の体の中で共鳴しているのを感じた。", bg: "bg5", speed: 0.7 },
     
-    { speaker: "RYO", text: "それがおいらとどう関係があるんだ？", bg: "bg4", speed: 0.3 },
+    { speaker: "RYO", text: "それがおいらとどう関係があるんだ？", bg: "bg5", speed: 0.3 },
     
-    { speaker: "老人", text: "深い関係があるのじゃよ", bg: "bg4", speed: 0.3 },
+    { speaker: "老人", text: "深い関係があるのじゃよ", bg: "bg5", speed: 0.3 },
     
-    { text: "老人の目が輝いた。", bg: "bg4", speed: 0.7 },
+    { text: "老人の目が輝いた。", bg: "bg5", speed: 0.7 },
     
-    { speaker: "老人", text: "そなたは<span class='emphasis'>『氣』を見る力</span>を持つ守護者として選ばれた。今宵、その力が目覚めたのじゃ", bg: "bg4", speed: 0.2, important: true },
+    { speaker: "老人", text: "そなたは<span class='emphasis'>『氣』を見る力</span>を持つ守護者として選ばれた。今宵、その力が目覚めたのじゃ", bg: "bg5", speed: 0.2, important: true },
     
-    { text: "その瞬間、RYOCHANの視界が変わった。世界が違って見える。神社の周りを<span class='celestial'>青い光の流れ</span>が取り巻き、都市の方角からは<span class='negative'>不吉な赤い線</span>が伸びていた。", bg: "bg5", speed: 0.5, effect: "blue_aura" },
+    { text: "その瞬間、RYOCHANの視界が変わった。世界が違って見える。神社の周りを<span class='celestial'>青い光の流れ</span>が取り巻き、都市の方角からは<span class='negative'>不吉な赤い線</span>が伸びていた。", bg: "bg8", speed: 0.5, effect: "blue_aura" },
     
-    { speaker: "RYO", text: "あれは・・・なんだ？", bg: "bg5", speed: 0.2 },
+    { speaker: "RYO", text: "あれは・・・なんだ？", bg: "bg8", speed: 0.2 },
     
-    { text: "老人は都市の方を指さした。", bg: "bg5", speed: 0.7 },
+    { text: "老人は都市の方を指さした。", bg: "bg8", speed: 0.7 },
     
-    { speaker: "老人", text: "見えるか、あれが現代の世界に存在する<span class='negative'>悪意</span>の『氣』じゃ。さまざまな形で<span class='negative'>人々を脅かし</span>、<span class='negative'>傷つけておる</span>", bg: "bg5", speed: 0.3 },
+    { speaker: "老人", text: "見えるか、あれが現代の世界に存在する<span class='negative'>悪意</span>の『氣』じゃ。さまざまな形で<span class='negative'>人々を脅かし</span>、<span class='negative'>傷つけておる</span>", bg: "bg8", speed: 0.3 },
     
     { text: "老人が杖を振ると、RYOCHANの心に映像が浮かんだ。<span class='negative'>暗い部屋</span>でコンピューターに向かう人影。画面には複雑なコードが流れ、渦巻く<span class='negative'>赤い霧</span>に包まれていた。", bg: "bg6", speed: 0.5, effect: "red_aura" },
     
@@ -704,9 +720,9 @@
     
     { speaker: "老人", text: "未来を変える技術じゃ。だが光があるところには<span class='negative'>影</span>もある。そなたの役目は、その<span class='negative'>闇</span>を見つけ出し、人々を守ることじゃ。古の知恵と新しい技術を繋ぐ<span class='emphasis'>架け橋</span>となるのじゃ", bg: "bg7", speed: 0.2, important: true },
     
-    { text: "RYOCHANは複雑な感情を抱きながら都市の方を見つめた。確かに<span class='negative'>赤い「氣」</span>の流れが見える。そしてその先に潜む<span class='negative'>危険</span>も感じ取れた。", bg: "bg5", speed: 0.7 },
+    { text: "RYOCHANは複雑な感情を抱きながら都市の方を見つめた。確かに<span class='negative'>赤い「氣」</span>の流れが見える。そしてその先に潜む<span class='negative'>危険</span>も感じ取れた。", bg: "bg8", speed: 0.7 },
     
-    { speaker: "RYO", text: "でも・・・おいらにそんなことができるのだろうか？", bg: "bg5", speed: 0.2 },
+    { speaker: "RYO", text: "でも・・・おいらにそんなことができるのだろうか？", bg: "bg8", speed: 0.2 },
     
     { speaker: "老人", text: "そなたは一人ではない", bg: "bg8", speed: 0.3 },
     
@@ -718,25 +734,25 @@
     
     { speaker: "RYO", text: "わかった。やってみよう", bg: "bg7", speed: 0.3 },
     
-    { speaker: "老人", text: "やってみるではない・・・<span class='emphasis'>必ずやるのじゃ</span>。勇気を持って吠え、名誉を持って噛むのじゃ！", bg: "bg8", speed: 0.2, important: true },
+    { speaker: "老人", text: "やってみるではない・・・<span class='emphasis'>必ずやるのじゃ</span>。勇気を持って吠え、名誉を持って噛むのじゃ！", bg: "bg7", speed: 0.2, important: true },
     
     { text: "RYOCHANは勇敢に吠えた！老人の顔に満足の表情が広がった。", bg: "bg7", speed: 0.5, effect: "blue_aura" },
     
-    { speaker: "老人", text: "ありがとう、RYOCHAN。そなたの旅はまだ始まったばかりじゃ", bg: "bg8", speed: 0.3 },
+    { speaker: "老人", text: "ありがとう、RYOCHAN。そなたの旅はまだ始まったばかりじゃ", bg: "bg3", speed: 0.3 },
     
     { text: "老人が桜の花びらに変わり、風に散り始めた。", bg: "bg9", speed: 0.5, effect: "blue_aura" },
     
     { speaker: "老人", text: "<span class='emphasis'>サクラがそなたを見つけるだろう。『氣』が二人を繋ぐのじゃ</span>・・・", bg: "bg9", speed: 0.2, important: true },
     
-    { text: "最後の言葉が風に消え、神社は元の静けさを取り戻した。しかしRYOCHANの世界は永遠に変わってしまった。鎧は<span class='celestial'>鈍く輝き</span>、目には決意が宿っていた。", bg: "bg5", speed: 0.7 },
+    { text: "最後の言葉が風に消え、神社は元の静けさを取り戻した。しかしRYOCHANの世界は永遠に変わってしまった。鎧は<span class='celestial'>鈍く輝き</span>、目には決意が宿っていた。", bg: "bg7", speed: 0.7 },
     
-    { text: "RYOCHANは立ち上がり、都市から立ち上る<span class='negative'>邪悪</span>な「氣」の流れを見つめた。", bg: "bg5", speed: 0.7 },
+    { text: "RYOCHANは立ち上がり、都市から立ち上る<span class='negative'>邪悪</span>な「氣」の流れを見つめた。", bg: "bg8", speed: 0.7 },
     
     { speaker: "RYO", text: "<span class='emphasis'>これがおいらの運命なら、受け入れよう</span>", bg: "bg7", speed: 0.2, important: true },
     
-    { text: "RYOCHANは至る所に流れる「氣」を見ることができた。小さな足で神社の階段を駆け下り、遠くに感じる<span class='negative'>不吉な気配</span>に導かれるように都市へと向かった。", bg: "bg5", speed: 0.7 },
+    { text: "RYOCHANは至る所に流れる「氣」を見ることができた。小さな足で神社の階段を駆け下り、遠くに感じる<span class='negative'>不吉な気配</span>に導かれるように都市へと向かった。", bg: "bg8", speed: 0.7 },
     
-    { text: "その姿は月明かりの中、闇に溶け込んでいった。こうして<span class='emphasis'>「氣」の戦士、守護者RYOCHANの冒険</span>が始まったのだった。", bg: "bg10", speed: 0.2, important: true },
+    { text: "その姿は月明かりの中、闇に溶け込んでいった。こうして<span class='emphasis'>「氣」の戦士、守護者RYOCHANの冒険</span>が始まったのだった。", bg: "bg8", speed: 0.2, important: true },
     
     { text: "<span class='emphasis'>続く・・・</span>", bg: "bg11", speed: 0.2 }
 
@@ -1311,10 +1327,14 @@
                     // 現在のスクロール位置を保存
                     const currentScroll = textContent.scrollLeft;
                     
-                    // 全背景をいったん非表示
+                    // 全背景をいったん非表示&一時停止
                     const backgrounds = document.querySelectorAll('.background');
                     backgrounds.forEach(bg => {
                         bg.classList.remove('active');
+                        const video = bg.querySelector('video');
+                        if (video) {
+                            video.pause();
+                        }
                     });
                     
                     // 指定された背景を表示
@@ -1325,7 +1345,23 @@
                         // 背景が動画の場合、再生を開始
                         const video = bg.querySelector('video');
                         if (video) {
-                            video.play().catch(e => console.log('Video autoplay prevented: ', e));
+                            // 再生が保証されるように複数の方法を試みる
+                            video.currentTime = 0;
+                            const playPromise = video.play();
+                            
+                            if (playPromise !== undefined) {
+                                playPromise.catch(error => {
+                                    console.warn('Video autoplay was prevented:', error);
+                                    // ユーザーインタラクションが必要な場合のフォールバック
+                                    const playVideo = function() {
+                                        video.play();
+                                        document.removeEventListener('click', playVideo);
+                                        document.removeEventListener('touchstart', playVideo);
+                                    };
+                                    document.addEventListener('click', playVideo);
+                                    document.addEventListener('touchstart', playVideo);
+                                });
+                            }
                         }
                     }
                     
@@ -1524,10 +1560,10 @@
         }
         
         function checkResourcesLoaded() {
-            // 背景画像と動画の読み込み状態を確認
-            const backgrounds = document.querySelectorAll('.background');
+            // 背景動画の読み込み状態を確認
+            const videos = document.querySelectorAll('video');
             let loadedCount = 0;
-            let totalCount = backgrounds.length;
+            let totalCount = videos.length;
             
             function checkComplete() {
                 loadedCount++;
@@ -1538,26 +1574,15 @@
                 }
             }
             
-            // 各背景の読み込み完了イベント
-            backgrounds.forEach(bg => {
-                // 動画要素の確認
-                const video = bg.querySelector('video');
-                if (video) {
+            // 各動画の読み込み完了イベント
+            videos.forEach(video => {
+                // ロード状態の確認
+                if (video.readyState >= 3) {
+                    checkComplete();
+                } else {
+                    // イベントリスナーの追加
                     video.addEventListener('loadeddata', checkComplete);
                     video.addEventListener('error', checkComplete);
-                } else {
-                    // 画像要素の確認
-                    const img = bg.querySelector('img');
-                    if (img) {
-                        if (img.complete) {
-                            checkComplete();
-                        } else {
-                            img.onload = checkComplete;
-                            img.onerror = checkComplete;
-                        }
-                    } else {
-                        checkComplete();
-                    }
                 }
             });
             
@@ -1674,7 +1699,21 @@
                 const video = bg.querySelector('video');
                 if (video) {
                     video.currentTime = 0;
-                    video.play().catch(e => console.log('Video play prevented: ', e));
+                    const playPromise = video.play();
+                    
+                    if (playPromise !== undefined) {
+                        playPromise.catch(error => {
+                            console.warn('Video autoplay was prevented:', error);
+                            // ユーザーインタラクションが必要な場合のフォールバック
+                            const playVideo = function() {
+                                video.play();
+                                document.removeEventListener('click', playVideo);
+                                document.removeEventListener('touchstart', playVideo);
+                            };
+                            document.addEventListener('click', playVideo);
+                            document.addEventListener('touchstart', playVideo);
+                        });
+                    }
                 }
             }
         }
