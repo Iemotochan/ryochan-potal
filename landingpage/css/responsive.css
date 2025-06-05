@@ -1,0 +1,590 @@
+/* ===========================================
+   レスポンシブデザイン
+=========================================== */
+
+/* タブレット (768px以下) */
+@media (max-width: 768px) {
+    .section {
+        padding: 60px 20px;
+        min-height: auto;
+    }
+    
+    .content-wrapper {
+        max-width: 100%;
+        padding: 0 15px;
+    }
+    
+    /* タイトルセクション */
+    .title-section {
+        padding: 80px 20px;
+    }
+    
+    .main-character {
+        width: 180px;
+        margin-bottom: 30px;
+    }
+    
+    .main-title {
+        font-size: clamp(2.5rem, 10vw, 4rem);
+        margin-bottom: 20px;
+    }
+    
+    .subtitle {
+        font-size: clamp(1rem, 5vw, 1.4rem);
+        margin-bottom: 30px;
+    }
+    
+    /* エピソードセクション */
+    .episode-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+    }
+    
+    .character-showcase {
+        order: -1;
+        margin-bottom: 20px;
+    }
+    
+    .episode-character {
+        width: 120px;
+    }
+    
+    .episode-text {
+        white-space: normal;
+        max-width: 100%;
+        border-right: none;
+        border-bottom: 3px solid var(--primary-gold);
+        padding-bottom: 15px;
+        padding-right: 0;
+    }
+    
+    /* キャラクターセクション */
+    .characters-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .character-card {
+        height: 320px;
+    }
+    
+    .card-image {
+        width: 100px;
+        margin-bottom: 20px;
+    }
+    
+    .character-name {
+        font-size: 1.6rem;
+        margin-bottom: 15px;
+    }
+    
+    .character-desc {
+        font-size: 1rem;
+    }
+    
+    /* 最終セクション */
+    .final-characters {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+    
+    .final-character {
+        width: 100px;
+    }
+    
+    /* ボタン */
+    .cta-button {
+        padding: 16px 35px;
+        font-size: 1rem;
+        margin: 10px 5px;
+    }
+    
+    /* オーディオコントロール */
+    .audio-control {
+        width: 50px;
+        height: 50px;
+        top: 15px;
+        right: 15px;
+    }
+    
+    .audio-icon {
+        font-size: 18px;
+    }
+    
+    /* カーソル無効化 */
+    .custom-cursor {
+        display: none;
+    }
+    
+    body {
+        cursor: auto;
+    }
+    
+    /* ローディングスクリーン */
+    .loading-character {
+        width: 150px;
+    }
+    
+    .loading-text {
+        font-size: 1.4rem;
+    }
+    
+    .loading-bar {
+        width: 280px;
+    }
+}
+
+/* スマートフォン (480px以下) */
+@media (max-width: 480px) {
+    .section {
+        padding: 40px 15px;
+    }
+    
+    .content-wrapper {
+        padding: 0 10px;
+    }
+    
+    /* タイトルセクション */
+    .title-section {
+        padding: 60px 15px;
+    }
+    
+    .main-character {
+        width: 150px;
+        margin-bottom: 25px;
+    }
+    
+    .main-title {
+        font-size: clamp(2rem, 12vw, 3.5rem);
+        margin-bottom: 15px;
+    }
+    
+    .subtitle {
+        font-size: clamp(0.9rem, 6vw, 1.2rem);
+        margin-bottom: 25px;
+        line-height: 1.5;
+    }
+    
+    .scroll-indicator {
+        bottom: 20px;
+    }
+    
+    .scroll-text {
+        font-size: 12px;
+    }
+    
+    .scroll-arrow {
+        font-size: 20px;
+    }
+    
+    /* エピソードセクション */
+    .episode-header {
+        margin-bottom: 40px;
+    }
+    
+    .episode-number {
+        font-size: 14px;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+    }
+    
+    .episode-title {
+        font-size: clamp(2rem, 8vw, 3rem);
+        margin-bottom: 15px;
+    }
+    
+    .episode-character {
+        width: 100px;
+    }
+    
+    .episode-text {
+        font-size: clamp(1rem, 4vw, 1.2rem);
+        line-height: 1.7;
+        padding-bottom: 10px;
+    }
+    
+    /* キャラクターセクション */
+    .section-title {
+        font-size: clamp(2rem, 8vw, 3rem);
+        margin-bottom: 50px;
+    }
+    
+    .character-card {
+        height: 280px;
+        margin-bottom: 20px;
+    }
+    
+    .card-front,
+    .card-back {
+        padding: 25px 20px;
+    }
+    
+    .card-image {
+        width: 80px;
+        margin-bottom: 15px;
+    }
+    
+    .character-name {
+        font-size: 1.4rem;
+        margin-bottom: 12px;
+    }
+    
+    .character-desc {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+    
+    /* 最終セクション */
+    .final-title {
+        font-size: clamp(2rem, 8vw, 3rem);
+        margin-bottom: 20px;
+    }
+    
+    .final-text {
+        font-size: clamp(1rem, 5vw, 1.3rem);
+        margin-bottom: 30px;
+        line-height: 1.6;
+    }
+    
+    .final-character {
+        width: 80px;
+    }
+    
+    /* ボタン */
+    .cta-button {
+        padding: 14px 30px;
+        font-size: 0.95rem;
+        margin: 8px 3px;
+        border-radius: 40px;
+    }
+    
+    .cta-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    /* オーディオコントロール */
+    .audio-control {
+        width: 45px;
+        height: 45px;
+        top: 12px;
+        right: 12px;
+    }
+    
+    .audio-icon {
+        font-size: 16px;
+    }
+    
+    .audio-waves span {
+        width: 2px;
+        height: 12px;
+    }
+    
+    /* プログレスバー */
+    .scroll-progress {
+        height: 3px;
+    }
+    
+    /* ローディングスクリーン */
+    .loading-character {
+        width: 120px;
+        margin-bottom: 25px;
+    }
+    
+    .loading-text {
+        font-size: 1.2rem;
+        margin-bottom: 25px;
+    }
+    
+    .loading-bar {
+        width: 250px;
+        height: 5px;
+    }
+    
+    /* エフェクト調整 */
+    .golden-aura-container {
+        opacity: 0.6;
+    }
+    
+    /* タイピングエフェクト調整 */
+    .episode-text.typing {
+        animation: mobileTyping 2s steps(100) forwards;
+    }
+    
+    @keyframes mobileTyping {
+        from { 
+            max-width: 0;
+            white-space: nowrap;
+        }
+        to { 
+            max-width: 100%;
+            white-space: normal;
+        }
+    }
+}
+
+/* 極小画面 (360px以下) */
+@media (max-width: 360px) {
+    .section {
+        padding: 30px 10px;
+    }
+    
+    .main-character {
+        width: 130px;
+    }
+    
+    .episode-character,
+    .final-character {
+        width: 70px;
+    }
+    
+    .card-image {
+        width: 70px;
+    }
+    
+    .character-card {
+        height: 250px;
+    }
+    
+    .cta-button {
+        padding: 12px 25px;
+        font-size: 0.9rem;
+    }
+    
+    .loading-character {
+        width: 100px;
+    }
+    
+    .loading-bar {
+        width: 200px;
+    }
+}
+
+/* 大画面 (1200px以上) */
+@media (min-width: 1200px) {
+    .content-wrapper {
+        max-width: 1400px;
+    }
+    
+    .main-character {
+        width: 250px;
+    }
+    
+    .episode-character {
+        width: 180px;
+    }
+    
+    .final-character {
+        width: 160px;
+    }
+    
+    .characters-grid {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 50px;
+    }
+    
+    .character-card {
+        height: 420px;
+    }
+    
+    .card-image {
+        width: 150px;
+    }
+}
+
+/* 超大画面 (1600px以上) */
+@media (min-width: 1600px) {
+    .content-wrapper {
+        max-width: 1600px;
+    }
+    
+    .section {
+        padding: 100px 40px;
+    }
+    
+    .main-character {
+        width: 280px;
+    }
+    
+    .episode-character {
+        width: 200px;
+    }
+    
+    .final-character {
+        width: 180px;
+    }
+}
+
+/* 横向きスマートフォン */
+@media (max-width: 768px) and (orientation: landscape) {
+    .section {
+        min-height: auto;
+        padding: 40px 20px;
+    }
+    
+    .title-section {
+        min-height: 100vh;
+    }
+    
+    .title-section .content-wrapper {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        height: auto;
+        gap: 40px;
+    }
+    
+    .character-container {
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+    
+    .main-character {
+        width: 200px;
+    }
+    
+    .title-content {
+        flex: 1;
+        text-align: left;
+    }
+    
+    .episode-content {
+        grid-template-columns: 1fr auto;
+        gap: 40px;
+        text-align: left;
+    }
+    
+    .character-showcase {
+        order: 0;
+        margin-bottom: 0;
+    }
+}
+
+/* ダークモード対応 */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-secondary: #e0e0e0;
+        --text-muted: #b0b0b0;
+    }
+}
+
+/* 高コントラスト対応 */
+@media (prefers-contrast: high) {
+    :root {
+        --primary-gold: #FFFF00;
+        --text-primary: #FFFFFF;
+        --text-secondary: #FFFFFF;
+    }
+    
+    .glass-bg {
+        background: rgba(0, 0, 0, 0.8);
+    }
+    
+    .character-card,
+    .card-front,
+    .card-back {
+        border: 2px solid var(--primary-gold);
+    }
+}
+
+/* 印刷対応 */
+@media print {
+    .custom-cursor,
+    .scroll-progress,
+    .golden-aura-container,
+    .audio-control,
+    .loading-screen,
+    #fireworksContainer,
+    #rippleContainer {
+        display: none !important;
+    }
+    
+    .section {
+        break-inside: avoid;
+        padding: 20px;
+    }
+    
+    .main-title,
+    .episode-title,
+    .section-title,
+    .final-title {
+        color: #000 !important;
+        text-shadow: none !important;
+    }
+    
+    .parallax-bg {
+        position: static;
+    }
+    
+    .bg-image {
+        display: none;
+    }
+}
+
+/* フォーカス可視性向上 */
+@media (prefers-reduced-motion: no-preference) {
+    .cta-button:focus,
+    .character-card:focus,
+    .audio-control:focus {
+        outline: 3px solid var(--primary-gold);
+        outline-offset: 2px;
+    }
+}
+
+/* タッチデバイス最適化 */
+@media (hover: none) and (pointer: coarse) {
+    .character-card:hover .card-inner {
+        transform: none;
+    }
+    
+    .character-card:active .card-inner {
+        transform: rotateY(180deg);
+    }
+    
+    .cta-button:hover {
+        transform: none;
+    }
+    
+    .cta-button:active {
+        transform: translateY(-3px);
+    }
+    
+    .audio-control:hover {
+        transform: none;
+    }
+    
+    .audio-control:active {
+        transform: scale(0.95);
+    }
+}
+
+/* バッテリー節約モード */
+@media (prefers-reduced-motion: reduce) {
+    .animate-float,
+    .animate-float-slow,
+    .animate-pulse,
+    .animate-bounce,
+    .animate-wave,
+    .animate-gradient,
+    .animate-glow,
+    .animate-rotate {
+        animation: none !important;
+    }
+    
+    .main-character,
+    .episode-character,
+    .final-character,
+    .loading-character {
+        animation: none !important;
+    }
+    
+    .golden-aura-container {
+        display: none;
+    }
+}
