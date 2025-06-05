@@ -1,0 +1,802 @@
+/* ===========================================
+   リセット & ベース設定
+=========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-gold: #FFD700;
+    --secondary-gold: #FFA500;
+    --dark-bg: #0a0a0a;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --accent-blue: #00BFFF;
+    --accent-purple: #8A2BE2;
+    --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow-glow: 0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: 'Inter', 'Noto Serif JP', sans-serif;
+    background: var(--dark-bg);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    cursor: none;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* ===========================================
+   カスタムカーソル
+=========================================== */
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+}
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--primary-gold);
+    border-radius: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    transition: all 0.1s ease;
+}
+
+.cursor-ring {
+    width: 40px;
+    height: 40px;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s var(--transition-smooth);
+}
+
+.custom-cursor.hover .cursor-ring {
+    width: 60px;
+    height: 60px;
+    border-color: var(--primary-gold);
+}
+
+/* ===========================================
+   プログレスバー
+=========================================== */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-gold), var(--accent-blue), var(--accent-purple));
+    z-index: 1000;
+    transition: width 0.1s ease;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+/* ===========================================
+   金色オーラアニメーション
+=========================================== */
+.golden-aura-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1;
+}
+
+#goldenAuraCanvas {
+    width: 100%;
+    height: 100%;
+    opacity: 0.7;
+}
+
+/* ===========================================
+   オーディオコントロール
+=========================================== */
+.audio-control {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s var(--transition-smooth);
+    box-shadow: var(--shadow-glow);
+}
+
+.audio-control:hover {
+    transform: scale(1.1);
+    border-color: var(--primary-gold);
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
+}
+
+.audio-icon {
+    font-size: 20px;
+    animation: pulse 2s infinite;
+}
+
+.audio-waves {
+    position: absolute;
+    display: flex;
+    gap: 2px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.audio-control.playing .audio-waves {
+    opacity: 1;
+}
+
+.audio-control.playing .audio-icon {
+    opacity: 0;
+}
+
+.audio-waves span {
+    width: 3px;
+    height: 15px;
+    background: var(--primary-gold);
+    animation: wave 1s infinite ease-in-out;
+}
+
+.audio-waves span:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.audio-waves span:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+@keyframes wave {
+    0%, 100% { transform: scaleY(0.5); }
+    50% { transform: scaleY(1.5); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* ===========================================
+   背景パララックス
+=========================================== */
+.parallax-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.bg-image {
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    object-fit: cover;
+    object-position: center top;
+    transition: transform 0.1s ease-out;
+}
+
+/* ===========================================
+   メインコンテンツ
+=========================================== */
+.main-content {
+    position: relative;
+    z-index: 10;
+}
+
+.section {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+.content-wrapper {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* ===========================================
+   タイトルセクション
+=========================================== */
+.title-section {
+    background: radial-gradient(circle at center, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+}
+
+.title-section .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.character-container {
+    margin-bottom: 40px;
+}
+
+.main-character {
+    width: 200px;
+    height: auto;
+    filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.6));
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+.title-content {
+    text-align: center;
+}
+
+.main-title {
+    font-family: 'Yuji Syuku', serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, var(--primary-gold), var(--secondary-gold), var(--primary-gold));
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s ease infinite, textGlow 2s ease-in-out infinite alternate;
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+}
+
+.title-line {
+    display: block;
+    animation: fadeInUp 1s ease forwards;
+}
+
+.title-line:nth-child(2) {
+    animation-delay: 0.5s;
+    opacity: 0;
+}
+
+.subtitle {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+    font-weight: 300;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeInUp 1s ease 1s forwards;
+    color: var(--text-secondary);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.cta-container {
+    margin-top: 40px;
+    opacity: 0;
+    animation: fadeInUp 1s ease 1.5s forwards;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    opacity: 0;
+    animation: fadeInUp 1s ease 2s forwards;
+}
+
+.scroll-text {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+.scroll-arrow {
+    font-size: 24px;
+    color: var(--primary-gold);
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+/* ===========================================
+   エピソードセクション
+=========================================== */
+.episode-section {
+    background: rgba(0, 0, 0, 0.6);
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.episode-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.episode-number {
+    display: block;
+    font-size: 14px;
+    color: var(--primary-gold);
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.episode-title {
+    font-family: 'Yuji Syuku', serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    color: var(--primary-gold);
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    margin-bottom: 20px;
+}
+
+.episode-content {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: center;
+}
+
+.text-container {
+    flex: 1;
+}
+
+.episode-text {
+    font-size: clamp(1.1rem, 3vw, 1.4rem);
+    line-height: 1.8;
+    color: var(--text-secondary);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    border-right: 2px solid var(--primary-gold);
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 0;
+    animation: typing 3s steps(150) forwards, blink 0.75s step-end infinite;
+}
+
+.character-showcase {
+    flex-shrink: 0;
+}
+
+.episode-character {
+    width: 150px;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.4));
+    animation: float 4s ease-in-out infinite;
+}
+
+/* ===========================================
+   キャラクターセクション
+=========================================== */
+.characters-section {
+    background: rgba(0, 0, 0, 0.7);
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.section-title {
+    font-family: 'Yuji Syuku', serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    text-align: center;
+    color: var(--primary-gold);
+    margin-bottom: 60px;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.characters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.character-card {
+    perspective: 1000px;
+    height: 350px;
+    cursor: pointer;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.character-card:hover .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: var(--shadow-glow);
+    transition: all 0.3s var(--transition-smooth);
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(0, 191, 255, 0.1));
+}
+
+.card-image {
+    width: 120px;
+    height: auto;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.4));
+}
+
+.character-name {
+    font-family: 'Yuji Syuku', serif;
+    font-size: 1.8rem;
+    color: var(--primary-gold);
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.character-desc {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+/* ===========================================
+   最終セクション
+=========================================== */
+.final-section {
+    background: radial-gradient(circle at center, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.final-content {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.final-title {
+    font-family: 'Yuji Syuku', serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    color: var(--primary-gold);
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.final-text {
+    font-size: clamp(1.2rem, 4vw, 1.6rem);
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.final-characters {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.final-character {
+    width: 120px;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.4));
+    animation: float 3s ease-in-out infinite;
+}
+
+.final-character:nth-child(2) {
+    animation-delay: 1s;
+}
+
+/* ===========================================
+   ボタンスタイル
+=========================================== */
+.cta-button {
+    position: relative;
+    background: linear-gradient(45deg, var(--primary-gold), var(--secondary-gold));
+    border: none;
+    border-radius: 50px;
+    padding: 18px 40px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dark-bg);
+    cursor: pointer;
+    transition: all 0.3s var(--transition-smooth);
+    overflow: hidden;
+    margin: 10px;
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+}
+
+.cta-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(255, 215, 0, 0.5);
+}
+
+.cta-button.secondary {
+    background: linear-gradient(45deg, transparent, transparent);
+    border: 2px solid var(--primary-gold);
+    color: var(--primary-gold);
+}
+
+.button-text {
+    position: relative;
+    z-index: 2;
+}
+
+.button-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: 50px;
+    transition: transform 0.3s ease;
+}
+
+.cta-button:hover .button-glow {
+    transform: translate(-50%, -50%) scale(1.2);
+}
+
+/* ===========================================
+   アニメーションキーフレーム
+=========================================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes textGlow {
+    from { text-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+    to { text-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
+}
+
+@keyframes typing {
+    from { 
+        max-width: 0;
+        white-space: nowrap;
+    }
+    to { 
+        max-width: 100%;
+        white-space: normal;
+    }
+}
+
+@keyframes blink {
+    from, to { border-color: transparent; }
+    50% { border-color: var(--primary-gold); }
+}
+
+/* ===========================================
+   ローディングスクリーン
+=========================================== */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, var(--dark-bg), #1a1a1a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loading-screen.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loading-content {
+    text-align: center;
+}
+
+.loading-character {
+    width: 150px;
+    height: auto;
+    margin-bottom: 30px;
+    animation: float 2s ease-in-out infinite;
+}
+
+.loading-text {
+    font-size: 1.5rem;
+    color: var(--primary-gold);
+    margin-bottom: 30px;
+    animation: pulse 2s infinite;
+}
+
+.loading-bar {
+    width: 300px;
+    height: 4px;
+    background: rgba(255, 215, 0, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.loading-progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-gold), var(--secondary-gold));
+    border-radius: 2px;
+    animation: loading 3s ease-in-out;
+}
+
+@keyframes loading {
+    from { width: 0%; }
+    to { width: 100%; }
+}
+
+/* ===========================================
+   レスポンシブデザイン
+=========================================== */
+@media (max-width: 768px) {
+    .section {
+        padding: 40px 15px;
+    }
+    
+    .episode-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .character-showcase {
+        order: -1;
+        margin-bottom: 30px;
+    }
+    
+    .characters-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .final-characters {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .cursor-dot,
+    .cursor-ring {
+        display: none;
+    }
+    
+    body {
+        cursor: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .audio-control {
+        width: 50px;
+        height: 50px;
+        top: 15px;
+        right: 15px;
+    }
+    
+    .main-character {
+        width: 150px;
+    }
+    
+    .episode-character,
+    .final-character {
+        width: 100px;
+    }
+    
+    .card-image {
+        width: 80px;
+    }
+}
+
+/* ===========================================
+   特殊エフェクト
+=========================================== */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.6) 0%, transparent 70%);
+    pointer-events: none;
+    animation: rippleEffect 0.6s ease-out;
+}
+
+@keyframes rippleEffect {
+    from {
+        transform: scale(0);
+        opacity: 1;
+    }
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+.firework {
+    position: absolute;
+    pointer-events: none;
+}
+
+.firework-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--primary-gold);
+}
+
+/* ===========================================
+   ユーティリティクラス
+=========================================== */
+.hidden {
+    display: none;
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards;
+}
+
+.character-img {
+    transition: all 0.3s var(--transition-smooth);
+}
+
+.character-img:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
+}
