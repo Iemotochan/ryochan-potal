@@ -394,8 +394,185 @@ class Transform3D {
         });
     }
     
-    static float(element, amplitude = 20, duration = 3000) {
+      static float(element, amplitude = 20, duration = 3000) {
         if (!element) return;
         
         const animation = element.animate([
-            { transform: 'translateY(0px
+            { transform: 'translateY(0px) rotate(0deg)' },
+            { transform: `translateY(-${amplitude}px) rotate(2deg)` },
+            { transform: 'translateY(0px) rotate(0deg)' },
+            { transform: `translateY(-${amplitude/2}px) rotate(-1deg)` },
+            { transform: 'translateY(0px) rotate(0deg)' }
+        ], {
+            duration: duration,
+            iterations: Infinity,
+            easing: 'ease-in-out'
+        });
+        
+        return animation;
+    }
+    
+    static orbit(element, radius = 50, duration = 5000) {
+        if (!element) return;
+        
+        const animation = element.animate([
+            { transform: `rotate(0deg) translateX(${radius}px) rotate(0deg)` },
+            { transform: `rotate(360deg) translateX(${radius}px) rotate(-360deg)` }
+        ], {
+            duration: duration,
+            iterations: Infinity,
+            easing: 'linear'
+        });
+        
+        return animation;
+    }
+    
+    static shake(element, intensity = 10, duration = 500) {
+        if (!element) return;
+        
+        const animation = element.animate([
+            { transform: 'translateX(0)' },
+            { transform: `translateX(-${intensity}px)` },
+            { transform: `translateX(${intensity}px)` },
+            { transform: `translateX(-${intensity/2}px)` },
+            { transform: `translateX(${intensity/2}px)` },
+            { transform: 'translateX(0)' }
+        ], {
+            duration: duration,
+            easing: 'ease-in-out'
+        });
+        
+        return animation;
+    }
+}
+
+/**
+ * パーティクルシステム
+ */
+class ParticleSystem {
+    constructor() {
+        this.particles = [];
+        this.maxParticles = 100;
+    }
+    
+    createExplosion(x, y, color = '#FFD700', count = 20) {
+        for (let i = 0; i < count; i++) {
+            this.particles.push(new ExplosionParticle(x, y, color));
+        }
+        
+        // 古いパーティクルを削除
+        if (this.particles.length > this.maxParticles) {
+            this.particles.splice(0, this.particles.length - this.maxParticles);
+        }
+    }
+    
+    update() {
+        this.particles = this.particles.filter(particle => {
+            particle.update();
+            return particle.life > 0;
+        });
+    }
+    
+    render(ctx) {
+        this.particles.forEach(particle => {
+            particle.render(ctx);
+        });
+    }
+}
+
+class ExplosionParticle {
+    constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.vx = (Math.random() - 0.5) * 10;
+        this.vy = (Math.random() - 0.5) * 10;
+        this.life = 1.0;
+        this.decay = Math.random() * 0.02 + 0.01;
+        this.size = Math.random() * 4 + 2;
+        this.color = color;
+        this.gravity = 0.1;
+    }
+    
+    update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vy += this.gravity;
+        this.vx *= 0.99;
+        this.life -= this.decay;
+        this.size *= 0.99;
+    }
+    
+    render(ctx) {
+        if (this.life <= 0) return;
+        
+        ctx.save();
+        ctx.globalAlpha = this.life;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+    }
+}
+
+/**
+ * スクロールアニメーション
+ */
+class ScrollAnimations {
+    constructor() {
+        this.elements = new Map();
+        this.setupObserver();
+    }
+    
+    setupObserver() {
+        this.observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.triggerAnimation(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+    }
+    
+    observe(element, animationType, options = {}) {
+        this.elements.set(element, { type: animationType, options });
+        this.observer.observe(element);
+    }
+    
+    triggerAnimation(element) {
+        const config = this.elements.get(element);
+        if (!config) return;
+        
+        switch (config.type) {
+            case 'fadeInUp':
+                TextAnimations.fadeInUp(element, config.options.delay || 0);
+                break;
+            case 'slideIn':
+                TextAnimations.slideIn(element, config.options.direction || 'left', config.options.delay || 0);
+                break;
+            case 'float':
+                Transform3D.float(element, config.options.amplitude || 20);
+                break;
+        }
+        
+        this.observer.unobserve(element);
+    }
+}
+
+// グローバルインスタンス作成
+window.goldenAuraSystem = new AnimationSystem();
+window.textAnimations = TextAnimations;
+window.transform3D = Transform3D;
+window.scrollAnimations = new ScrollAnimations();
+
+// リサイズイベント
+window.addEventListener('resize', () => {
+    if (window.goldenAuraSystem) {
+        window.goldenAuraSystem.resize();
+    }
+});
+
+console.log('✨ アニメーションシステム完全初期化');
