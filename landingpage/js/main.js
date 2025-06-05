@@ -1,5 +1,5 @@
 /**
- * RYO-CHAN冒険ランディングページ - パララックス修正版
+ * RYO-CHAN冒険ランディングページ - メインコントローラー
  */
 
 class AdventurePage {
@@ -176,7 +176,6 @@ class AdventurePage {
         this.setupCustomCursor();
         this.setupParallaxBackground();
         this.setupIntersectionObserver();
-        this.setupTypingObserver();
     }
     
     /**
@@ -209,7 +208,7 @@ class AdventurePage {
     }
     
     /**
-     * パララックス背景の設定 - 簡易版
+     * パララックス背景の設定
      */
     setupParallaxBackground() {
         this.parallaxBg = document.getElementById('parallaxBg');
@@ -217,13 +216,12 @@ class AdventurePage {
         
         if (this.bgImage) {
             console.log('📐 背景画像が見つかりました');
-            // 即座にパララックスを開始
             this.updateParallax();
         }
     }
     
     /**
-     * パララックス更新 - 簡単な計算
+     * パララックス更新
      */
     updateParallax() {
         if (!this.bgImage) return;
@@ -231,19 +229,11 @@ class AdventurePage {
         const scrolled = window.pageYOffset;
         const scrollProgress = scrolled / (document.body.scrollHeight - window.innerHeight);
         
-        // 簡単なパララックス計算
-        const maxMove = 500; // 最大移動距離
+        const maxMove = 500;
         const parallaxOffset = scrollProgress * maxMove * this.parallaxConfig.speed;
         
-        // 直接transformを適用
         this.bgImage.style.transform = `translateY(-${parallaxOffset}px)`;
         
-        // デバッグ用ログ
-        if (scrolled % 100 < 10) { // 100pxごとにログ出力
-            console.log(`🌅 スクロール位置: ${scrolled}px | オフセット: ${parallaxOffset.toFixed(0)}px`);
-        }
-        
-        // 背景の明るさ調整
         this.updateBackgroundEffect(scrollProgress);
     }
     
@@ -253,8 +243,7 @@ class AdventurePage {
     updateBackgroundEffect(scrollProgress) {
         if (!this.bgImage) return;
         
-        // スクロールに応じて背景を明るく
-        const brightness = 0.8 + (scrollProgress * 0.4); // 0.8から1.2へ
+        const brightness = 0.8 + (scrollProgress * 0.4);
         const contrast = 1.1;
         const saturation = 1.2;
         
@@ -281,65 +270,13 @@ class AdventurePage {
     }
     
     /**
-     * タイピングオブザーバーの設定
-     */
-    setupTypingObserver() {
-        this.typingObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !entry.target.dataset.typed) {
-                    const element = entry.target;
-                    const text = element.dataset.text || element.textContent;
-                    this.typeText(element, text);
-                    element.dataset.typed = 'true';
-                    this.typingObserver.unobserve(element);
-                }
-            });
-        }, { 
-            threshold: 0.5
-        });
-        
-        document.querySelectorAll('.episode-text').forEach(el => {
-            this.typingObserver.observe(el);
-        });
-    }
-    
-    /**
-     * タイピングエフェクト - 完全修正版
-     */
-    typeText(element, text, speed = 30) {
-        if (!element || !text) return;
-        
-        console.log(`⌨️ タイピング開始: "${text.substring(0, 20)}..."`);
-        
-        // 元のテキストを保存してクリア
-        element.textContent = '';
-        element.classList.add('typing');
-        
-        let i = 0;
-        const timer = setInterval(() => {
-            element.textContent += text.charAt(i);
-            i++;
-            
-            if (i >= text.length) {
-                clearInterval(timer);
-                element.classList.remove('typing');
-                element.classList.add('typing-complete');
-                console.log('⌨️ タイピング完了');
-            }
-        }, speed);
-    }
-    
-    /**
      * イベントハンドラー
      */
     
     handleScroll() {
         if (this.isLoading) return;
         
-        // プログレスバー更新
         this.updateScrollProgress();
-        
-        // パララックス更新
         this.updateParallax();
     }
     
@@ -500,3 +437,4 @@ window.addEventListener('error', (e) => {
 
 // エクスポート
 window.AdventurePage = AdventurePage;
+
