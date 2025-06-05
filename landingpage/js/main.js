@@ -1,6 +1,6 @@
 /*
 RYO-CHAN冒険ランディングページ
-パララックス強化 + 文字浮上エフェクト版
+音声許可・ローディング動画対応版
 */
 
 class AdventurePage {
@@ -11,10 +11,11 @@ class AdventurePage {
         this.isMobile = window.innerWidth <= 768;
         this.touchStartY = 0;
         this.touchEndY = 0;
+        this.audioPermissionGranted = false;
 
-        // パララックス関連（10倍強化）
+        // パララックス関連
         this.parallaxConfig = {
-            speed: this.isMobile ? 4 : 6, // 10倍にアップ
+            speed: this.isMobile ? 0.8 : 1.5,
             maxOffset: 0,
             currentOffset: 0
         };
@@ -24,16 +25,113 @@ class AdventurePage {
 
     async init() {
         console.log('🚀 RYO-CHANの冒険ページが起動開始');
+        
         try {
             await this.preloadAssets();
+            this.setupAudioPermissionDialog();
             this.setupEventListeners();
             this.initializeComponents();
-            this.hideLoadingScreen();
+            this.setupLoadingVideo();
+            await this.handleLoadingSequence();
             console.log('✨ 初期化完了 - 冒険の準備が整いました');
         } catch (error) {
             console.error('❌ 初期化エラー:', error);
             this.handleInitError();
         }
+    }
+
+    /*
+    音声許可ダイアログの設定
+    */
+    setupAudioPermissionDialog() {
+        const dialog = document.getElementById('audioPermissionDialog');
+        const allowBtn = document.getElementById('audioAllow');
+        const denyBtn = document.getElementById('audioDeny');
+
+        if (!dialog || !allowBtn || !denyBtn) return;
+
+        allowBtn.addEventListener('click', () => {
+            this.audioPermissionGranted = true;
+            this.hideAudioPermissionDialog();
+            this.startAudioExperience();
+            console.log('🎵 音声体験が許可されました');
+        });
+
+        denyBtn.addEventListener('click', () => {
+            this.audioPermissionGranted = false;
+            this.hideAudioPermissionDialog();
+            console.log('🔇 無音モードで続行します');
+        });
+    }
+
+    hideAudioPermissionDialog() {
+        const dialog = document.getElementById('audioPermissionDialog');
+        if (dialog) {
+            dialog.classList.add('hidden');
+        }
+    }
+
+    startAudioExperience() {
+        if (window.audioSystem && this.audioPermissionGranted) {
+            window.audioSystem.enable();
+            // ローディング動画の音声も有効にする
+            const loadingVideo = document.getElementById('loadingVideo');
+            if (loadingVideo) {
+                loadingVideo.muted = false;
+                loadingVideo.volume = 0.6;
+            }
+        }
+    }
+
+    /*
+    ローディング動画の設定
+    */
+    setupLoadingVideo() {
+        const loadingVideo = document.getElementById('loadingVideo');
+        
+        if (loadingVideo) {
+            loadingVideo.addEventListener('loadstart', () => {
+                console.log('🎬 ローディング動画読み込み開始');
+            });
+
+            loadingVideo.addEventListener('canplaythrough', () => {
+                console.log('🎬 ローディング動画読み込み完了');
+            });
+
+            loadingVideo.addEventListener('error', (e) => {
+                console.warn('⚠️ ローディング動画読み込み失敗:', e);
+                // フォールバック画像を表示
+                const fallback = document.querySelector('.loading-fallback');
+                if (fallback) {
+                    fallback.style.display = 'block';
+                }
+            });
+
+            // 動画が再生可能になったら再生開始
+            loadingVideo.addEventListener('canplay', () => {
+                loadingVideo.play().catch(e => {
+                    console.warn('動画自動再生失敗:', e);
+                });
+            });
+        }
+    }
+
+    /*
+    ローディングシーケンスの処理
+    */
+    async handleLoadingSequence() {
+        // 最初に音声許可ダイアログを表示
+        setTimeout(() => {
+            const dialog = document.getElementById('audioPermissionDialog');
+            if (dialog) {
+                dialog.classList.remove('hidden');
+            }
+        }, 1000);
+
+        // 4秒後にローディングを終了
+        setTimeout(() => {
+            this.hideLoadingScreen();
+        }, 4000);
     }
 
     /*
@@ -72,17 +170,15 @@ class AdventurePage {
     ローディングスクリーンを隠す
     */
     hideLoadingScreen() {
-        setTimeout(() => {
-            const loadingScreen = document.getElementById('loadingScreen');
-            if (loadingScreen) {
-                loadingScreen.classList.add('hide');
-                setTimeout(() => {
-                    loadingScreen.style.display = 'none';
-                    this.isLoading = false;
-                    this.startIntroAnimations();
-                }, 600);
-            }
-        }, 2000);
+        const loadingScreen = document.getElementById('loadingScreen');
+        if (loadingScreen) {
+            loadingScreen.classList.add('hide');
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                this.isLoading = false;
+                this.startIntroAnimations();
+            }, 800);
+        }
     }
 
     /*
@@ -91,8 +187,6 @@ class AdventurePage {
     startIntroAnimations() {
         console.log('✨ イントロアニメーション開始');
         this.measurePerformance();
-        // 初期表示要素のアニメーション開始
-        this.animateVisibleElements();
     }
 
     /*
@@ -113,7 +207,7 @@ class AdventurePage {
     */
     setupEventListeners() {
         // スクロールイベント
-        this.throttledScroll = this.throttle(this.handleScroll.bind(this), 5); // より頻繁に更新
+        this.throttledScroll = this.throttle(this.handleScroll.bind(this), 10);
         window.addEventListener('scroll', this.throttledScroll, { passive: true });
 
         // クリック・タッチイベント
@@ -122,6 +216,12 @@ class AdventurePage {
         if (this.isMobile) {
             document.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: false });
             document.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: false });
+        }
+
+        // マウスイベント（デスクトップのみ）
+        if (!this.isMobile) {
+            this.throttledMouseMove = this.throttle(this.handleMouseMove.bind(this), 16);
+            document.addEventListener('mousemove', this.throttledMouseMove, { passive: true });
         }
 
         // リサイズイベント
@@ -168,24 +268,54 @@ class AdventurePage {
     コンポーネントの初期化
     */
     initializeComponents() {
+        this.setupCustomCursor();
         this.setupParallaxBackground();
         this.setupIntersectionObserver();
     }
 
     /*
-    パララックス背景の設定（強化版）
+    カスタムカーソルの設定
+    */
+    setupCustomCursor() {
+        if (this.isMobile) return;
+
+        this.cursor = document.querySelector('.custom-cursor');
+        if (!this.cursor) return;
+
+        this.mousePosition = { x: 0, y: 0 };
+        this.cursorPosition = { x: 0, y: 0 };
+
+        this.updateCursor();
+    }
+
+    /*
+    カーソル更新ループ
+    */
+    updateCursor() {
+        if (!this.cursor || this.isMobile) return;
+
+        this.cursorPosition.x += (this.mousePosition.x - this.cursorPosition.x) * 0.1;
+        this.cursorPosition.y += (this.mousePosition.y - this.cursorPosition.y) * 0.1;
+
+        this.cursor.style.transform = `translate(${this.cursorPosition.x}px, ${this.cursorPosition.y}px)`;
+
+        requestAnimationFrame(() => this.updateCursor());
+    }
+
+    /*
+    パララックス背景の設定
     */
     setupParallaxBackground() {
         this.parallaxBg = document.getElementById('parallaxBg');
         this.bgImage = this.parallaxBg?.querySelector('.bg-image');
         if (this.bgImage) {
-            console.log('📐 背景画像が見つかりました - 強化パララックス開始');
+            console.log('📐 背景画像が見つかりました');
             this.updateParallax();
         }
     }
 
     /*
-    パララックス更新（10倍強化版）
+    パララックス更新
     */
     updateParallax() {
         if (!this.bgImage) return;
@@ -194,19 +324,15 @@ class AdventurePage {
         const documentHeight = document.body.scrollHeight - window.innerHeight;
         const scrollProgress = Math.min(scrolled / documentHeight, 1);
 
-        // 大幅に移動量を増加（最大移動距離を10倍に）
-        const maxMove = 800; // 2000pxの移動距離
+        const maxMove = 1000;
         const parallaxOffset = scrollProgress * maxMove * this.parallaxConfig.speed;
 
-        // 直接transformを適用
         this.bgImage.style.transform = `translateY(-${parallaxOffset}px)`;
 
-        // デバッグ用ログ
-        if (scrolled % 200 < 10) { // 200pxごとにログ出力
+        if (scrolled % 200 < 10) {
             console.log(`🌅 スクロール進行: ${(scrollProgress * 100).toFixed(0)}% | オフセット: ${parallaxOffset.toFixed(0)}px`);
         }
 
-        // 背景の明るさ調整
         this.updateBackgroundEffect(scrollProgress);
     }
 
@@ -216,8 +342,7 @@ class AdventurePage {
     updateBackgroundEffect(scrollProgress) {
         if (!this.bgImage) return;
 
-        // スクロールに応じて背景を明るく
-        const brightness = 0.8 + (scrollProgress * 0.4); // 0.8から1.2へ
+        const brightness = 0.8 + (scrollProgress * 0.4);
         const contrast = 1.1;
         const saturation = 1.2;
 
@@ -225,29 +350,11 @@ class AdventurePage {
     }
 
     /*
-    インターセクションオブザーバーの設定（文字浮上エフェクト）
+    インターセクションオブザーバーの設定
     */
     setupIntersectionObserver() {
-        // 文字浮上エフェクト用オブザーバー
-        this.textObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    console.log(`💫 テキストアニメーション開始: ${entry.target.className}`);
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '-50px 0px'
-        });
-
-        // すべての fade-in-text 要素を監視
-        document.querySelectorAll('.fade-in-text').forEach(element => {
-            this.textObserver.observe(element);
-        });
-
-        // セクション切り替え用オブザーバー
         const sections = document.querySelectorAll('.section');
+
         this.sectionObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -260,27 +367,10 @@ class AdventurePage {
     }
 
     /*
-    表示可能な要素のアニメーション
-    */
-    animateVisibleElements() {
-        // 初期表示時に見える要素を即座にアニメーション
-        const viewportHeight = window.innerHeight;
-        document.querySelectorAll('.fade-in-text').forEach(element => {
-            const rect = element.getBoundingClientRect();
-            if (rect.top < viewportHeight && rect.bottom > 0) {
-                setTimeout(() => {
-                    element.classList.add('visible');
-                }, Math.random() * 500); // ランダムな遅延でより自然に
-            }
-        });
-    }
-
-    /*
     イベントハンドラー
     */
     handleScroll() {
         if (this.isLoading) return;
-
         this.updateScrollProgress();
         this.updateParallax();
     }
@@ -290,10 +380,25 @@ class AdventurePage {
             (window.pageYOffset / (document.body.scrollHeight - window.innerHeight)) * 100,
             100
         );
-
         const progressBar = document.querySelector('.scroll-progress');
         if (progressBar) {
             progressBar.style.width = `${scrollProgress}%`;
+        }
+    }
+
+    handleMouseMove(e) {
+        if (this.isMobile) return;
+
+        this.mousePosition.x = e.clientX;
+        this.mousePosition.y = e.clientY;
+
+        const isHoverable = e.target.closest('button, .character-card, .audio-control, [data-character]');
+        if (this.cursor) {
+            if (isHoverable) {
+                this.cursor.classList.add('hover');
+            } else {
+                this.cursor.classList.remove('hover');
+            }
         }
     }
 
@@ -304,7 +409,7 @@ class AdventurePage {
             window.effectsSystem.createRipple(e.clientX, e.clientY);
         }
 
-        if (window.audioSystem) {
+        if (window.audioSystem && this.audioPermissionGranted) {
             window.audioSystem.playClick();
         }
 
@@ -333,18 +438,24 @@ class AdventurePage {
 
         if (wasMobile !== this.isMobile) {
             console.log(`📱 デバイス切り替え: ${this.isMobile ? 'モバイル' : 'デスクトップ'}`);
-            this.parallaxConfig.speed = this.isMobile ? 8 : 15; // 新しい速度設定
+            this.parallaxConfig.speed = this.isMobile ? 0.8 : 1.5;
         }
 
-        if (window.platinumAuraSystem) {
-            window.platinumAuraSystem.resize();
+        if (window.goldenAuraSystem) {
+            window.goldenAuraSystem.resize();
         }
     }
 
     handleAudioClick(e) {
         e.stopPropagation();
-        if (window.audioSystem) {
+        if (window.audioSystem && this.audioPermissionGranted) {
             window.audioSystem.toggle();
+        } else if (!this.audioPermissionGranted) {
+            // 音声許可ダイアログを再表示
+            const dialog = document.getElementById('audioPermissionDialog');
+            if (dialog) {
+                dialog.classList.remove('hidden');
+            }
         }
     }
 
@@ -358,7 +469,7 @@ class AdventurePage {
 
         switch(action) {
             case 'start':
-                this.scrollToSection('charactersSection');
+                this.scrollToSection('episode1');
                 break;
             case 'read':
                 this.openStory();
@@ -374,7 +485,7 @@ class AdventurePage {
     */
     onFirstInteraction() {
         console.log('🎉 初回インタラクション検出');
-        if (window.audioSystem) {
+        if (window.audioSystem && this.audioPermissionGranted) {
             window.audioSystem.enable();
         }
     }
@@ -382,14 +493,6 @@ class AdventurePage {
     handleSectionInView(section) {
         const sectionId = section.id;
         console.log(`👁️ セクション表示: ${sectionId}`);
-
-        // セクション固有のアニメーション
-        const sectionTexts = section.querySelectorAll('.fade-in-text:not(.visible)');
-        sectionTexts.forEach((text, index) => {
-            setTimeout(() => {
-                text.classList.add('visible');
-            }, index * 200);
-        });
     }
 
     scrollToSection(sectionId) {
