@@ -61,6 +61,7 @@
         
         <!-- タイトルセクション -->
         <section class="section title-section" id="titleSection">
+            <div class="section-overlay"></div>
             <div class="content-wrapper">
                 <div class="character-container">
                     <img src="./image/ryochan.png" alt="RYO-CHAN" class="character-img main-character" data-character="ryochan">
@@ -87,6 +88,7 @@
         
         <!-- エピソード1 -->
         <section class="section episode-section" id="episode1">
+            <div class="section-overlay"></div>
             <div class="content-wrapper">
                 <div class="episode-header">
                     <span class="episode-number">Episode 01</span>
@@ -94,9 +96,9 @@
                 </div>
                 <div class="episode-content">
                     <div class="text-container">
-                        <p class="episode-text" id="episode1Text">
-                            満月が石段を照らす古い神社の夜。風化した鳥居の向こう、苔むした石畳に天から一筋の光が伸びていた。その光が照らし出したのは、そこで眠る小さな影。運命に導かれるように、一匹の犬がこの神社に迷い込み眠っていた。その名もRYOCHAN。ミニチュアシュナウザーだった。
-                        </p>
+                        <div class="text-frame">
+                            <p class="episode-text" id="episode1Text" data-text="満月が石段を照らす古い神社の夜。風化した鳥居の向こう、苔むした石畳に天から一筋の光が伸びていた。その光が照らし出したのは、そこで眠る小さな影。運命に導かれるように、一匹の犬がこの神社に迷い込み眠っていた。その名もRYOCHAN。ミニチュアシュナウザーだった。"></p>
+                        </div>
                     </div>
                     <div class="character-showcase">
                         <img src="./image/oldman.png" alt="OLD MAN" class="character-img episode-character" data-character="oldman">
@@ -107,6 +109,7 @@
         
         <!-- エピソード2 -->
         <section class="section episode-section" id="episode2">
+            <div class="section-overlay"></div>
             <div class="content-wrapper">
                 <div class="episode-header">
                     <span class="episode-number">Episode 02</span>
@@ -114,9 +117,9 @@
                 </div>
                 <div class="episode-content">
                     <div class="text-container">
-                        <p class="episode-text" id="episode2Text">
-                            東京の夜。窓からは星一つ見えない漆黒の闇が広がっていた。複数のモニターが青白い光を放つ密室。影のような人物たちがキーボードを熱心に叩いていた。彼らの姿は暗闇に溶け込み、光るモニターに照らされた指先だけが動きを見せていた。
-                        </p>
+                        <div class="text-frame">
+                            <p class="episode-text" id="episode2Text" data-text="東京の夜。窓からは星一つ見えない漆黒の闇が広がっていた。複数のモニターが青白い光を放つ密室。影のような人物たちがキーボードを熱心に叩いていた。彼らの姿は暗闇に溶け込み、光るモニターに照らされた指先だけが動きを見せていた。"></p>
+                        </div>
                     </div>
                     <div class="character-showcase">
                         <img src="./image/shadow.png" alt="SHADOW" class="character-img episode-character" data-character="shadow">
@@ -125,45 +128,58 @@
             </div>
         </section>
         
-        <!-- キャラクター紹介 - 常時表示版 -->
+        <!-- キャラクター紹介 -->
         <section class="section characters-section" id="characters">
+            <div class="section-overlay"></div>
             <div class="content-wrapper">
                 <h2 class="section-title">登場人物</h2>
                 <div class="characters-grid">
-                    <div class="character-card stable" data-character="ryochan">
-                        <img src="./image/ryochan.png" alt="RYO-CHAN" class="card-image stable">
+                    <div class="character-card" data-character="ryochan">
+                        <img src="./image/ryochan.png" alt="RYO-CHAN" class="card-image">
                         <h3 class="character-name">RYO-CHAN</h3>
-                        <p class="character-desc">小さな武者鎧に身を包んだミニチュアシュナウザー。運命に選ばれし者として、この世界の変革を担う使命を持つ。</p>
+                        <div class="character-desc-container">
+                            <p class="character-desc">小さな武者鎧に身を包んだミニチュアシュナウザー。運命に選ばれし者。</p>
+                        </div>
                     </div>
                     
-                    <div class="character-card stable" data-character="oldman">
-                        <img src="./image/oldman.png" alt="OLD MAN" class="card-image stable">
+                    <div class="character-card" data-character="oldman">
+                        <img src="./image/oldman.png" alt="OLD MAN" class="card-image">
                         <h3 class="character-name">OLD MAN</h3>
-                        <p class="character-desc">古の知識を持つ賢者。月明かりの下で真実を語り、RYO-CHANに重要な導きを与える存在。</p>
+                        <div class="character-desc-container">
+                            <p class="character-desc">古の知識を持つ賢者。月明かりの下で真実を語る。</p>
+                        </div>
                     </div>
                     
-                    <div class="character-card stable" data-character="sakura">
-                        <img src="./image/sakura.png" alt="SAKURA" class="card-image stable">
+                    <div class="character-card" data-character="sakura">
+                        <img src="./image/sakura.png" alt="SAKURA" class="card-image">
                         <h3 class="character-name">SAKURA</h3>
-                        <p class="character-desc">桜の花びらと共に現れる謎の少女。その正体と目的は物語が進むにつれて明かされる。</p>
+                        <div class="character-desc-container">
+                            <p class="character-desc">桜の花びらと共に現れる謎の少女。その正体は...</p>
+                        </div>
                     </div>
                     
-                    <div class="character-card stable" data-character="shadow">
-                        <img src="./image/shadow.png" alt="SHADOW" class="card-image stable">
+                    <div class="character-card" data-character="shadow">
+                        <img src="./image/shadow.png" alt="SHADOW" class="card-image">
                         <h3 class="character-name">SHADOW</h3>
-                        <p class="character-desc">闇に潜むハッカー集団。世界の裏で暗躍し、デジタル世界での影響力を持つ組織。</p>
+                        <div class="character-desc-container">
+                            <p class="character-desc">闇に潜むハッカー集団。世界の裏で暗躍する。</p>
+                        </div>
                     </div>
                     
-                    <div class="character-card stable" data-character="secret">
-                        <img src="./image/secret.png" alt="SECRET" class="card-image stable">
+                    <div class="character-card" data-character="secret">
+                        <img src="./image/secret.png" alt="SECRET" class="card-image">
                         <h3 class="character-name">？？？</h3>
-                        <p class="character-desc">すべての謎を握る存在。その正体は物語の核心に関わる重要な秘密を隠している。</p>
+                        <div class="character-desc-container">
+                            <p class="character-desc">すべての謎を握る存在。その正体は物語の中で明かされる。</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+        
         <!-- 最終セクション -->
         <section class="section final-section" id="final">
+            <div class="section-overlay"></div>
             <div class="content-wrapper">
                 <div class="final-content">
                     <h2 class="final-title">物語は始まったばかり</h2>
