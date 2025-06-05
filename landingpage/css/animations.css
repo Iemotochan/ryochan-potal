@@ -1,5 +1,5 @@
 /* ===========================================
-   基本アニメーション - 動きを抑制
+   基本アニメーション - 最適化版
 =========================================== */
 
 @keyframes fadeInUp {
@@ -21,38 +21,6 @@
     to {
         opacity: 1;
         transform: translateY(0);
-    }
-}
-
-@keyframes fadeInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes fadeInRight {
-    from {
-        opacity: 0;
-        transform: translateX(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-/* floatアニメーションを削除または大幅に抑制 */
-@keyframes subtleFloat {
-    0%, 100% { 
-        transform: translateY(0px); 
-    }
-    50% { 
-        transform: translateY(-5px); 
     }
 }
 
@@ -100,7 +68,8 @@
     }
 }
 
-@keyframes typing {
+/* タイプライター修正版 - テキストのみ展開 */
+@keyframes typewriter {
     from { 
         width: 0;
     }
@@ -161,12 +130,8 @@
 }
 
 /* ===========================================
-   アニメーションクラス - 控えめに
+   アニメーションクラス - 軽量化
 =========================================== */
-
-.animate-subtle-float {
-    animation: subtleFloat 6s ease-in-out infinite;
-}
 
 .animate-pulse {
     animation: pulse 3s infinite;
@@ -182,10 +147,6 @@
 
 .animate-gradient {
     animation: gradientShift 5s ease infinite;
-}
-
-.animate-typing {
-    animation: typing 3s steps(150) forwards;
 }
 
 .animate-loading {
@@ -229,22 +190,6 @@
     animation: bounce 2s infinite;
 }
 
-/* キャラクター画像の動きを完全に停止 */
-.main-character,
-.episode-character,
-.final-character,
-.loading-character,
-.card-image {
-    animation: none !important;
-    transform: none !important;
-}
-
-/* 安定化クラス */
-.stable {
-    animation: none !important;
-    transform: none !important;
-}
-
 .loading-text {
     animation: pulse 2s infinite;
 }
@@ -281,7 +226,6 @@
     will-change: opacity;
 }
 
-/* ハードウェアアクセラレーション */
 .gpu-accelerated {
     transform: translateZ(0);
     backface-visibility: hidden;
