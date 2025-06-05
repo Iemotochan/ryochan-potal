@@ -1,6 +1,5 @@
 /**
- * RYO-CHAN冒険ランディングページ - メインコントローラー
- * スマホ最適化版
+ * RYO-CHAN冒険ランディングページ - パララックス修正版
  */
 
 class AdventurePage {
@@ -14,7 +13,7 @@ class AdventurePage {
         
         // パララックス関連
         this.parallaxConfig = {
-            speed: this.isMobile ? 0.3 : 0.8,
+            speed: this.isMobile ? 0.5 : 0.8,
             maxOffset: 0,
             currentOffset: 0
         };
@@ -60,7 +59,7 @@ class AdventurePage {
                 };
                 img.onerror = () => {
                     console.warn(`⚠️ 画像読み込み失敗: ${src}`);
-                    resolve(); // エラーでも続行
+                    resolve();
                 };
                 img.src = src;
             });
@@ -68,34 +67,6 @@ class AdventurePage {
         
         await Promise.all(loadPromises);
         console.log('🎨 すべての画像アセットの処理が完了しました');
-    }
-    
-    /**
-     * 初期化エラーのハンドリング
-     */
-    handleInitError() {
-        const loadingScreen = document.getElementById('loadingScreen');
-        if (loadingScreen) {
-            loadingScreen.innerHTML = `
-                <div class="loading-content">
-                    <div class="loading-text">申し訳ございません</div>
-                    <div style="color: #ccc; font-size: 1rem; margin-top: 20px;">
-                        ページの読み込みに問題が発生しました。<br>
-                        ページを再読み込みしてください。
-                    </div>
-                    <button onclick="window.location.reload()" style="
-                        background: var(--primary-gold);
-                        border: none;
-                        padding: 15px 30px;
-                        border-radius: 25px;
-                        color: black;
-                        font-weight: 600;
-                        margin-top: 30px;
-                        cursor: pointer;
-                    ">再読み込み</button>
-                </div>
-            `;
-        }
     }
     
     /**
@@ -112,7 +83,7 @@ class AdventurePage {
                     this.startIntroAnimations();
                 }, 600);
             }
-        }, 2000); // スマホでは短縮
+        }, 2000);
     }
     
     /**
@@ -141,7 +112,7 @@ class AdventurePage {
      */
     setupEventListeners() {
         // スクロールイベント
-        this.throttledScroll = this.throttle(this.handleScroll.bind(this), this.isMobile ? 16 : 10);
+        this.throttledScroll = this.throttle(this.handleScroll.bind(this), 10);
         window.addEventListener('scroll', this.throttledScroll, { passive: true });
         
         // クリック・タッチイベント
@@ -162,31 +133,16 @@ class AdventurePage {
         this.throttledResize = this.throttle(this.handleResize.bind(this), 250);
         window.addEventListener('resize', this.throttledResize);
         
-        // キーボードイベント
-        document.addEventListener('keydown', this.handleKeyDown.bind(this));
+        // CTAボタン
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', this.handleCTAClick.bind(this));
+        });
         
         // オーディオコントロール
         const audioControl = document.getElementById('audioControl');
         if (audioControl) {
             audioControl.addEventListener('click', this.handleAudioClick.bind(this));
         }
-        
-        // CTAボタン
-        document.querySelectorAll('.cta-button').forEach(button => {
-            button.addEventListener('click', this.handleCTAClick.bind(this));
-        });
-        
-        // キャラクターカード
-        document.querySelectorAll('.character-card').forEach(card => {
-            card.addEventListener('mouseenter', this.handleCardHover.bind(this));
-            card.addEventListener('mouseleave', this.handleCardLeave.bind(this));
-            if (this.isMobile) {
-                card.addEventListener('touchstart', this.handleCardTouch.bind(this));
-            }
-        });
-        
-        // ページ離脱前の処理
-        window.addEventListener('beforeunload', this.handleBeforeUnload.bind(this));
     }
     
     /**
@@ -221,7 +177,6 @@ class AdventurePage {
         this.setupParallaxBackground();
         this.setupIntersectionObserver();
         this.setupTypingObserver();
-        this.startPerformanceMonitoring();
     }
     
     /**
@@ -232,9 +187,6 @@ class AdventurePage {
         
         this.cursor = document.querySelector('.custom-cursor');
         if (!this.cursor) return;
-        
-        this.cursorDot = this.cursor.querySelector('.cursor-dot');
-        this.cursorRing = this.cursor.querySelector('.cursor-ring');
         
         this.mousePosition = { x: 0, y: 0 };
         this.cursorPosition = { x: 0, y: 0 };
@@ -257,160 +209,56 @@ class AdventurePage {
     }
     
     /**
-     * パララックス背景の設定 - 縦長画像対応
+     * パララックス背景の設定 - 簡易版
      */
     setupParallaxBackground() {
         this.parallaxBg = document.getElementById('parallaxBg');
         this.bgImage = this.parallaxBg?.querySelector('.bg-image');
         
         if (this.bgImage) {
-            if (this.bgImage.complete) {
-                this.initializeParallax();
-            } else {
-                this.bgImage.addEventListener('load', () => {
-                    this.initializeParallax();
-                });
-            }
-            
-            this.bgImage.classList.add('parallax-active');
+            console.log('📐 背景画像が見つかりました');
+            // 即座にパララックスを開始
+            this.updateParallax();
         }
     }
     
     /**
-     * パララックス初期化
-     */
-    initializeParallax() {
-        if (!this.bgImage) return;
-        
-        const imageNaturalHeight = this.bgImage.naturalHeight;
-        const imageNaturalWidth = this.bgImage.naturalWidth;
-        const viewportHeight = window.innerHeight;
-        
-        if (imageNaturalHeight > imageNaturalWidth) {
-            const aspectRatio = imageNaturalHeight / imageNaturalWidth;
-            const scaledImageHeight = window.innerWidth * aspectRatio;
-            
-            this.parallaxConfig.maxOffset = Math.max(0, scaledImageHeight - viewportHeight);
-            
-            console.log(`📐 縦長画像パララックス設定:
-                自然サイズ: ${imageNaturalWidth}x${imageNaturalHeight}
-                最大オフセット: ${this.parallaxConfig.maxOffset}px`);
-        }
-        
-        this.updateParallax();
-    }
-    
-    /**
-     * パララックス更新
+     * パララックス更新 - 簡単な計算
      */
     updateParallax() {
-        if (!this.bgImage || this.parallaxConfig.maxOffset <= 0) return;
+        if (!this.bgImage) return;
         
         const scrolled = window.pageYOffset;
-        const documentHeight = document.body.scrollHeight - window.innerHeight;
-        const scrollProgress = Math.min(scrolled / documentHeight, 1);
+        const scrollProgress = scrolled / (document.body.scrollHeight - window.innerHeight);
         
-        const parallaxOffset = scrollProgress * this.parallaxConfig.maxOffset * this.parallaxConfig.speed;
+        // 簡単なパララックス計算
+        const maxMove = 500; // 最大移動距離
+        const parallaxOffset = scrollProgress * maxMove * this.parallaxConfig.speed;
         
-        if (Math.abs(parallaxOffset - this.parallaxConfig.currentOffset) > 1) {
-            this.parallaxConfig.currentOffset = parallaxOffset;
-            this.bgImage.style.setProperty('--parallax-offset', `-${parallaxOffset}px`);
+        // 直接transformを適用
+        this.bgImage.style.transform = `translateY(-${parallaxOffset}px)`;
+        
+        // デバッグ用ログ
+        if (scrolled % 100 < 10) { // 100pxごとにログ出力
+            console.log(`🌅 スクロール位置: ${scrolled}px | オフセット: ${parallaxOffset.toFixed(0)}px`);
         }
         
-        this.updateSectionBasedEffects(scrollProgress);
+        // 背景の明るさ調整
+        this.updateBackgroundEffect(scrollProgress);
     }
     
     /**
-     * セクション進行に応じた背景エフェクト
+     * 背景エフェクト更新
      */
-    updateSectionBasedEffects(scrollProgress) {
-        const sections = document.querySelectorAll('.section');
-        const sectionProgress = scrollProgress * sections.length;
-        const currentSectionIndex = Math.floor(sectionProgress);
-        const sectionLocalProgress = sectionProgress - currentSectionIndex;
-        
-        switch(currentSectionIndex) {
-            case 0:
-                this.applyNightSkyEffect(sectionLocalProgress);
-                break;
-            case 1:
-                this.applyShrineTransitionEffect(sectionLocalProgress);
-                break;
-            case 2:
-                this.applyShrineEffect(sectionLocalProgress);
-                break;
-            case 3:
-                this.applyCharacterSectionEffect(sectionLocalProgress);
-                break;
-            case 4:
-                this.applyFinalSectionEffect(sectionLocalProgress);
-                break;
-        }
-    }
-    
-    /**
-     * 夜空エフェクト
-     */
-    applyNightSkyEffect(progress) {
+    updateBackgroundEffect(scrollProgress) {
         if (!this.bgImage) return;
         
-        const brightness = 0.7 + (progress * 0.1);
-        const saturation = 1.2 + (progress * 0.2);
-        
-        this.bgImage.style.filter = `brightness(${brightness}) contrast(1.1) saturate(${saturation})`;
-    }
-    
-    /**
-     * 神社移行エフェクト
-     */
-    applyShrineTransitionEffect(progress) {
-        if (!this.bgImage) return;
-        
-        const brightness = 0.8 + (progress * 0.1);
-        const contrast = 1.1 + (progress * 0.1);
-        
-        this.bgImage.style.filter = `brightness(${brightness}) contrast(${contrast}) saturate(1.3)`;
-    }
-    
-    /**
-     * 神社エフェクト
-     */
-    applyShrineEffect(progress) {
-        if (!this.bgImage) return;
-        
-        const brightness = 0.9;
-        const contrast = 1.2;
-        const saturation = 1.4;
+        // スクロールに応じて背景を明るく
+        const brightness = 0.8 + (scrollProgress * 0.4); // 0.8から1.2へ
+        const contrast = 1.1;
+        const saturation = 1.2;
         
         this.bgImage.style.filter = `brightness(${brightness}) contrast(${contrast}) saturate(${saturation})`;
-    }
-    
-    /**
-     * キャラクターセクションエフェクト
-     */
-    applyCharacterSectionEffect(progress) {
-        if (!this.bgImage) return;
-        
-        const brightness = 0.95;
-        const contrast = 1.15;
-        
-        this.bgImage.style.filter = `brightness(${brightness}) contrast(${contrast}) saturate(1.3)`;
-    }
-    
-    /**
-     * 最終セクションエフェクト
-     */
-    applyFinalSectionEffect(progress) {
-        if (!this.bgImage) return;
-        
-        const brightness = 1.0;
-        const contrast = 1.3;
-        const saturation = 1.5;
-        
-        this.bgImage.style.filter = `brightness(${brightness}) contrast(${contrast}) saturate(${saturation})`;
-        
-        const scale = 1 + (progress * 0.05);
-        this.bgImage.style.transform = `translateY(var(--parallax-offset, 0px)) scale(${scale})`;
     }
     
     /**
@@ -426,15 +274,14 @@ class AdventurePage {
                 }
             });
         }, {
-            threshold: 0.3,
-            rootMargin: '-100px 0px'
+            threshold: 0.3
         });
         
         sections.forEach(section => this.sectionObserver.observe(section));
     }
     
     /**
-     * タイピングオブザーバーの設定 - 修正版
+     * タイピングオブザーバーの設定
      */
     setupTypingObserver() {
         this.typingObserver = new IntersectionObserver((entries) => {
@@ -448,8 +295,7 @@ class AdventurePage {
                 }
             });
         }, { 
-            threshold: 0.5,
-            rootMargin: '0px 0px -100px 0px'
+            threshold: 0.5
         });
         
         document.querySelectorAll('.episode-text').forEach(el => {
@@ -458,15 +304,15 @@ class AdventurePage {
     }
     
     /**
-     * タイピングエフェクト - 修正版（枠固定）
+     * タイピングエフェクト - 完全修正版
      */
-    typeText(element, text, speed = this.isMobile ? 20 : 30) {
+    typeText(element, text, speed = 30) {
         if (!element || !text) return;
         
-        // テキストをクリア
+        console.log(`⌨️ タイピング開始: "${text.substring(0, 20)}..."`);
+        
+        // 元のテキストを保存してクリア
         element.textContent = '';
-        element.style.width = '0';
-        element.style.whiteSpace = 'nowrap';
         element.classList.add('typing');
         
         let i = 0;
@@ -476,100 +322,25 @@ class AdventurePage {
             
             if (i >= text.length) {
                 clearInterval(timer);
-                element.style.width = '100%';
-                element.style.whiteSpace = 'normal';
-                element.style.borderRight = 'none';
                 element.classList.remove('typing');
                 element.classList.add('typing-complete');
+                console.log('⌨️ タイピング完了');
             }
         }, speed);
     }
     
     /**
-     * パフォーマンス監視
-     */
-    startPerformanceMonitoring() {
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(() => {
-                this.optimizePerformance();
-            });
-        }
-        
-        if (!this.isMobile) {
-            this.startFPSMonitoring();
-        }
-    }
-    
-    /**
-     * FPS監視（デスクトップのみ）
-     */
-    startFPSMonitoring() {
-        let lastTime = performance.now();
-        let frameCount = 0;
-        
-        const measureFPS = (currentTime) => {
-            frameCount++;
-            
-            if (currentTime - lastTime >= 1000) {
-                const fps = Math.round((frameCount * 1000) / (currentTime - lastTime));
-                
-                if (fps < 30) {
-                    console.warn(`⚠️ 低FPS検出: ${fps}fps - パフォーマンス最適化を実行`);
-                    this.enablePerformanceMode();
-                }
-                
-                frameCount = 0;
-                lastTime = currentTime;
-            }
-            
-            requestAnimationFrame(measureFPS);
-        };
-        
-        requestAnimationFrame(measureFPS);
-    }
-    
-    /**
-     * パフォーマンス最適化
-     */
-    optimizePerformance() {
-        const elements = document.querySelectorAll('[class*="animate-"]');
-        
-        const visibilityObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animationPlayState = 'running';
-                } else {
-                    entry.target.style.animationPlayState = 'paused';
-                }
-            });
-        });
-        
-        elements.forEach(el => visibilityObserver.observe(el));
-    }
-    
-    /**
-     * パフォーマンスモード有効化
-     */
-    enablePerformanceMode() {
-        console.log('🚀 パフォーマンスモードを有効化');
-        
-        if (window.goldenAuraSystem) {
-            window.goldenAuraSystem.reduceParticles();
-        }
-        
-        document.documentElement.style.setProperty('--reduced-motion', '1');
-    }
-    
-    /**
-     * イベントハンドラー群
+     * イベントハンドラー
      */
     
     handleScroll() {
         if (this.isLoading) return;
         
+        // プログレスバー更新
         this.updateScrollProgress();
+        
+        // パララックス更新
         this.updateParallax();
-        this.detectCurrentSection();
     }
     
     updateScrollProgress() {
@@ -581,31 +352,6 @@ class AdventurePage {
         const progressBar = document.querySelector('.scroll-progress');
         if (progressBar) {
             progressBar.style.width = `${scrollProgress}%`;
-        }
-    }
-    
-    detectCurrentSection() {
-        const sections = document.querySelectorAll('.section');
-        const scrollPosition = window.pageYOffset + window.innerHeight / 2;
-        
-        sections.forEach((section, index) => {
-            const sectionTop = section.offsetTop;
-            const sectionBottom = sectionTop + section.offsetHeight;
-            
-            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                if (this.currentSection !== index) {
-                    this.currentSection = index;
-                    this.onSectionChange(index);
-                }
-            }
-        });
-    }
-    
-    onSectionChange(sectionIndex) {
-        console.log(`📍 セクション変更: ${sectionIndex}`);
-        
-        if (window.audioSystem) {
-            window.audioSystem.onSectionChange(sectionIndex);
         }
     }
     
@@ -630,10 +376,6 @@ class AdventurePage {
         
         if (window.effectsSystem) {
             window.effectsSystem.createRipple(e.clientX, e.clientY);
-            
-            if (Math.random() > 0.7) {
-                window.effectsSystem.createFirework(e.clientX, e.clientY);
-            }
         }
         
         if (window.audioSystem) {
@@ -644,13 +386,6 @@ class AdventurePage {
             this.hasInteracted = true;
             this.onFirstInteraction();
         }
-        
-        if (this.cursor) {
-            this.cursor.classList.add('click');
-            setTimeout(() => {
-                this.cursor.classList.remove('click');
-            }, 150);
-        }
     }
     
     handleTouchStart(e) {
@@ -659,24 +394,10 @@ class AdventurePage {
     
     handleTouchEnd(e) {
         this.touchEndY = e.changedTouches[0].clientY;
-        this.handleSwipe();
         
         const touch = e.changedTouches[0];
         if (window.effectsSystem) {
             window.effectsSystem.createRipple(touch.clientX, touch.clientY);
-        }
-    }
-    
-    handleSwipe() {
-        const swipeThreshold = 50;
-        const swipeDistance = this.touchStartY - this.touchEndY;
-        
-        if (Math.abs(swipeDistance) > swipeThreshold) {
-            if (swipeDistance > 0) {
-                this.scrollToNextSection();
-            } else {
-                this.scrollToPrevSection();
-            }
         }
     }
     
@@ -686,56 +407,11 @@ class AdventurePage {
         
         if (wasMobile !== this.isMobile) {
             console.log(`📱 デバイス切り替え: ${this.isMobile ? 'モバイル' : 'デスクトップ'}`);
-            this.handleDeviceChange();
-            this.parallaxConfig.speed = this.isMobile ? 0.3 : 0.8;
-        }
-        
-        if (this.bgImage && this.bgImage.complete) {
-            setTimeout(() => {
-                this.initializeParallax();
-            }, 100);
+            this.parallaxConfig.speed = this.isMobile ? 0.5 : 0.8;
         }
         
         if (window.goldenAuraSystem) {
             window.goldenAuraSystem.resize();
-        }
-    }
-    
-    handleDeviceChange() {
-        if (this.isMobile) {
-            this.cursor?.remove();
-            document.body.style.cursor = 'auto';
-        } else {
-            this.setupCustomCursor();
-        }
-    }
-    
-    handleKeyDown(e) {
-        if (this.isLoading) return;
-        
-        switch(e.key) {
-            case ' ':
-                e.preventDefault();
-                if (window.audioSystem) {
-                    window.audioSystem.toggle();
-                }
-                break;
-            case 'ArrowDown':
-                e.preventDefault();
-                this.scrollToNextSection();
-                break;
-            case 'ArrowUp':
-                e.preventDefault();
-                this.scrollToPrevSection();
-                break;
-            case 'Home':
-                e.preventDefault();
-                this.scrollToTop();
-                break;
-            case 'End':
-                e.preventDefault();
-                this.scrollToBottom();
-                break;
         }
     }
     
@@ -765,40 +441,6 @@ class AdventurePage {
                 this.joinCommunity();
                 break;
         }
-        
-        this.trackEvent('cta_click', { action });
-    }
-    
-    handleCardHover(e) {
-        const card = e.target.closest('.character-card');
-        if (window.audioSystem) {
-            window.audioSystem.playHover();
-        }
-        
-        card.style.boxShadow = '0 0 40px rgba(255, 215, 0, 0.4)';
-    }
-    
-    handleCardLeave(e) {
-        const card = e.target.closest('.character-card');
-        card.style.boxShadow = '';
-    }
-    
-    handleCardTouch(e) {
-        const card = e.target.closest('.character-card');
-        card.style.transform = 'translateY(-5px)';
-        
-        setTimeout(() => {
-            card.style.transform = '';
-        }, 200);
-    }
-    
-    handleBeforeUnload() {
-        if (this.sectionObserver) {
-            this.sectionObserver.disconnect();
-        }
-        if (this.typingObserver) {
-            this.typingObserver.disconnect();
-        }
     }
     
     /**
@@ -816,75 +458,13 @@ class AdventurePage {
     handleSectionInView(section) {
         const sectionId = section.id;
         console.log(`👁️ セクション表示: ${sectionId}`);
-        
-        switch(sectionId) {
-            case 'characters':
-                this.animateCharacterCards();
-                break;
-        }
-    }
-    
-    animateCharacterCards() {
-        const cards = document.querySelectorAll('.character-card');
-        cards.forEach((card, index) => {
-            setTimeout(() => {
-                card.classList.add('animate-scale-in');
-            }, index * 100);
-        });
     }
     
     scrollToSection(sectionId) {
         const section = document.getElementById(sectionId);
         if (section) {
-            this.smoothScrollTo(section.offsetTop, 1200);
+            section.scrollIntoView({ behavior: 'smooth' });
         }
-    }
-    
-    scrollToNextSection() {
-        const sections = document.querySelectorAll('.section');
-        const next = Math.min(this.currentSection + 1, sections.length - 1);
-        this.smoothScrollTo(sections[next].offsetTop, 1000);
-    }
-    
-    scrollToPrevSection() {
-        const sections = document.querySelectorAll('.section');
-        const prev = Math.max(this.currentSection - 1, 0);
-        this.smoothScrollTo(sections[prev].offsetTop, 1000);
-    }
-    
-    scrollToTop() {
-        this.smoothScrollTo(0, 1000);
-    }
-    
-    scrollToBottom() {
-        this.smoothScrollTo(document.body.scrollHeight, 1000);
-    }
-    
-    smoothScrollTo(targetPosition, duration = 1000) {
-        const startPosition = window.pageYOffset;
-        const distance = targetPosition - startPosition;
-        let startTime = null;
-        
-        const easeInOutCubic = (t) => {
-            return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
-        };
-        
-        const scrollAnimation = (currentTime) => {
-            if (startTime === null) startTime = currentTime;
-            const timeElapsed = currentTime - startTime;
-            const progress = Math.min(timeElapsed / duration, 1);
-            
-            const easedProgress = easeInOutCubic(progress);
-            const currentPosition = startPosition + (distance * easedProgress);
-            
-            window.scrollTo(0, currentPosition);
-            
-            if (progress < 1) {
-                requestAnimationFrame(scrollAnimation);
-            }
-        };
-        
-        requestAnimationFrame(scrollAnimation);
     }
     
     openStory() {
@@ -899,12 +479,8 @@ class AdventurePage {
         }, 800);
     }
     
-    trackEvent(eventName, data = {}) {
-        console.log(`📊 イベント: ${eventName}`, data);
-        
-        if (typeof gtag !== 'undefined') {
-            gtag('event', eventName, data);
-        }
+    handleInitError() {
+        console.error('初期化に失敗しました');
     }
 }
 
@@ -920,28 +496,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // エラーハンドリング
 window.addEventListener('error', (e) => {
     console.error('❌ エラーが発生しました:', e.error);
-    
-    if (adventurePage) {
-        adventurePage.trackEvent('error', {
-            message: e.error.message,
-            filename: e.filename,
-            lineno: e.lineno
-        });
-    }
 });
-
-// 未処理のPromise拒否をキャッチ
-window.addEventListener('unhandledrejection', (e) => {
-    console.error('❌ 未処理のPromise拒否:', e.reason);
-    e.preventDefault();
-});
-
-// パフォーマンス最適化
-if ('requestIdleCallback' in window) {
-    requestIdleCallback(() => {
-        console.log('⚡ アイドル時間でのパフォーマンス最適化完了');
-    });
-}
 
 // エクスポート
 window.AdventurePage = AdventurePage;
