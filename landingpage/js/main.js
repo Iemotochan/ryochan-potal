@@ -254,30 +254,40 @@ class AdventurePage {
     }
     
     /**
-     * パララックス背景の設定
+     * パララックス背景の設定 - 動きを無効化
      */
     setupParallaxBackground() {
         this.parallaxBg = document.getElementById('parallaxBg');
         this.bgImage = this.parallaxBg?.querySelector('.bg-image');
         
         if (this.bgImage) {
-            // 初期位置設定
-            this.updateParallax();
+            // パララックス効果を完全に無効化
+            this.bgImage.classList.add('stable');
+            this.bgImage.style.transform = 'none';
         }
     }
     
     /**
-     * パララックス更新
+     * パララックス更新 - 無効化
      */
     updateParallax() {
-        if (!this.bgImage) return;
-        
-        const scrolled = window.pageYOffset;
-        const parallaxSpeed = 0.3;
-        
-        // transform3dを使用してハードウェアアクセラレーション
-        this.bgImage.style.transform = `translate3d(0, ${scrolled * parallaxSpeed}px, 0)`;
+        // パララックス効果を無効化
+        return;
     }
+    
+    /**
+     * スクロールイベントハンドラー - パララックス削除
+     */
+    handleScroll() {
+        if (this.isLoading) return;
+        
+        // プログレスバー更新のみ
+        this.updateScrollProgress();
+        
+        // セクション検出
+        this.detectCurrentSection();
+    }
+
     
     /**
      * インターセクションオブザーバーの設定
