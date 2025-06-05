@@ -1,5 +1,5 @@
 /**
- * RYO-CHAN冒険ランディングページ - メインコントローラー
+ * RYO-CHAN冒険ランディングページ - パララックス修正版
  */
 
 class AdventurePage {
@@ -13,7 +13,7 @@ class AdventurePage {
         
         // パララックス関連
         this.parallaxConfig = {
-            speed: this.isMobile ? 0.5 : 0.8,
+            speed: this.isMobile ? 0.8 : 1.5, // 速度を上げて背景移動量を増加
             maxOffset: 0,
             currentOffset: 0
         };
@@ -208,7 +208,7 @@ class AdventurePage {
     }
     
     /**
-     * パララックス背景の設定
+     * パララックス背景の設定 - 大幅修正
      */
     setupParallaxBackground() {
         this.parallaxBg = document.getElementById('parallaxBg');
@@ -221,19 +221,28 @@ class AdventurePage {
     }
     
     /**
-     * パララックス更新
+     * パララックス更新 - 完全修正版
      */
     updateParallax() {
         if (!this.bgImage) return;
         
         const scrolled = window.pageYOffset;
-        const scrollProgress = scrolled / (document.body.scrollHeight - window.innerHeight);
+        const documentHeight = document.body.scrollHeight - window.innerHeight;
+        const scrollProgress = Math.min(scrolled / documentHeight, 1);
         
-        const maxMove = 500;
+        // 大幅に移動量を増加（最終的に画像全体を表示）
+        const maxMove = 1000; // 最大移動距離を大幅増加
         const parallaxOffset = scrollProgress * maxMove * this.parallaxConfig.speed;
         
+        // 直接transformを適用
         this.bgImage.style.transform = `translateY(-${parallaxOffset}px)`;
         
+        // デバッグ用ログ
+        if (scrolled % 200 < 10) { // 200pxごとにログ出力
+            console.log(`🌅 スクロール進行: ${(scrollProgress * 100).toFixed(0)}% | オフセット: ${parallaxOffset.toFixed(0)}px`);
+        }
+        
+        // 背景の明るさ調整
         this.updateBackgroundEffect(scrollProgress);
     }
     
@@ -243,7 +252,8 @@ class AdventurePage {
     updateBackgroundEffect(scrollProgress) {
         if (!this.bgImage) return;
         
-        const brightness = 0.8 + (scrollProgress * 0.4);
+        // スクロールに応じて背景を明るく
+        const brightness = 0.8 + (scrollProgress * 0.4); // 0.8から1.2へ
         const contrast = 1.1;
         const saturation = 1.2;
         
@@ -344,7 +354,7 @@ class AdventurePage {
         
         if (wasMobile !== this.isMobile) {
             console.log(`📱 デバイス切り替え: ${this.isMobile ? 'モバイル' : 'デスクトップ'}`);
-            this.parallaxConfig.speed = this.isMobile ? 0.5 : 0.8;
+            this.parallaxConfig.speed = this.isMobile ? 0.8 : 1.5;
         }
         
         if (window.goldenAuraSystem) {
@@ -369,7 +379,7 @@ class AdventurePage {
         
         switch(action) {
             case 'start':
-                this.scrollToSection('episode1');
+                this.scrollToSection('characters');
                 break;
             case 'read':
                 this.openStory();
@@ -437,4 +447,3 @@ window.addEventListener('error', (e) => {
 
 // エクスポート
 window.AdventurePage = AdventurePage;
-
