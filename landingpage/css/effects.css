@@ -162,31 +162,3 @@
         opacity: 0;
     }
 }
-
-/*
-サイバーエフェクト
-*/
-.cyber-border {
-    position: relative;
-    border: 2px solid transparent;
-    background: linear-gradient(var(--dark-bg), var(--dark-bg)) padding-box,
-                linear-gradient(45deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple)) border-box;
-}
-
-.cyber-border::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
-    border-radius: inherit;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.cyber-border:hover::before {
-    opacity: 1;
-}
