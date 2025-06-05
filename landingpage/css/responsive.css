@@ -1,22 +1,35 @@
 /* ===========================================
-   レスポンシブデザイン
+   レスポンシブデザイン - 最適化版
 =========================================== */
 
 /* タブレット (768px以下) */
 @media (max-width: 768px) {
+    /* パフォーマンス最適化 */
+    .golden-aura-container {
+        opacity: 0.2;
+    }
+    
+    #goldenAuraCanvas {
+        opacity: 0.2;
+    }
+    
+    /* 背景パララックス調整 */
+    .bg-image {
+        min-height: 500vh;
+    }
+    
     .section {
-        padding: 60px 20px;
-        min-height: auto;
+        padding: 60px 15px;
     }
     
     .content-wrapper {
         max-width: 100%;
-        padding: 0 15px;
+        padding: 0 10px;
     }
     
     /* タイトルセクション */
     .title-section {
-        padding: 80px 20px;
+        padding: 60px 15px;
     }
     
     .main-character {
@@ -37,7 +50,7 @@
     /* エピソードセクション */
     .episode-content {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 30px;
         text-align: center;
     }
     
@@ -50,46 +63,48 @@
         width: 120px;
     }
     
+    .text-frame {
+        min-height: 150px;
+        padding: 20px;
+    }
+    
     .episode-text {
-        white-space: normal;
-        max-width: 100%;
-        border-right: none;
-        border-bottom: 3px solid var(--primary-gold);
-        padding-bottom: 15px;
-        padding-right: 0;
+        font-size: clamp(1rem, 4vw, 1.2rem);
     }
     
     /* キャラクターセクション */
     .characters-grid {
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 25px;
         max-width: 400px;
         margin: 0 auto;
     }
     
     .character-card {
-        height: 320px;
+        height: 380px;
+        padding: 20px;
     }
     
     .card-image {
-        width: 100px;
-        margin-bottom: 20px;
-    }
-    
-    .character-name {
-        font-size: 1.6rem;
+        width: 90px;
         margin-bottom: 15px;
     }
     
+    .character-name {
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+    }
+    
     .character-desc {
-        font-size: 1rem;
+        font-size: 0.95rem;
+        line-height: 1.5;
     }
     
     /* 最終セクション */
     .final-characters {
         flex-direction: column;
         align-items: center;
-        gap: 30px;
+        gap: 25px;
     }
     
     .final-character {
@@ -126,7 +141,7 @@
     
     /* ローディングスクリーン */
     .loading-character {
-        width: 150px;
+        width: 130px;
     }
     
     .loading-text {
@@ -140,17 +155,26 @@
 
 /* スマートフォン (480px以下) */
 @media (max-width: 480px) {
+    /* さらなるパフォーマンス最適化 */
+    .golden-aura-container {
+        display: none;
+    }
+    
+    .bg-image {
+        min-height: 300vh;
+    }
+    
     .section {
-        padding: 40px 15px;
+        padding: 40px 10px;
     }
     
     .content-wrapper {
-        padding: 0 10px;
+        padding: 0 5px;
     }
     
     /* タイトルセクション */
     .title-section {
-        padding: 60px 15px;
+        padding: 50px 10px;
     }
     
     .main-character {
@@ -169,21 +193,9 @@
         line-height: 1.5;
     }
     
-    .scroll-indicator {
-        bottom: 20px;
-    }
-    
-    .scroll-text {
-        font-size: 12px;
-    }
-    
-    .scroll-arrow {
-        font-size: 20px;
-    }
-    
     /* エピソードセクション */
     .episode-header {
-        margin-bottom: 40px;
+        margin-bottom: 30px;
     }
     
     .episode-number {
@@ -201,41 +213,40 @@
         width: 100px;
     }
     
+    .text-frame {
+        min-height: 120px;
+        padding: 15px;
+    }
+    
     .episode-text {
-        font-size: clamp(1rem, 4vw, 1.2rem);
-        line-height: 1.7;
-        padding-bottom: 10px;
+        font-size: clamp(0.9rem, 4vw, 1.1rem);
+        line-height: 1.6;
     }
     
     /* キャラクターセクション */
     .section-title {
         font-size: clamp(2rem, 8vw, 3rem);
-        margin-bottom: 50px;
+        margin-bottom: 40px;
     }
     
     .character-card {
-        height: 280px;
-        margin-bottom: 20px;
-    }
-    
-    .card-front,
-    .card-back {
-        padding: 25px 20px;
+        height: 340px;
+        padding: 15px;
     }
     
     .card-image {
         width: 80px;
-        margin-bottom: 15px;
-    }
-    
-    .character-name {
-        font-size: 1.4rem;
         margin-bottom: 12px;
     }
     
+    .character-name {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+    }
+    
     .character-desc {
-        font-size: 0.95rem;
-        line-height: 1.6;
+        font-size: 0.9rem;
+        line-height: 1.4;
     }
     
     /* 最終セクション */
@@ -306,33 +317,12 @@
         width: 250px;
         height: 5px;
     }
-    
-    /* エフェクト調整 */
-    .golden-aura-container {
-        opacity: 0.6;
-    }
-    
-    /* タイピングエフェクト調整 */
-    .episode-text.typing {
-        animation: mobileTyping 2s steps(100) forwards;
-    }
-    
-    @keyframes mobileTyping {
-        from { 
-            max-width: 0;
-            white-space: nowrap;
-        }
-        to { 
-            max-width: 100%;
-            white-space: normal;
-        }
-    }
 }
 
 /* 極小画面 (360px以下) */
 @media (max-width: 360px) {
     .section {
-        padding: 30px 10px;
+        padding: 30px 8px;
     }
     
     .main-character {
@@ -349,7 +339,8 @@
     }
     
     .character-card {
-        height: 250px;
+        height: 300px;
+        padding: 12px;
     }
     
     .cta-button {
@@ -368,6 +359,10 @@
 
 /* 大画面 (1200px以上) */
 @media (min-width: 1200px) {
+    .bg-image {
+        min-height: 1200vh;
+    }
+    
     .content-wrapper {
         max-width: 1400px;
     }
@@ -385,39 +380,17 @@
     }
     
     .characters-grid {
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 50px;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 40px;
     }
     
     .character-card {
-        height: 420px;
+        height: 460px;
+        padding: 30px;
     }
     
     .card-image {
-        width: 150px;
-    }
-}
-
-/* 超大画面 (1600px以上) */
-@media (min-width: 1600px) {
-    .content-wrapper {
-        max-width: 1600px;
-    }
-    
-    .section {
-        padding: 100px 40px;
-    }
-    
-    .main-character {
-        width: 280px;
-    }
-    
-    .episode-character {
-        width: 200px;
-    }
-    
-    .final-character {
-        width: 180px;
+        width: 120px;
     }
 }
 
@@ -446,7 +419,7 @@
     }
     
     .main-character {
-        width: 200px;
+        width: 180px;
     }
     
     .title-content {
@@ -466,125 +439,28 @@
     }
 }
 
-/* ダークモード対応 */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --text-secondary: #e0e0e0;
-        --text-muted: #b0b0b0;
-    }
-}
-
-/* 高コントラスト対応 */
-@media (prefers-contrast: high) {
-    :root {
-        --primary-gold: #FFFF00;
-        --text-primary: #FFFFFF;
-        --text-secondary: #FFFFFF;
+/* パフォーマンス最適化 */
+@media (max-width: 768px) {
+    /* アニメーション軽量化 */
+    * {
+        animation-duration: 0.5s !important;
     }
     
-    .glass-bg {
-        background: rgba(0, 0, 0, 0.8);
-    }
-    
-    .character-card,
-    .card-front,
-    .card-back {
-        border: 2px solid var(--primary-gold);
-    }
-}
-
-/* 印刷対応 */
-@media print {
-    .custom-cursor,
-    .scroll-progress,
-    .golden-aura-container,
-    .audio-control,
-    .loading-screen,
-    #fireworksContainer,
-    #rippleContainer {
-        display: none !important;
-    }
-    
-    .section {
-        break-inside: avoid;
-        padding: 20px;
-    }
-    
-    .main-title,
-    .episode-title,
-    .section-title,
-    .final-title {
-        color: #000 !important;
-        text-shadow: none !important;
-    }
-    
-    .parallax-bg {
-        position: static;
-    }
-    
-    .bg-image {
+    /* 重いエフェクトを無効化 */
+    .glow-effect::before,
+    .shimmer-effect::before {
         display: none;
-    }
-}
-
-/* フォーカス可視性向上 */
-@media (prefers-reduced-motion: no-preference) {
-    .cta-button:focus,
-    .character-card:focus,
-    .audio-control:focus {
-        outline: 3px solid var(--primary-gold);
-        outline-offset: 2px;
-    }
-}
-
-/* タッチデバイス最適化 */
-@media (hover: none) and (pointer: coarse) {
-    .character-card:hover .card-inner {
-        transform: none;
-    }
-    
-    .character-card:active .card-inner {
-        transform: rotateY(180deg);
-    }
-    
-    .cta-button:hover {
-        transform: none;
-    }
-    
-    .cta-button:active {
-        transform: translateY(-3px);
-    }
-    
-    .audio-control:hover {
-        transform: none;
-    }
-    
-    .audio-control:active {
-        transform: scale(0.95);
     }
 }
 
 /* バッテリー節約モード */
 @media (prefers-reduced-motion: reduce) {
-    .animate-float,
-    .animate-float-slow,
-    .animate-pulse,
-    .animate-bounce,
-    .animate-wave,
-    .animate-gradient,
-    .animate-glow,
-    .animate-rotate {
-        animation: none !important;
-    }
-    
-    .main-character,
-    .episode-character,
-    .final-character,
-    .loading-character {
-        animation: none !important;
-    }
-    
     .golden-aura-container {
         display: none;
+    }
+    
+    * {
+        animation: none !important;
+        transition: none !important;
     }
 }
