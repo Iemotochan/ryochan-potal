@@ -57,7 +57,6 @@ body {
     overflow-x: hidden;
     position: relative;
     line-height: 1.6;
-    cursor: auto; /* カスタムカーソル削除 */
 }
 
 /*
@@ -76,7 +75,6 @@ body {
     z-index: 1000;
     transition: width 0.1s ease;
     box-shadow: var(--shadow-glow);
-    animation: gradientShift 8s ease infinite;
 }
 
 /*
@@ -124,7 +122,7 @@ body {
     background: radial-gradient(circle, #ffb7c5, #ff69b4);
     border-radius: 0 100% 0 100%;
     opacity: 0.8;
-    animation: sakuraFall 25s linear infinite; /* 固定速度 */
+    animation: sakuraFall 25s linear infinite;
     transform-origin: center;
 }
 
@@ -233,12 +231,7 @@ body {
     height: 15px;
     background: var(--accent-cyan);
     border-radius: 2px;
-    animation: wave 1s infinite ease-in-out;
 }
-
-.audio-waves span:nth-child(1) { animation-delay: 0s; }
-.audio-waves span:nth-child(2) { animation-delay: 0.1s; }
-.audio-waves span:nth-child(3) { animation-delay: 0.2s; }
 
 /*
 ===========================================
@@ -258,7 +251,7 @@ body {
 .bg-image {
     width: 100%;
     height: auto;
-    min-height: 300vh; /* 大幅に拡大 */
+    min-height: 300vh;
     object-fit: cover;
     object-position: center top;
     transition: transform 0.1s ease-out;
@@ -454,7 +447,6 @@ body {
     font-size: 28px;
     color: var(--accent-cyan);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
-    animation: bounce 2s infinite;
 }
 
 /*
@@ -801,7 +793,6 @@ body {
     margin-bottom: 40px;
     font-weight: 500;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
-    animation: pulse 2s infinite;
 }
 
 .loading-bar {
@@ -818,7 +809,6 @@ body {
     background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
     border-radius: 3px;
     box-shadow: var(--shadow-glow);
-    animation: loading 3s ease-in-out;
 }
 
 /*
