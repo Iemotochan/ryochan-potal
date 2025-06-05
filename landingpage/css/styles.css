@@ -11,36 +11,23 @@
 }
 
 :root {
-    /* クールなカラーパレット */
-    --primary-platinum: #E5E4E2;
-    --secondary-platinum: #C0C0C0;
-    --tertiary-platinum: #A8A8A8;
-    --accent-blue: #00BFFF;
-    --accent-cyan: #40E0D0;
-    --accent-purple: #8A2BE2;
-    --accent-pink: #FF1493;
-    
-    /* 背景色 */
+    --primary-gold: #FFD700;
+    --secondary-gold: #FFA500;
+    --tertiary-gold: #DAA520;
     --dark-bg: #0a0a0a;
     --dark-secondary: #1a1a1a;
     --glass-bg: rgba(0, 0, 0, 0.6);
-    --glass-border: rgba(229, 228, 226, 0.4);
-    
-    /* テキスト色 */
+    --glass-border: rgba(255, 215, 0, 0.4);
     --text-primary: #ffffff;
     --text-secondary: #f0f0f0;
     --text-muted: #cccccc;
-    
-    /* トランジション */
+    --accent-blue: #00BFFF;
+    --accent-purple: #8A2BE2;
+    --accent-pink: #FF1493;
     --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    
-    /* シャドウ */
     --shadow-strong: 0 4px 20px rgba(0, 0, 0, 0.8);
     --shadow-text: 2px 2px 4px rgba(0, 0, 0, 0.9);
-    --shadow-glow: 0 0 20px rgba(64, 224, 208, 0.6);
-    
-    /* 境界線 */
     --border-radius: 15px;
     --border-radius-large: 25px;
 }
@@ -55,8 +42,51 @@ body {
     background: var(--dark-bg);
     color: var(--text-primary);
     overflow-x: hidden;
+    cursor: none;
     position: relative;
     line-height: 1.6;
+}
+
+/*
+===========================================
+カスタムカーソル
+===========================================
+*/
+
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+}
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--primary-gold);
+    border-radius: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    transition: all 0.1s ease;
+}
+
+.cursor-ring {
+    width: 40px;
+    height: 40px;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s var(--transition-smooth);
+}
+
+.custom-cursor.hover .cursor-ring {
+    width: 60px;
+    height: 60px;
+    border-color: var(--primary-gold);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
 }
 
 /*
@@ -70,771 +100,18 @@ body {
     left: 0;
     width: 0%;
     height: 4px;
-    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+    background: linear-gradient(90deg, var(--primary-gold), var(--accent-blue), var(--accent-purple));
     background-size: 300% 100%;
     z-index: 1000;
     transition: width 0.1s ease;
-    box-shadow: var(--shadow-glow);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
 }
 
 /*
 ===========================================
-プラチナオーラコンテナ
+音声許可ダイアログ
 ===========================================
 */
-.platinum-aura-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 1;
-    overflow: hidden;
-}
-
-#platinumAuraCanvas {
-    width: 100%;
-    height: 100%;
-    opacity: 0.3;
-}
-
-/*
-===========================================
-桜の花びらエフェクト
-===========================================
-*/
-.sakura-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 2;
-    overflow: hidden;
-}
-
-.sakura-petal {
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    background: radial-gradient(circle, #ffb7c5, #ff69b4);
-    border-radius: 0 100% 0 100%;
-    opacity: 0.8;
-    animation: sakuraFall 25s linear infinite;
-    transform-origin: center;
-}
-
-.sakura-petal::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, #ffb7c5, #ff69b4);
-    border-radius: 100% 0 100% 0;
-    transform: rotate(45deg);
-}
-
-/*
-===========================================
-プラチナスパークエフェクト
-===========================================
-*/
-.platinum-sparks-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 2;
-    overflow: hidden;
-}
-
-.platinum-spark {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: radial-gradient(circle, var(--primary-platinum), var(--accent-cyan));
-    border-radius: 50%;
-    opacity: 0.9;
-    animation: sparkRise 8s linear infinite;
-    box-shadow: 0 0 10px var(--accent-cyan);
-}
-
-.platinum-spark.bright {
-    background: radial-gradient(circle, #fff, var(--accent-cyan));
-    box-shadow: 0 0 15px var(--accent-cyan), 0 0 25px rgba(64, 224, 208, 0.5);
-}
-
-.platinum-spark.dim {
-    opacity: 0.6;
-    background: radial-gradient(circle, var(--secondary-platinum), var(--accent-blue));
-}
-
-/*
-===========================================
-オーディオコントロール
-===========================================
-*/
-.audio-control {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    width: 60px;
-    height: 60px;
-    background: var(--glass-bg);
-    border: 2px solid var(--glass-border);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 1000;
-    transition: all 0.3s var(--transition-smooth);
-    box-shadow: var(--shadow-strong);
-    backdrop-filter: blur(15px);
-}
-
-.audio-control:hover {
-    transform: scale(1.1);
-    border-color: var(--accent-cyan);
-    box-shadow: var(--shadow-glow);
-    background: rgba(64, 224, 208, 0.1);
-}
-
-.audio-icon {
-    font-size: 20px;
-    transition: opacity 0.3s ease;
-    color: var(--accent-cyan);
-}
-
-.audio-waves {
-    position: absolute;
-    display: flex;
-    gap: 2px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.audio-control.playing .audio-waves {
-    opacity: 1;
-}
-
-.audio-control.playing .audio-icon {
-    opacity: 0;
-}
-
-.audio-waves span {
-    width: 3px;
-    height: 15px;
-    background: var(--accent-cyan);
-    border-radius: 2px;
-}
-
-/*
-===========================================
-背景パララックス（強化版）
-===========================================
-*/
-.parallax-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-    overflow: hidden;
-}
-
-.bg-image {
-    width: 100%;
-    height: auto;
-    min-height: 300vh;
-    object-fit: cover;
-    object-position: center top;
-    transition: transform 0.1s ease-out;
-    filter: brightness(1.0) contrast(1.1) saturate(1.2);
-    will-change: transform;
-    transform: translateY(0px);
-}
-
-.bg-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.1) 0%,
-        rgba(0, 0, 0, 0.3) 50%,
-        rgba(0, 0, 0, 0.5) 100%
-    );
-    pointer-events: none;
-}
-
-/*
-===========================================
-セクションオーバーレイ
-===========================================
-*/
-.section-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    transition: background-color 0.8s ease;
-}
-
-.title-section .section-overlay {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.2) 100%);
-}
-
-.episode-section .section-overlay {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.25) 100%);
-}
-
-.characters-section .section-overlay {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.3) 100%);
-}
-
-.final-section .section-overlay {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.35) 100%);
-}
-
-/*
-===========================================
-メインコンテンツ
-===========================================
-*/
-.main-content {
-    position: relative;
-    z-index: 10;
-}
-
-.section {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 80px 20px;
-    min-height: auto;
-}
-
-.section:first-child {
-    min-height: 100vh;
-}
-
-.content-wrapper {
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
-}
-
-/*
-===========================================
-文字浮上エフェクト
-===========================================
-*/
-.fade-in-text {
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all 0.8s var(--transition-smooth);
-}
-
-.fade-in-text.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/*
-===========================================
-タイトルセクション
-===========================================
-*/
-.title-section {
-    min-height: 100vh;
-}
-
-.title-section .content-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    height: 100vh;
-    justify-content: center;
-}
-
-.title-content {
-    text-align: center;
-    max-width: 800px;
-    position: relative;
-}
-
-.main-title {
-    font-family: 'Yuji Syuku', serif;
-    font-size: clamp(2.5rem, 8vw, 6rem);
-    font-weight: 700;
-    margin-bottom: 30px;
-    color: var(--primary-platinum);
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 1), 0 0 30px rgba(64, 224, 208, 0.5);
-    position: relative;
-    line-height: 1.2;
-}
-
-.title-line {
-    display: inline-block;
-}
-
-.title-divider {
-    display: inline-block;
-    margin: 0 0.3em;
-    color: var(--accent-cyan);
-}
-
-/* スマホでの改行調整 */
-@media (max-width: 480px) {
-    .main-title {
-        font-size: clamp(2rem, 12vw, 3.5rem);
-    }
-    
-    .title-line:last-child {
-        display: block;
-        margin-top: 0.2em;
-    }
-    
-    .title-divider {
-        display: none;
-    }
-}
-
-.subtitle {
-    font-size: clamp(1.2rem, 4vw, 1.8rem);
-    font-weight: 400;
-    margin-bottom: 50px;
-    color: var(--text-secondary);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
-    line-height: 1.4;
-}
-
-.cta-container {
-    margin-top: 40px;
-    margin-bottom: 60px;
-}
-
-.scroll-indicator {
-    text-align: center;
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.scroll-text {
-    font-size: 14px;
-    color: var(--text-muted);
-    margin-bottom: 15px;
-    letter-spacing: 1px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
-}
-
-.scroll-arrow {
-    font-size: 28px;
-    color: var(--accent-cyan);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
-}
-
-/*
-===========================================
-エピソードセクション
-===========================================
-*/
-.episode-section {
-    border-top: 1px solid rgba(64, 224, 208, 0.3);
-    border-bottom: 1px solid rgba(64, 224, 208, 0.2);
-    padding: 100px 20px;
-}
-
-.episode-header {
-    text-align: center;
-    margin-bottom: 60px;
-}
-
-.episode-number {
-    display: block;
-    font-size: 16px;
-    color: var(--accent-cyan);
-    font-weight: 600;
-    letter-spacing: 3px;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
-}
-
-.episode-title {
-    font-family: 'Yuji Syuku', serif;
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    color: var(--primary-platinum);
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 1), 0 0 20px rgba(64, 224, 208, 0.4);
-    margin-bottom: 20px;
-    position: relative;
-}
-
-.episode-content {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 60px;
-    align-items: flex-start;
-}
-
-.text-container {
-    flex: 1;
-}
-
-.text-frame {
-    background: rgba(0, 0, 0, 0.7);
-    border: 2px solid var(--glass-border);
-    border-radius: var(--border-radius);
-    padding: 30px;
-    min-height: 180px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
-    position: relative;
-    backdrop-filter: blur(10px);
-}
-
-.episode-text {
-    font-size: clamp(1.1rem, 3vw, 1.4rem);
-    line-height: 1.9;
-    color: var(--text-secondary);
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-    font-weight: 400;
-    margin: 0;
-    padding: 0;
-}
-
-.character-showcase {
-    flex-shrink: 0;
-    position: relative;
-}
-
-.episode-character {
-    width: 160px;
-    height: auto;
-    filter: drop-shadow(0 0 15px rgba(64, 224, 208, 0.5));
-}
-
-/*
-===========================================
-キャラクターセクション
-===========================================
-*/
-.characters-section {
-    border-top: 1px solid rgba(64, 224, 208, 0.3);
-    padding: 100px 20px;
-}
-
-.section-title {
-    font-family: 'Yuji Syuku', serif;
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    text-align: center;
-    color: var(--primary-platinum);
-    margin-bottom: 80px;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 1), 0 0 20px rgba(64, 224, 208, 0.4);
-    position: relative;
-}
-
-.characters-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 40px;
-    margin-top: 60px;
-}
-
-.character-card.cyber-style {
-    height: auto;
-    min-height: 600px;
-    cursor: pointer;
-    position: relative;
-    background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(20, 20, 20, 0.9));
-    border: 3px solid var(--glass-border);
-    border-radius: var(--border-radius-large);
-    padding: 0;
-    text-align: left;
-    transition: all 0.4s var(--transition-smooth);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(15px);
-    overflow: hidden;
-}
-
-.character-card.cyber-style:hover {
-    transform: translateY(-15px) scale(1.02);
-    border-color: var(--accent-cyan);
-    box-shadow: 0 25px 60px rgba(64, 224, 208, 0.4);
-}
-
-.character-image-container {
-    position: relative;
-    height: 180px;
-    background: linear-gradient(135deg, rgba(64, 224, 208, 0.1), rgba(0, 191, 255, 0.1));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-bottom: 2px solid var(--glass-border);
-}
-
-.character-card.cyber-style .card-image {
-    width: 120px;
-    height: auto;
-    margin: 0;
-    filter: drop-shadow(0 0 20px rgba(64, 224, 208, 0.6));
-    transition: all 0.3s ease;
-}
-
-.character-card.cyber-style:hover .card-image {
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 30px rgba(64, 224, 208, 0.8));
-}
-
-.character-info {
-    padding: 25px;
-}
-
-.character-card.cyber-style .character-name {
-    font-family: 'Yuji Syuku', serif;
-    font-size: 1.8rem;
-    color: var(--primary-platinum);
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
-    font-weight: 700;
-    border-bottom: 2px solid rgba(64, 224, 208, 0.3);
-    padding-bottom: 10px;
-}
-
-.character-details {
-    margin-bottom: 20px;
-}
-
-.detail-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.detail-label {
-    font-weight: 600;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    min-width: 60px;
-}
-
-.detail-value {
-    color: var(--text-secondary);
-    font-weight: 500;
-    text-align: right;
-    flex: 1;
-    margin-left: 15px;
-}
-
-.character-profile {
-    font-size: 1rem;
-    line-height: 1.7;
-    color: var(--text-secondary);
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-    background: rgba(64, 224, 208, 0.05);
-    padding: 15px;
-    border-radius: 10px;
-    border-left: 3px solid var(--accent-cyan);
-    font-style: italic;
-}
-
-/*
-===========================================
-最終セクション
-===========================================
-*/
-.final-section {
-    border-top: 1px solid rgba(64, 224, 208, 0.3);
-    padding: 100px 20px;
-}
-
-.final-content {
-    text-align: center;
-    margin-bottom: 60px;
-}
-
-.final-title {
-    font-family: 'Yuji Syuku', serif;
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    color: var(--primary-platinum);
-    margin-bottom: 30px;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 1), 0 0 20px rgba(64, 224, 208, 0.4);
-}
-
-.final-text {
-    font-size: clamp(1.2rem, 4vw, 1.6rem);
-    color: var(--text-secondary);
-    margin-bottom: 50px;
-    line-height: 1.7;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
-}
-
-/*
-===========================================
-ボタンスタイル
-===========================================
-*/
-.cta-button {
-    position: relative;
-    background: linear-gradient(45deg, var(--accent-cyan), var(--accent-blue));
-    border: none;
-    border-radius: 50px;
-    padding: 20px 45px;
-    font-family: 'Inter', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--dark-bg);
-    cursor: pointer;
-    transition: all 0.3s var(--transition-smooth);
-    overflow: hidden;
-    margin: 15px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.cta-button:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-glow);
-}
-
-.cta-button.secondary {
-    background: transparent;
-    border: 2px solid var(--accent-cyan);
-    color: var(--accent-cyan);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
-}
-
-.cta-button.secondary:hover {
-    background: var(--accent-cyan);
-    color: var(--dark-bg);
-}
-
-.button-text {
-    position: relative;
-    z-index: 2;
-}
-
-.button-glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
-    transform: translate(-50%, -50%) scale(0);
-    border-radius: 50px;
-    transition: transform 0.3s ease;
-}
-
-.cta-button:hover .button-glow {
-    transform: translate(-50%, -50%) scale(1.3);
-}
-
-/*
-===========================================
-ローディングスクリーン
-===========================================
-*/
-.loading-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: linear-gradient(135deg, var(--dark-bg), var(--dark-secondary));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10000;
-    transition: opacity 0.6s ease, visibility 0.6s ease;
-}
-
-.loading-screen.hide {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.loading-content {
-    text-align: center;
-    max-width: 400px;
-}
-
-.loading-character {
-    width: 150px;
-    height: auto;
-    margin-bottom: 40px;
-    filter: drop-shadow(0 0 20px rgba(64, 224, 208, 0.6));
-}
-
-.loading-text {
-    font-size: 1.6rem;
-    color: var(--accent-cyan);
-    margin-bottom: 40px;
-    font-weight: 500;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
-}
-
-.loading-bar {
-    width: 320px;
-    height: 6px;
-    background: rgba(64, 224, 208, 0.2);
-    border-radius: 3px;
-    overflow: hidden;
-    margin: 0 auto;
-}
-
-.loading-progress {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
-    border-radius: 3px;
-    box-shadow: var(--shadow-glow);
-}
-
-/*
-===========================================
-ユーティリティクラス
-===========================================
-*/
-.hidden {
-    display: none !important;
-}
-
-.glass-card {
-    background: rgba(0, 0, 0, 0.7);
-    border: 2px solid var(--glass-border);
-    border-radius: var(--border-radius);
-    backdrop-filter: blur(10px);
-}
-
-.glow-text {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
-}
-/* 既存のスタイルに以下を追加 */
-
-/* =========================================== 
-   音声許可ダイアログ 
-   =========================================== */
 .audio-permission-dialog {
     position: fixed;
     top: 0;
@@ -924,9 +201,11 @@ body {
     transform: translateY(-2px);
 }
 
-/* =========================================== 
-   ローディング画面（動画背景版） 
-   =========================================== */
+/*
+===========================================
+ローディングスクリーン（動画背景版）
+===========================================
+*/
 .loading-screen {
     position: fixed;
     top: 0;
@@ -963,6 +242,7 @@ body {
     transform: translate(-50%, -50%);
     filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
     z-index: -1;
+    display: none;
 }
 
 .loading-overlay {
@@ -1028,6 +308,691 @@ body {
 .loading-screen.hide {
     opacity: 0;
     visibility: hidden;
+}
+
+/*
+===========================================
+金色オーラコンテナ
+===========================================
+*/
+
+.golden-aura-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+#goldenAuraCanvas {
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+}
+
+/*
+===========================================
+桜の花びらエフェクト
+ゆっくり修正
+===========================================
+*/
+
+.sakura-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.sakura-petal {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: radial-gradient(circle, #ffb7c5, #ff69b4);
+    border-radius: 0 100% 0 100%;
+    opacity: 0.8;
+    animation: sakuraFall linear infinite;
+    transform-origin: center;
+}
+
+.sakura-petal::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #ffb7c5, #ff69b4);
+    border-radius: 100% 0 100% 0;
+    transform: rotate(45deg);
+}
+
+/*
+===========================================
+金色の火の粉エフェクト
+===========================================
+*/
+
+.golden-sparks-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.golden-spark {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, var(--primary-gold), var(--secondary-gold));
+    border-radius: 50%;
+    opacity: 0.9;
+    animation: sparkRise linear infinite;
+    box-shadow: 0 0 10px var(--primary-gold);
+}
+
+.golden-spark.bright {
+    background: radial-gradient(circle, #fff, var(--primary-gold));
+    box-shadow: 0 0 15px var(--primary-gold), 0 0 25px rgba(255, 215, 0, 0.5);
+}
+
+.golden-spark.dim {
+    opacity: 0.6;
+    background: radial-gradient(circle, var(--tertiary-gold), var(--secondary-gold));
+}
+
+/*
+===========================================
+オーディオコントロール
+===========================================
+*/
+
+.audio-control {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background: var(--glass-bg);
+    border: 2px solid var(--glass-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s var(--transition-smooth);
+    box-shadow: var(--shadow-strong);
+}
+
+.audio-control:hover {
+    transform: scale(1.1);
+    border-color: var(--primary-gold);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+    background: rgba(255, 215, 0, 0.1);
+}
+
+.audio-icon {
+    font-size: 20px;
+    transition: opacity 0.3s ease;
+    color: var(--primary-gold);
+}
+
+.audio-waves {
+    position: absolute;
+    display: flex;
+    gap: 2px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.audio-control.playing .audio-waves {
+    opacity: 1;
+}
+
+.audio-control.playing .audio-icon {
+    opacity: 0;
+}
+
+.audio-waves span {
+    width: 3px;
+    height: 15px;
+    background: var(--primary-gold);
+    border-radius: 2px;
+}
+
+/*
+===========================================
+背景パララックス
+修正版
+===========================================
+*/
+
+.parallax-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.bg-image {
+    width: 100%;
+    height: auto;
+    min-height: 200vh;
+    object-fit: cover;
+    object-position: center top;
+    transition: transform 0.05s ease-out;
+    filter: brightness(1.0) contrast(1.1) saturate(1.2);
+    will-change: transform;
+    transform: translateY(0px);
+}
+
+/*
+===========================================
+セクションオーバーレイ
+===========================================
+*/
+
+.section-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transition: background-color 0.8s ease;
+}
+
+.title-section .section-overlay {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.2) 100%);
+}
+
+.episode-section .section-overlay {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.25) 100%);
+}
+
+.characters-section .section-overlay {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.3) 100%);
+}
+
+.final-section .section-overlay {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.35) 100%);
+}
+
+/*
+===========================================
+メインコンテンツ
+===========================================
+*/
+
+.main-content {
+    position: relative;
+    z-index: 10;
+}
+
+.section {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    min-height: auto;
+}
+
+.section:first-child {
+    min-height: 100vh;
+}
+
+.content-wrapper {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+/*
+===========================================
+タイトルセクション
+スクロール指示修正
+===========================================
+*/
+
+.title-section {
+    min-height: 100vh;
+}
+
+.title-section .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+    justify-content: center;
+}
+
+.title-content {
+    text-align: center;
+    max-width: 800px;
+    position: relative;
+}
+
+.main-title {
+    font-family: 'Yuji Syuku', serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: var(--primary-gold);
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 1);
+    position: relative;
+}
+
+.title-line {
+    display: block;
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.subtitle {
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+    font-weight: 400;
+    margin-bottom: 50px;
+    opacity: 0;
+    color: var(--text-secondary);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+    line-height: 1.4;
+}
+
+.cta-container {
+    margin-top: 40px;
+    margin-bottom: 60px;
+    opacity: 0;
+}
+
+/*
+スクロール指示をCTAボタンの下に配置
+*/
+
+.scroll-indicator {
+    text-align: center;
+    opacity: 0;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.scroll-text {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+}
+
+.scroll-arrow {
+    font-size: 28px;
+    color: var(--primary-gold);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+}
+
+/*
+===========================================
+エピソードセクション
+===========================================
+*/
+.episode-section {
+    border-top: 1px solid rgba(255, 215, 0, 0.3);
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+    padding: 100px 20px;
+}
+
+.episode-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.episode-number {
+    display: block;
+    font-size: 16px;
+    color: var(--primary-gold);
+    font-weight: 600;
+    letter-spacing: 3px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+}
+
+.episode-title {
+    font-family: 'Yuji Syuku', serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    color: var(--primary-gold);
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 1);
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.episode-content {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 60px;
+    align-items: flex-start;
+}
+
+.text-container {
+    flex: 1;
+}
+
+.text-frame {
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    min-height: 180px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+    position: relative;
+    backdrop-filter: blur(10px);
+}
+
+.episode-text {
+    font-size: clamp(1.1rem, 3vw, 1.4rem);
+    line-height: 1.9;
+    color: var(--text-secondary);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    white-space: normal;
+    width: 100%;
+    border: none;
+    animation: none;
+}
+
+.character-showcase {
+    flex-shrink: 0;
+    position: relative;
+}
+
+.episode-character {
+    width: 160px;
+    height: auto;
+    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5));
+}
+
+/*
+===========================================
+キャラクターセクション - ⭐︎削除
+===========================================
+*/
+.characters-section {
+    border-top: 1px solid rgba(255, 215, 0, 0.3);
+    padding: 100px 20px;
+}
+
+.section-title {
+    font-family: 'Yuji Syuku', serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    text-align: center;
+    color: var(--primary-gold);
+    margin-bottom: 80px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 1);
+    position: relative;
+}
+
+.characters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
+}
+
+.character-card.manga-style {
+    height: auto;
+    min-height: 600px;
+    cursor: pointer;
+    position: relative;
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(20, 20, 20, 0.9));
+    border: 3px solid var(--glass-border);
+    border-radius: var(--border-radius-large);
+    padding: 0;
+    text-align: left;
+    transition: all 0.4s var(--transition-smooth);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(15px);
+    overflow: hidden;
+}
+
+.character-card.manga-style:hover {
+    transform: translateY(-15px) scale(1.02);
+    border-color: var(--primary-gold);
+    box-shadow: 0 25px 60px rgba(255, 215, 0, 0.4);
+}
+
+.character-image-container {
+    position: relative;
+    height: 180px;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px solid var(--glass-border);
+}
+
+.character-card.manga-style .card-image {
+    width: 120px;
+    height: auto;
+    margin: 0;
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+    transition: all 0.3s ease;
+}
+
+.character-card.manga-style:hover .card-image {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
+}
+
+/*
+⭐︎ランクを削除
+*/
+
+.character-rank {
+    display: none;
+}
+
+.character-info {
+    padding: 25px;
+}
+
+.character-card.manga-style .character-name {
+    font-family: 'Yuji Syuku', serif;
+    font-size: 1.8rem;
+    color: var(--primary-gold);
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+    font-weight: 700;
+    border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+    padding-bottom: 10px;
+}
+
+.character-details {
+    margin-bottom: 20px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.detail-label {
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    min-width: 60px;
+}
+
+.detail-value {
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-align: right;
+    flex: 1;
+    margin-left: 15px;
+}
+
+.character-profile {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    background: rgba(255, 215, 0, 0.05);
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 3px solid var(--primary-gold);
+    font-style: italic;
+}
+
+/*
+===========================================
+最終セクション
+===========================================
+*/
+.final-section {
+    border-top: 1px solid rgba(255, 215, 0, 0.3);
+    padding: 100px 20px;
+}
+
+.final-content {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.final-title {
+    font-family: 'Yuji Syuku', serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    color: var(--primary-gold);
+    margin-bottom: 30px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 1);
+}
+
+.final-text {
+    font-size: clamp(1.2rem, 4vw, 1.6rem);
+    color: var(--text-secondary);
+    margin-bottom: 50px;
+    line-height: 1.7;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+}
+
+/*
+===========================================
+ボタンスタイル
+===========================================
+*/
+.cta-button {
+    position: relative;
+    background: linear-gradient(45deg, var(--primary-gold), var(--secondary-gold));
+    border: none;
+    border-radius: 50px;
+    padding: 20px 45px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dark-bg);
+    cursor: pointer;
+    transition: all 0.3s var(--transition-smooth);
+    overflow: hidden;
+    margin: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cta-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(255, 215, 0, 0.6);
+}
+
+.cta-button.secondary {
+    background: transparent;
+    border: 2px solid var(--primary-gold);
+    color: var(--primary-gold);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+}
+
+.cta-button.secondary:hover {
+    background: var(--primary-gold);
+    color: var(--dark-bg);
+}
+
+.button-text {
+    position: relative;
+    z-index: 2;
+}
+
+.button-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: 50px;
+    transition: transform 0.3s ease;
+}
+
+.cta-button:hover .button-glow {
+    transform: translate(-50%, -50%) scale(1.3);
+}
+
+/*
+===========================================
+ユーティリティクラス
+===========================================
+*/
+
+.hidden {
+    display: none !important;
+}
+
+.fade-in {
+    opacity: 0;
+}
+
+.character-img {
+    transition: all 0.3s var(--transition-smooth);
+}
+
+.character-img:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.8));
+}
+
+.glass-card {
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    backdrop-filter: blur(10px);
+}
+
+.glow-text {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
 }
 
 /* モバイル対応 */
