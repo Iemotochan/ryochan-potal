@@ -1,13 +1,15 @@
 /*
-エフェクトシステム（固定速度桜版）
+エフェクトシステム
+桜の花びら統一速度版
 */
+
 class EffectsSystem {
     constructor() {
         this.fireworks = [];
         this.ripples = [];
         this.sparkles = [];
         this.sakuraPetals = [];
-        this.platinumSparks = [];
+        this.goldenSparks = [];
         this.isRunning = false;
         this.animationId = null;
         this.init();
@@ -18,14 +20,14 @@ class EffectsSystem {
         this.setupEventListeners();
         this.startRenderLoop();
         this.initializeNatureEffects();
-        console.log('🎆🌸 エフェクトシステム初期化完了（固定速度桜付き）');
+        console.log('🎆🌸 エフェクトシステム初期化完了');
     }
 
     setupContainers() {
         this.fireworksContainer = document.getElementById('fireworksContainer');
         this.rippleContainer = document.getElementById('rippleContainer');
         this.sakuraContainer = document.getElementById('sakuraContainer');
-        this.platinumSparksContainer = document.getElementById('platinumSparksContainer');
+        this.goldenSparksContainer = document.getElementById('goldenSparksContainer');
 
         if (!this.fireworksContainer) {
             this.fireworksContainer = document.createElement('div');
@@ -65,30 +67,41 @@ class EffectsSystem {
     */
     initializeNatureEffects() {
         this.startSakuraEffect();
-        this.startPlatinumSparksEffect();
+        this.startGoldenSparksEffect();
     }
 
     /*
-    桜の花びらエフェクト開始（固定速度）
+    桜の花びらエフェクト開始
+    デバイス統一版
     */
     startSakuraEffect() {
         if (!this.sakuraContainer) return;
 
         const createSakuraPetal = () => {
             const petal = document.createElement('div');
-            petal.className = 'sakura-petal';
             
+            // ランダムに異なる速度クラスを適用
+            const speedTypes = ['', 'slow', 'medium', 'gentle'];
+            const speedClass = speedTypes[Math.floor(Math.random() * speedTypes.length)];
+            
+            petal.className = `sakura-petal ${speedClass}`.trim();
             petal.style.left = Math.random() * 100 + 'vw';
             petal.style.top = '-20px';
-            
+
             const size = 8 + Math.random() * 8;
             petal.style.width = size + 'px';
             petal.style.height = size + 'px';
+
+            // 統一された速度範囲（28-35秒）
+            const baseDuration = speedClass === 'slow' ? 35 :
+                               speedClass === 'medium' ? 28 :
+                               speedClass === 'gentle' ? 32 : 30;
             
-            // 固定速度（25秒）
-            const duration = 25;
+            // 微調整でバリエーション（±2秒）
+            const duration = baseDuration + (Math.random() - 0.5) * 4;
+            
             petal.style.animationDuration = duration + 's';
-            petal.style.animationDelay = Math.random() * 5 + 's';
+            petal.style.animationDelay = Math.random() * 3 + 's';
 
             this.sakuraContainer.appendChild(petal);
 
@@ -96,27 +109,27 @@ class EffectsSystem {
                 if (petal.parentNode) {
                     petal.parentNode.removeChild(petal);
                 }
-            }, (duration + 5) * 1000);
+            }, (duration + 3) * 1000);
         };
 
-        // 花びら生成間隔（5秒間隔）
-        setInterval(createSakuraPetal, 5000);
+        // 花びら生成間隔：4秒間隔でゆったり
+        setInterval(createSakuraPetal, 4000);
 
-        // 初期の花びらを生成
-        for (let i = 0; i < 3; i++) {
-            setTimeout(createSakuraPetal, i * 1000);
+        // 初期の花びらを生成（6個をゆっくり）
+        for (let i = 0; i < 6; i++) {
+            setTimeout(createSakuraPetal, i * 800);
         }
     }
 
     /*
-    プラチナスパークエフェクト開始
+    金色の火の粉エフェクト開始
     */
-    startPlatinumSparksEffect() {
-        if (!this.platinumSparksContainer) return;
+    startGoldenSparksEffect() {
+        if (!this.goldenSparksContainer) return;
 
-        const createPlatinumSpark = () => {
+        const createGoldenSpark = () => {
             const spark = document.createElement('div');
-            spark.className = 'platinum-spark';
+            spark.className = 'golden-spark';
 
             const sparkType = Math.random();
             if (sparkType > 0.8) {
@@ -136,7 +149,7 @@ class EffectsSystem {
             spark.style.animationDuration = duration + 's';
             spark.style.animationDelay = Math.random() * 1 + 's';
 
-            this.platinumSparksContainer.appendChild(spark);
+            this.goldenSparksContainer.appendChild(spark);
 
             setTimeout(() => {
                 if (spark.parentNode) {
@@ -145,10 +158,10 @@ class EffectsSystem {
             }, (duration + 1) * 1000);
         };
 
-        setInterval(createPlatinumSpark, 800);
+        setInterval(createGoldenSpark, 800);
 
         for (let i = 0; i < 8; i++) {
-            setTimeout(createPlatinumSpark, i * 200);
+            setTimeout(createGoldenSpark, i * 200);
         }
     }
 
@@ -218,15 +231,13 @@ class EffectsSystem {
 
     render() {
         if (!this.isRunning) return;
-
         this.updateFireworks();
         this.updateRipples();
         this.updateSparkles();
-
         this.animationId = requestAnimationFrame(() => this.render());
     }
 
-    createRipple(x, y, color = 'rgba(64, 224, 208, 0.6)', size = 100) {
+    createRipple(x, y, color = 'rgba(255, 215, 0, 0.6)', size = 100) {
         const ripple = document.createElement('div');
         ripple.className = 'ripple-effect';
 
@@ -254,8 +265,8 @@ class EffectsSystem {
     createFirework(x, y, colors = null, particleCount = 20) {
         if (!colors) {
             colors = [
-                '#40E0D0', '#00BFFF', '#8A2BE2', '#FF1493',
-                '#E5E4E2', '#C0C0C0', '#00FFFF', '#9370DB'
+                '#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1',
+                '#FFA500', '#FF1493', '#00BFFF', '#9370DB'
             ];
         }
 
@@ -449,7 +460,7 @@ class EffectsSystem {
 
     updateSparkles() {
         this.sparkles = this.sparkles.filter(sparkle => {
-            if (sparkle.animation && sparkle.animation.playState === 'finished') {
+            if (sparkle.animation.playState === 'finished') {
                 return false;
             }
             return true;
@@ -478,4 +489,4 @@ setInterval(() => {
     }
 }, 30000);
 
-console.log('🎆🌸 エフェクトシステム完全初期化（固定速度桜付き）');
+console.log('🎆🌸 エフェクトシステム完全初期化（統一速度桜付き）');
