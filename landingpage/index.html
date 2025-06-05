@@ -2,46 +2,53 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>RYO-CHANの冒険 - 覚醒への序章</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RYO-CHAN の冒険 | 運命が交錯する時、小さな武者犬が世界を変える</title>
+    <meta name="description" content="小さな武者犬RYO-CHANの壮大な冒険が今始まる。Web3の世界で世界を変革する物語。">
     
-    <!-- フォント読み込み -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600;700&family=Yuji+Syuku:wght@400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Yuji+Syuku:wght@400&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- メタタグ -->
-    <meta name="description" content="RYO-CHANの冒険が始まる。Web3の世界で紡がれる新たな物語。">
-    <meta property="og:title" content="RYO-CHANの冒険 - 覚醒への序章">
-    <meta property="og:description" content="ブロックチェーンと伝統が融合する新世代の物語">
-    <meta property="og:image" content="./image/ryochan.png">
-    <meta name="theme-color" content="#FFD700">
-    
-    <!-- CSS読み込み -->
-    <link rel="stylesheet" href="./css/styles.css">
-    <link rel="stylesheet" href="./css/animations.css">
-    <link rel="stylesheet" href="./css/effects.css">
-    <link rel="stylesheet" href="./css/responsive.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="effects.css">
+    <link rel="stylesheet" href="responsive.css">
 </head>
 <body>
-    <!-- カスタムカーソル -->
-    <div class="custom-cursor">
-        <div class="cursor-dot"></div>
-        <div class="cursor-ring"></div>
-    </div>
-    
     <!-- プログレスバー -->
     <div class="scroll-progress"></div>
-    
+
+    <!-- ローディングスクリーン -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <img src="./image/ryochan.png" alt="RYO-CHAN" class="loading-character">
+            <div class="loading-text">物語を読み込み中...</div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 金色オーラエフェクト -->
+    <div class="platinum-aura-container" id="platinumAuraContainer">
+        <canvas id="platinumAuraCanvas"></canvas>
+    </div>
+
     <!-- 桜の花びらエフェクト -->
     <div class="sakura-container" id="sakuraContainer"></div>
-    
-    <!-- 金色の火の粉エフェクト -->
-    <div class="golden-sparks-container" id="goldenSparksContainer"></div>
-    
-    <!-- 金色のオーラパーティクル -->
-    <div class="golden-aura-container">
-        <canvas id="goldenAuraCanvas"></canvas>
+
+    <!-- プラチナスパークエフェクト -->
+    <div class="platinum-sparks-container" id="platinumSparksContainer"></div>
+
+    <!-- パララックス背景 -->
+    <div class="parallax-bg" id="parallaxBg">
+        <img src="./image/background.png" alt="神秘的な背景" class="bg-image" id="bgImage">
+        <div class="bg-overlay"></div>
     </div>
-    
+
     <!-- オーディオコントロール -->
     <div class="audio-control" id="audioControl">
         <div class="audio-icon">🎵</div>
@@ -51,36 +58,34 @@
             <span></span>
         </div>
     </div>
-    
-    <!-- メインオーディオ -->
-    <audio id="bgAudio" loop preload="auto">
-        <source src="./audio/countdown.m4a" type="audio/mp4">
+
+    <!-- 隠しオーディオ -->
+    <audio id="bgAudio" preload="auto" loop>
+        <source src="./audio/bgm.mp3" type="audio/mpeg">
+        <source src="./audio/bgm.ogg" type="audio/ogg">
     </audio>
-    
-    <!-- 背景パララックス -->
-    <div class="parallax-bg" id="parallaxBg">
-        <img src="./image/background.png" alt="背景" class="bg-image">
-    </div>
-    
+
     <!-- メインコンテンツ -->
     <main class="main-content">
-        
         <!-- タイトルセクション -->
         <section class="section title-section" id="titleSection">
             <div class="section-overlay"></div>
             <div class="content-wrapper">
                 <div class="title-content">
-                    <h1 class="main-title">
+                    <h1 class="main-title fade-in-text">
                         <span class="title-line">RYO-CHAN</span>
-                        <span class="title-line">の冒険</span>
+                        <span class="title-divider">の</span>
+                        <span class="title-line">冒険</span>
                     </h1>
-                    <p class="subtitle">運命が交錯する時、小さな武者犬が世界を変える</p>
+                    <p class="subtitle fade-in-text">運命が交錯する時、小さな武者犬が世界を変える</p>
+                    
                     <div class="cta-container">
-                        <button class="cta-button" data-action="start">
+                        <button class="cta-button primary" data-action="start">
                             <span class="button-text">物語を始める</span>
                             <div class="button-glow"></div>
                         </button>
                     </div>
+                    
                     <div class="scroll-indicator">
                         <div class="scroll-text">スクロールして続きを読む</div>
                         <div class="scroll-arrow">↓</div>
@@ -88,15 +93,16 @@
                 </div>
             </div>
         </section>
-        
-        <!-- キャラクター紹介 - 先に移動 -->
-        <section class="section characters-section" id="characters">
+
+        <!-- 登場人物セクション -->
+        <section class="section characters-section" id="charactersSection">
             <div class="section-overlay"></div>
             <div class="content-wrapper">
-                <h2 class="section-title">登場人物</h2>
+                <h2 class="section-title fade-in-text">登場人物</h2>
+                
                 <div class="characters-grid">
-                    
-                    <div class="character-card manga-style" data-character="ryochan">
+                    <!-- RYO-CHAN -->
+                    <div class="character-card cyber-style fade-in-text" data-character="ryochan">
                         <div class="character-image-container">
                             <img src="./image/ryochan.png" alt="RYO-CHAN" class="card-image">
                         </div>
@@ -115,16 +121,17 @@
                                     <span class="detail-label">特技:</span>
                                     <span class="detail-value">運命感知・金融システム理解</span>
                                 </div>
-                                <div class="character-profile">
-                                    小さな武者鎧に身を包んだ神秘的な犬。Web3の世界で重要な役割を果たす運命を背負っている。その愛らしい外見とは裏腹に、世界を変革する力を秘めている。
-                                </div>
+                            </div>
+                            <div class="character-profile">
+                                小さな武者鎧に身を包んだ神秘的な犬。Web3の世界で重要な役割を果たす運命を背負っている。その愛らしい外見とは裏腹に、世界を変革する力を秘めている。
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="character-card manga-style" data-character="oldman">
+
+                    <!-- OLDMAN -->
+                    <div class="character-card cyber-style fade-in-text" data-character="oldman">
                         <div class="character-image-container">
-                            <img src="./image/oldman.png" alt="OLD MAN" class="card-image">
+                            <img src="./image/oldman.png" alt="OLDMAN" class="card-image">
                         </div>
                         <div class="character-info">
                             <h3 class="character-name">OLDMAN</h3>
@@ -141,14 +148,15 @@
                                     <span class="detail-label">特技:</span>
                                     <span class="detail-value">予言・古代の智恵・月読み</span>
                                 </div>
-                                <div class="character-profile">
-                                    古から伝わる智恵を持つ謎の老人。月明かりの下でRYO-CHANに重要な啓示を与える。その杖から放たれる光は、迷いし者たちの道を照らす。
-                                </div>
+                            </div>
+                            <div class="character-profile">
+                                古から伝わる智恵を持つ謎の老人。月明かりの下でRYO-CHANに重要な啓示を与える。その杖から放たれる光は、迷いし者たちの道を照らす。
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="character-card manga-style" data-character="sakura">
+
+                    <!-- SAKURA -->
+                    <div class="character-card cyber-style fade-in-text" data-character="sakura">
                         <div class="character-image-container">
                             <img src="./image/sakura.png" alt="SAKURA" class="card-image">
                         </div>
@@ -167,14 +175,15 @@
                                     <span class="detail-label">特技:</span>
                                     <span class="detail-value">花びら操作・瞬間移動</span>
                                 </div>
-                                <div class="character-profile">
-                                    桜の花びらと共に現れる謎の少女。その正体は物語の鍵を握る重要な存在。美しく儚げな外見だが、秘められた力は計り知れない。
-                                </div>
+                            </div>
+                            <div class="character-profile">
+                                桜の花びらと共に現れる謎の少女。その正体は物語の鍵を握る重要な存在。美しく儚げな外見だが、秘められた力は計り知れない。
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="character-card manga-style" data-character="shadow">
+
+                    <!-- SHADOW -->
+                    <div class="character-card cyber-style fade-in-text" data-character="shadow">
                         <div class="character-image-container">
                             <img src="./image/shadow.png" alt="SHADOW" class="card-image">
                         </div>
@@ -193,16 +202,17 @@
                                     <span class="detail-label">特技:</span>
                                     <span class="detail-value">システム侵入・情報操作</span>
                                 </div>
-                                <div class="character-profile">
-                                    デジタル世界の影で暗躍する謎の組織。高度なハッキング技術を駆使し、世界の裏で糸を引く。その真の目的は謎に包まれている。
-                                </div>
+                            </div>
+                            <div class="character-profile">
+                                デジタル世界の影で暗躍する謎の組織。高度なハッキング技術を駆使し、世界の裏で糸を引く。その真の目的は謎に包まれている。
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="character-card manga-style" data-character="secret">
+
+                    <!-- ??? -->
+                    <div class="character-card cyber-style fade-in-text" data-character="secret">
                         <div class="character-image-container">
-                            <img src="./image/secret.png" alt="SECRET" class="card-image">
+                            <img src="./image/secret.png" alt="???" class="card-image">
                         </div>
                         <div class="character-info">
                             <h3 class="character-name">？？？</h3>
@@ -219,73 +229,75 @@
                                     <span class="detail-label">特技:</span>
                                     <span class="detail-value">すべてを統制する力</span>
                                 </div>
-                                <div class="character-profile">
-                                    すべての謎を握る最重要人物。その正体が明かされる時、物語は大きく動き出す。RYO-CHANの運命に深く関わる存在。
-                                </div>
+                            </div>
+                            <div class="character-profile">
+                                すべての謎を握る最重要人物。その正体が明かされる時、物語は大きく動き出す。RYO-CHANの運命に深く関わる存在。
                             </div>
                         </div>
                     </div>
-                    
                 </div>
             </div>
         </section>
-        
-        <!-- エピソード1 - あらすじ版 -->
+
+        <!-- エピソード01 -->
         <section class="section episode-section" id="episode1">
             <div class="section-overlay"></div>
             <div class="content-wrapper">
                 <div class="episode-header">
-                    <span class="episode-number">Episode 01</span>
-                    <h2 class="episode-title">覚醒</h2>
+                    <span class="episode-number fade-in-text">Episode 01</span>
+                    <h2 class="episode-title fade-in-text">覚醒</h2>
                 </div>
+                
                 <div class="episode-content">
                     <div class="text-container">
-                        <div class="text-frame">
-                            <p class="episode-text">
+                        <div class="text-frame glass-card">
+                            <p class="episode-text fade-in-text">
                                 満月の夜、古い神社に迷い込んだ一匹の小さな犬。それがすべての始まりだった。神秘的な光に包まれて目覚めたRYO-CHANに待ち受けていたのは、想像を絶する運命の物語。古の賢者が語る予言、隠された力の覚醒、そして世界を変革する使命...。しかし、その背後には何者かの影が蠢いている。果たしてRYO-CHANは自分に課せられた運命を受け入れることができるのか？
                             </p>
                         </div>
                     </div>
                     <div class="character-showcase">
-                        <img src="./image/oldman.png" alt="OLD MAN" class="character-img episode-character" data-character="oldman">
+                        <img src="./image/ryochan.png" alt="RYO-CHAN" class="episode-character">
                     </div>
                 </div>
             </div>
         </section>
-        
-        <!-- エピソード2 - あらすじ版 -->
+
+        <!-- エピソード02 -->
         <section class="section episode-section" id="episode2">
             <div class="section-overlay"></div>
             <div class="content-wrapper">
                 <div class="episode-header">
-                    <span class="episode-number">Episode 02</span>
-                    <h2 class="episode-title">歪み</h2>
+                    <span class="episode-number fade-in-text">Episode 02</span>
+                    <h2 class="episode-title fade-in-text">歪み</h2>
                 </div>
+                
                 <div class="episode-content">
                     <div class="text-container">
-                        <div class="text-frame">
-                            <p class="episode-text">
+                        <div class="text-frame glass-card">
+                            <p class="episode-text fade-in-text">
                                 東京の夜に潜む闇の組織。彼らは高度な技術を駆使し、デジタル世界の奥深くで何かを企んでいた。一方、RYO-CHANの覚醒は予想以上の波紋を呼び、各地で不可解な現象が発生し始める。古の力と最新技術が交錯する中、善と悪の境界線は曖昧になっていく。真の敵は誰なのか？そしてRYO-CHANは迫り来る危機に立ち向かうことができるのか？
                             </p>
                         </div>
                     </div>
                     <div class="character-showcase">
-                        <img src="./image/shadow.png" alt="SHADOW" class="character-img episode-character" data-character="shadow">
+                        <img src="./image/shadow.png" alt="SHADOW" class="episode-character">
                     </div>
                 </div>
             </div>
         </section>
-        
+
         <!-- 最終セクション -->
-        <section class="section final-section" id="final">
+        <section class="section final-section" id="finalSection">
             <div class="section-overlay"></div>
             <div class="content-wrapper">
                 <div class="final-content">
-                    <h2 class="final-title">物語は始まったばかり</h2>
-                    <p class="final-text">RYO-CHANの冒険に参加しよう。あなたも物語の一部となる時が来た。</p>
+                    <h2 class="final-title fade-in-text">物語は始まったばかり</h2>
+                    <p class="final-text fade-in-text">RYO-CHANの冒険に参加しよう。あなたも物語の一部となる時が来た。</p>
+                    
                     <div class="cta-container">
                         <button class="cta-button primary" data-action="read">
-                            <span class="button-text">第一話を読む</span>
+                            <span class="button-text">ストーリーを読む</span>
                             <div class="button-glow"></div>
                         </button>
                         <button class="cta-button secondary" data-action="join">
@@ -296,30 +308,12 @@
                 </div>
             </div>
         </section>
-        
     </main>
-    
-    <!-- 花火エフェクトのコンテナ -->
-    <div id="fireworksContainer"></div>
-    
-    <!-- タッチリップルエフェクト -->
-    <div id="rippleContainer"></div>
-    
-    <!-- ローディングスクリーン -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loading-content">
-            <img src="./image/ryochan.png" alt="RYO-CHAN" class="loading-character">
-            <div class="loading-text">冒険の準備中...</div>
-            <div class="loading-bar">
-                <div class="loading-progress"></div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- JavaScript読み込み -->
-    <script src="./js/main.js"></script>
-    <script src="./js/animations.js"></script>
-    <script src="./js/audio.js"></script>
-    <script src="./js/effects.js"></script>
+
+    <!-- Scripts -->
+    <script src="animations.js"></script>
+    <script src="effects.js"></script>
+    <script src="audio.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
