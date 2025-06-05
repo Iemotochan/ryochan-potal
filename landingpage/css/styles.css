@@ -120,7 +120,7 @@ body {
 }
 
 /* ===========================================
-   桜の花びらエフェクト
+   桜の花びらエフェクト - ゆっくり修正
 =========================================== */
 .sakura-container {
     position: fixed;
@@ -247,7 +247,7 @@ body {
 }
 
 /* ===========================================
-   背景パララックス
+   背景パララックス - 修正版
 =========================================== */
 .parallax-bg {
     position: fixed;
@@ -262,7 +262,7 @@ body {
 .bg-image {
     width: 100%;
     height: auto;
-    min-height: 1000vh;
+    min-height: 200vh;
     object-fit: cover;
     object-position: center top;
     transition: transform 0.05s ease-out;
@@ -337,7 +337,7 @@ body {
 }
 
 /* ===========================================
-   タイトルセクション
+   タイトルセクション - スクロール指示修正
 =========================================== */
 .title-section {
     min-height: 100vh;
@@ -355,6 +355,7 @@ body {
 .title-content {
     text-align: center;
     max-width: 800px;
+    position: relative;
 }
 
 .main-title {
@@ -385,17 +386,15 @@ body {
 
 .cta-container {
     margin-top: 40px;
+    margin-bottom: 60px;
     opacity: 0;
 }
 
+/* スクロール指示をCTAボタンの下に配置 */
 .scroll-indicator {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
     text-align: center;
     opacity: 0;
-    width: 100%;
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -497,7 +496,7 @@ body {
 }
 
 /* ===========================================
-   キャラクターセクション - 漫画風スタイル
+   キャラクターセクション - ⭐︎削除
 =========================================== */
 .characters-section {
     border-top: 1px solid rgba(255, 215, 0, 0.3);
@@ -566,17 +565,9 @@ body {
     filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
 }
 
+/* ⭐︎ランクを削除 */
 .character-rank {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: linear-gradient(45deg, var(--primary-gold), var(--secondary-gold));
-    color: var(--dark-bg);
-    padding: 5px 10px;
-    border-radius: 15px;
-    font-size: 14px;
-    font-weight: bold;
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    display: none;
 }
 
 .character-info {
