@@ -100,7 +100,7 @@ body {
 }
 
 /* ===========================================
-   金色オーラコンテナ
+   金色オーラコンテナ - モバイル最適化
 =========================================== */
 .golden-aura-container {
     position: fixed;
@@ -116,7 +116,7 @@ body {
 #goldenAuraCanvas {
     width: 100%;
     height: 100%;
-    opacity: 0.4;
+    opacity: 0.3;
 }
 
 /* ===========================================
@@ -177,7 +177,7 @@ body {
 }
 
 /* ===========================================
-   背景パララックス - クリア表示
+   背景パララックス - 縦長画像対応
 =========================================== */
 .parallax-bg {
     position: fixed;
@@ -191,15 +191,58 @@ body {
 
 .bg-image {
     width: 100%;
-    height: 100%;
+    height: auto;
+    min-height: 1000vh;
     object-fit: cover;
-    object-position: center;
-    transition: none;
-    filter: brightness(0.6) contrast(1.1);
+    object-position: center top;
+    transition: transform 0.1s ease-out;
+    filter: brightness(0.8) contrast(1.1) saturate(1.2);
+    will-change: transform;
+}
+
+.bg-image.parallax-active {
+    transform: translateY(var(--parallax-offset, 0px));
 }
 
 /* ===========================================
-   メインコンテンツ - 自然なスクロール
+   セクションオーバーレイ
+=========================================== */
+.section-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transition: background-color 0.8s ease;
+}
+
+.title-section .section-overlay {
+    background: linear-gradient(to bottom, 
+        rgba(0, 0, 0, 0.3) 0%, 
+        rgba(0, 0, 0, 0.5) 100%);
+}
+
+.episode-section .section-overlay {
+    background: linear-gradient(to bottom, 
+        rgba(0, 0, 0, 0.4) 0%, 
+        rgba(0, 0, 0, 0.6) 100%);
+}
+
+.characters-section .section-overlay {
+    background: linear-gradient(to bottom, 
+        rgba(0, 0, 0, 0.5) 0%, 
+        rgba(0, 0, 0, 0.7) 100%);
+}
+
+.final-section .section-overlay {
+    background: linear-gradient(to bottom, 
+        rgba(0, 0, 0, 0.6) 0%, 
+        rgba(0, 0, 0, 0.8) 100%);
+}
+
+/* ===========================================
+   メインコンテンツ
 =========================================== */
 .main-content {
     position: relative;
@@ -212,7 +255,6 @@ body {
     align-items: center;
     justify-content: center;
     padding: 80px 20px;
-    background: rgba(0, 0, 0, 0.6);
     min-height: auto;
 }
 
@@ -228,10 +270,9 @@ body {
 }
 
 /* ===========================================
-   タイトルセクション - 文字クリア表示
+   タイトルセクション
 =========================================== */
 .title-section {
-    background: rgba(0, 0, 0, 0.5);
     min-height: 100vh;
 }
 
@@ -255,7 +296,6 @@ body {
     filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.7));
     position: relative;
     z-index: 2;
-    /* float animation removed for stability */
 }
 
 .title-content {
@@ -271,7 +311,6 @@ body {
     color: var(--primary-gold);
     text-shadow: var(--shadow-text);
     position: relative;
-    /* gradient text removed for clarity */
 }
 
 .title-line {
@@ -319,10 +358,9 @@ body {
 }
 
 /* ===========================================
-   エピソードセクション
+   エピソードセクション - タイプライター修正
 =========================================== */
 .episode-section {
-    background: rgba(0, 0, 0, 0.6);
     border-top: 1px solid rgba(255, 215, 0, 0.3);
     border-bottom: 1px solid rgba(255, 215, 0, 0.2);
     padding: 100px 20px;
@@ -357,11 +395,22 @@ body {
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 60px;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .text-container {
     flex: 1;
+}
+
+/* タイプライター用のテキストフレーム - 固定表示 */
+.text-frame {
+    background: var(--glass-bg);
+    border: 2px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    min-height: 180px;
+    box-shadow: var(--shadow-strong);
+    position: relative;
 }
 
 .episode-text {
@@ -369,11 +418,21 @@ body {
     line-height: 1.9;
     color: var(--text-secondary);
     text-shadow: var(--shadow-text);
-    border-left: 4px solid var(--primary-gold);
-    padding-left: 20px;
-    background: rgba(0, 0, 0, 0.3);
-    padding: 25px;
-    border-radius: var(--border-radius);
+    border-right: 2px solid var(--primary-gold);
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+    animation: none;
+}
+
+.episode-text.typing {
+    animation: typewriter 3s steps(150) forwards;
+}
+
+.episode-text.typing-complete {
+    white-space: normal;
+    width: 100%;
+    border-right: none;
 }
 
 .character-showcase {
@@ -385,14 +444,12 @@ body {
     width: 160px;
     height: auto;
     filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5));
-    /* float animation removed */
 }
 
 /* ===========================================
-   キャラクターセクション - 常時表示
+   キャラクターセクション - レスポンシブ修正
 =========================================== */
 .characters-section {
-    background: rgba(0, 0, 0, 0.7);
     border-top: 1px solid rgba(255, 215, 0, 0.3);
     padding: 100px 20px;
 }
@@ -409,22 +466,25 @@ body {
 
 .characters-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
     margin-top: 60px;
 }
 
 .character-card {
-    height: auto;
+    height: 420px;
     cursor: pointer;
     position: relative;
     background: var(--glass-bg);
     border: 2px solid var(--glass-border);
     border-radius: var(--border-radius);
-    padding: 30px;
+    padding: 25px;
     text-align: center;
     transition: all 0.3s var(--transition-smooth);
     box-shadow: var(--shadow-strong);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .character-card:hover {
@@ -434,43 +494,46 @@ body {
 }
 
 .card-image {
-    width: 120px;
+    width: 100px;
     height: auto;
-    margin-bottom: 25px;
+    margin: 0 auto 20px auto;
     filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5));
-    /* float animation removed */
+    flex-shrink: 0;
 }
 
 .character-name {
     font-family: 'Yuji Syuku', serif;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: var(--primary-gold);
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     text-shadow: var(--shadow-text);
     font-weight: 600;
+    flex-shrink: 0;
+}
+
+.character-desc-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
 }
 
 .character-desc {
-    font-size: 1.1rem;
-    line-height: 1.7;
+    font-size: 1rem;
+    line-height: 1.6;
     color: var(--text-secondary);
     text-align: center;
-    padding: 0 10px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-}
-
-/* カードフリップ機能を削除し、常時表示 */
-.card-inner,
-.card-front,
-.card-back {
-    /* removed */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 /* ===========================================
    最終セクション
 =========================================== */
 .final-section {
-    background: rgba(0, 0, 0, 0.6);
     border-top: 1px solid rgba(255, 215, 0, 0.3);
     padding: 100px 20px;
 }
@@ -510,7 +573,6 @@ body {
     width: 140px;
     height: auto;
     filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5));
-    /* float animation removed */
 }
 
 /* ===========================================
@@ -601,11 +663,10 @@ body {
 }
 
 .loading-character {
-    width: 180px;
+    width: 150px;
     height: auto;
     margin-bottom: 40px;
     filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
-    /* float animation removed */
 }
 
 .loading-text {
@@ -660,41 +721,4 @@ body {
 
 .glow-text {
     text-shadow: var(--shadow-text);
-}
-
-/* ===========================================
-   テキストの可読性向上
-=========================================== */
-.clear-text {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
-    font-weight: 500;
-}
-
-.episode-text {
-    font-weight: 400;
-    background: rgba(0, 0, 0, 0.8);
-    border: 1px solid rgba(255, 215, 0, 0.3);
-}
-
-/* ===========================================
-   横長背景画像対応
-=========================================== */
-.parallax-bg {
-    width: 100vw;
-    height: 100vh;
-}
-
-.bg-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    /* 動きを完全に停止 */
-    transform: none !important;
-}
-
-/* 画像の安定化 */
-.stable-image {
-    transform: none !important;
-    animation: none !important;
 }
