@@ -1,6 +1,9 @@
-/* ===========================================
-   基本設定とレイアウト
-=========================================== */
+/*
+===========================================
+基本設定とレイアウト
+===========================================
+*/
+
 * {
     margin: 0;
     padding: 0;
@@ -8,23 +11,36 @@
 }
 
 :root {
-    --primary-gold: #FFD700;
-    --secondary-gold: #FFA500;
-    --tertiary-gold: #DAA520;
+    /* クールなカラーパレット */
+    --primary-platinum: #E5E4E2;
+    --secondary-platinum: #C0C0C0;
+    --tertiary-platinum: #A8A8A8;
+    --accent-blue: #00BFFF;
+    --accent-cyan: #40E0D0;
+    --accent-purple: #8A2BE2;
+    --accent-pink: #FF1493;
+    
+    /* 背景色 */
     --dark-bg: #0a0a0a;
     --dark-secondary: #1a1a1a;
     --glass-bg: rgba(0, 0, 0, 0.6);
-    --glass-border: rgba(255, 215, 0, 0.4);
+    --glass-border: rgba(229, 228, 226, 0.4);
+    
+    /* テキスト色 */
     --text-primary: #ffffff;
     --text-secondary: #f0f0f0;
     --text-muted: #cccccc;
-    --accent-blue: #00BFFF;
-    --accent-purple: #8A2BE2;
-    --accent-pink: #FF1493;
+    
+    /* トランジション */
     --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    /* シャドウ */
     --shadow-strong: 0 4px 20px rgba(0, 0, 0, 0.8);
     --shadow-text: 2px 2px 4px rgba(0, 0, 0, 0.9);
+    --shadow-glow: 0 0 20px rgba(64, 224, 208, 0.6);
+    
+    /* 境界線 */
     --border-radius: 15px;
     --border-radius-large: 25px;
 }
@@ -39,70 +55,36 @@ body {
     background: var(--dark-bg);
     color: var(--text-primary);
     overflow-x: hidden;
-    cursor: none;
     position: relative;
     line-height: 1.6;
+    cursor: auto; /* カスタムカーソル削除 */
 }
 
-/* ===========================================
-   カスタムカーソル
-=========================================== */
-.custom-cursor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 9999;
-    mix-blend-mode: difference;
-}
-
-.cursor-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--primary-gold);
-    border-radius: 50%;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    transition: all 0.1s ease;
-}
-
-.cursor-ring {
-    width: 40px;
-    height: 40px;
-    border: 2px solid rgba(255, 215, 0, 0.3);
-    border-radius: 50%;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    transition: all 0.3s var(--transition-smooth);
-}
-
-.custom-cursor.hover .cursor-ring {
-    width: 60px;
-    height: 60px;
-    border-color: var(--primary-gold);
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-}
-
-/* ===========================================
-   プログレスバー
-=========================================== */
+/*
+===========================================
+プログレスバー
+===========================================
+*/
 .scroll-progress {
     position: fixed;
     top: 0;
     left: 0;
     width: 0%;
     height: 4px;
-    background: linear-gradient(90deg, var(--primary-gold), var(--accent-blue), var(--accent-purple));
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
     background-size: 300% 100%;
     z-index: 1000;
     transition: width 0.1s ease;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+    box-shadow: var(--shadow-glow);
+    animation: gradientShift 8s ease infinite;
 }
 
-/* ===========================================
-   金色オーラコンテナ
-=========================================== */
-.golden-aura-container {
+/*
+===========================================
+プラチナオーラコンテナ
+===========================================
+*/
+.platinum-aura-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -113,15 +95,17 @@ body {
     overflow: hidden;
 }
 
-#goldenAuraCanvas {
+#platinumAuraCanvas {
     width: 100%;
     height: 100%;
     opacity: 0.3;
 }
 
-/* ===========================================
-   桜の花びらエフェクト - ゆっくり修正
-=========================================== */
+/*
+===========================================
+桜の花びらエフェクト
+===========================================
+*/
 .sakura-container {
     position: fixed;
     top: 0;
@@ -140,7 +124,7 @@ body {
     background: radial-gradient(circle, #ffb7c5, #ff69b4);
     border-radius: 0 100% 0 100%;
     opacity: 0.8;
-    animation: sakuraFall linear infinite;
+    animation: sakuraFall 25s linear infinite; /* 固定速度 */
     transform-origin: center;
 }
 
@@ -154,10 +138,12 @@ body {
     transform: rotate(45deg);
 }
 
-/* ===========================================
-   金色の火の粉エフェクト
-=========================================== */
-.golden-sparks-container {
+/*
+===========================================
+プラチナスパークエフェクト
+===========================================
+*/
+.platinum-sparks-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -168,30 +154,32 @@ body {
     overflow: hidden;
 }
 
-.golden-spark {
+.platinum-spark {
     position: absolute;
     width: 4px;
     height: 4px;
-    background: radial-gradient(circle, var(--primary-gold), var(--secondary-gold));
+    background: radial-gradient(circle, var(--primary-platinum), var(--accent-cyan));
     border-radius: 50%;
     opacity: 0.9;
-    animation: sparkRise linear infinite;
-    box-shadow: 0 0 10px var(--primary-gold);
+    animation: sparkRise 8s linear infinite;
+    box-shadow: 0 0 10px var(--accent-cyan);
 }
 
-.golden-spark.bright {
-    background: radial-gradient(circle, #fff, var(--primary-gold));
-    box-shadow: 0 0 15px var(--primary-gold), 0 0 25px rgba(255, 215, 0, 0.5);
+.platinum-spark.bright {
+    background: radial-gradient(circle, #fff, var(--accent-cyan));
+    box-shadow: 0 0 15px var(--accent-cyan), 0 0 25px rgba(64, 224, 208, 0.5);
 }
 
-.golden-spark.dim {
+.platinum-spark.dim {
     opacity: 0.6;
-    background: radial-gradient(circle, var(--tertiary-gold), var(--secondary-gold));
+    background: radial-gradient(circle, var(--secondary-platinum), var(--accent-blue));
 }
 
-/* ===========================================
-   オーディオコントロール
-=========================================== */
+/*
+===========================================
+オーディオコントロール
+===========================================
+*/
 .audio-control {
     position: fixed;
     top: 20px;
@@ -208,19 +196,20 @@ body {
     z-index: 1000;
     transition: all 0.3s var(--transition-smooth);
     box-shadow: var(--shadow-strong);
+    backdrop-filter: blur(15px);
 }
 
 .audio-control:hover {
     transform: scale(1.1);
-    border-color: var(--primary-gold);
-    box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
-    background: rgba(255, 215, 0, 0.1);
+    border-color: var(--accent-cyan);
+    box-shadow: var(--shadow-glow);
+    background: rgba(64, 224, 208, 0.1);
 }
 
 .audio-icon {
     font-size: 20px;
     transition: opacity 0.3s ease;
-    color: var(--primary-gold);
+    color: var(--accent-cyan);
 }
 
 .audio-waves {
@@ -242,13 +231,20 @@ body {
 .audio-waves span {
     width: 3px;
     height: 15px;
-    background: var(--primary-gold);
+    background: var(--accent-cyan);
     border-radius: 2px;
+    animation: wave 1s infinite ease-in-out;
 }
 
-/* ===========================================
-   背景パララックス - 修正版
-=========================================== */
+.audio-waves span:nth-child(1) { animation-delay: 0s; }
+.audio-waves span:nth-child(2) { animation-delay: 0.1s; }
+.audio-waves span:nth-child(3) { animation-delay: 0.2s; }
+
+/*
+===========================================
+背景パララックス（強化版）
+===========================================
+*/
 .parallax-bg {
     position: fixed;
     top: 0;
@@ -262,18 +258,35 @@ body {
 .bg-image {
     width: 100%;
     height: auto;
-    min-height: 200vh;
+    min-height: 300vh; /* 大幅に拡大 */
     object-fit: cover;
     object-position: center top;
-    transition: transform 0.05s ease-out;
+    transition: transform 0.1s ease-out;
     filter: brightness(1.0) contrast(1.1) saturate(1.2);
     will-change: transform;
     transform: translateY(0px);
 }
 
-/* ===========================================
-   セクションオーバーレイ
-=========================================== */
+.bg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.1) 0%,
+        rgba(0, 0, 0, 0.3) 50%,
+        rgba(0, 0, 0, 0.5) 100%
+    );
+    pointer-events: none;
+}
+
+/*
+===========================================
+セクションオーバーレイ
+===========================================
+*/
 .section-overlay {
     position: absolute;
     top: 0;
@@ -285,32 +298,26 @@ body {
 }
 
 .title-section .section-overlay {
-    background: linear-gradient(to bottom, 
-        rgba(0, 0, 0, 0.1) 0%, 
-        rgba(0, 0, 0, 0.2) 100%);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.2) 100%);
 }
 
 .episode-section .section-overlay {
-    background: linear-gradient(to bottom, 
-        rgba(0, 0, 0, 0.15) 0%, 
-        rgba(0, 0, 0, 0.25) 100%);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.25) 100%);
 }
 
 .characters-section .section-overlay {
-    background: linear-gradient(to bottom, 
-        rgba(0, 0, 0, 0.2) 0%, 
-        rgba(0, 0, 0, 0.3) 100%);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.3) 100%);
 }
 
 .final-section .section-overlay {
-    background: linear-gradient(to bottom, 
-        rgba(0, 0, 0, 0.25) 0%, 
-        rgba(0, 0, 0, 0.35) 100%);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.35) 100%);
 }
 
-/* ===========================================
-   メインコンテンツ
-=========================================== */
+/*
+===========================================
+メインコンテンツ
+===========================================
+*/
 .main-content {
     position: relative;
     z-index: 10;
@@ -336,9 +343,27 @@ body {
     position: relative;
 }
 
-/* ===========================================
-   タイトルセクション - スクロール指示修正
-=========================================== */
+/*
+===========================================
+文字浮上エフェクト
+===========================================
+*/
+.fade-in-text {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s var(--transition-smooth);
+}
+
+.fade-in-text.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/*
+===========================================
+タイトルセクション
+===========================================
+*/
 .title-section {
     min-height: 100vh;
 }
@@ -360,25 +385,45 @@ body {
 
 .main-title {
     font-family: 'Yuji Syuku', serif;
-    font-size: clamp(3rem, 8vw, 6rem);
+    font-size: clamp(2.5rem, 8vw, 6rem);
     font-weight: 700;
     margin-bottom: 30px;
-    color: var(--primary-gold);
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 1);
+    color: var(--primary-platinum);
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 1), 0 0 30px rgba(64, 224, 208, 0.5);
     position: relative;
+    line-height: 1.2;
 }
 
 .title-line {
-    display: block;
-    opacity: 0;
-    transform: translateY(50px);
+    display: inline-block;
+}
+
+.title-divider {
+    display: inline-block;
+    margin: 0 0.3em;
+    color: var(--accent-cyan);
+}
+
+/* スマホでの改行調整 */
+@media (max-width: 480px) {
+    .main-title {
+        font-size: clamp(2rem, 12vw, 3.5rem);
+    }
+    
+    .title-line:last-child {
+        display: block;
+        margin-top: 0.2em;
+    }
+    
+    .title-divider {
+        display: none;
+    }
 }
 
 .subtitle {
     font-size: clamp(1.2rem, 4vw, 1.8rem);
     font-weight: 400;
     margin-bottom: 50px;
-    opacity: 0;
     color: var(--text-secondary);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
     line-height: 1.4;
@@ -387,13 +432,10 @@ body {
 .cta-container {
     margin-top: 40px;
     margin-bottom: 60px;
-    opacity: 0;
 }
 
-/* スクロール指示をCTAボタンの下に配置 */
 .scroll-indicator {
     text-align: center;
-    opacity: 0;
     margin-top: 20px;
     display: flex;
     flex-direction: column;
@@ -410,16 +452,19 @@ body {
 
 .scroll-arrow {
     font-size: 28px;
-    color: var(--primary-gold);
+    color: var(--accent-cyan);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+    animation: bounce 2s infinite;
 }
 
-/* ===========================================
-   エピソードセクション
-=========================================== */
+/*
+===========================================
+エピソードセクション
+===========================================
+*/
 .episode-section {
-    border-top: 1px solid rgba(255, 215, 0, 0.3);
-    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+    border-top: 1px solid rgba(64, 224, 208, 0.3);
+    border-bottom: 1px solid rgba(64, 224, 208, 0.2);
     padding: 100px 20px;
 }
 
@@ -431,7 +476,7 @@ body {
 .episode-number {
     display: block;
     font-size: 16px;
-    color: var(--primary-gold);
+    color: var(--accent-cyan);
     font-weight: 600;
     letter-spacing: 3px;
     margin-bottom: 15px;
@@ -442,8 +487,8 @@ body {
 .episode-title {
     font-family: 'Yuji Syuku', serif;
     font-size: clamp(2.5rem, 6vw, 4rem);
-    color: var(--primary-gold);
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 1);
+    color: var(--primary-platinum);
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 1), 0 0 20px rgba(64, 224, 208, 0.4);
     margin-bottom: 20px;
     position: relative;
 }
@@ -478,10 +523,6 @@ body {
     font-weight: 400;
     margin: 0;
     padding: 0;
-    white-space: normal;
-    width: 100%;
-    border: none;
-    animation: none;
 }
 
 .character-showcase {
@@ -492,14 +533,16 @@ body {
 .episode-character {
     width: 160px;
     height: auto;
-    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5));
+    filter: drop-shadow(0 0 15px rgba(64, 224, 208, 0.5));
 }
 
-/* ===========================================
-   キャラクターセクション - ⭐︎削除
-=========================================== */
+/*
+===========================================
+キャラクターセクション
+===========================================
+*/
 .characters-section {
-    border-top: 1px solid rgba(255, 215, 0, 0.3);
+    border-top: 1px solid rgba(64, 224, 208, 0.3);
     padding: 100px 20px;
 }
 
@@ -507,9 +550,9 @@ body {
     font-family: 'Yuji Syuku', serif;
     font-size: clamp(2.5rem, 6vw, 4rem);
     text-align: center;
-    color: var(--primary-gold);
+    color: var(--primary-platinum);
     margin-bottom: 80px;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 1);
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 1), 0 0 20px rgba(64, 224, 208, 0.4);
     position: relative;
 }
 
@@ -520,7 +563,7 @@ body {
     margin-top: 60px;
 }
 
-.character-card.manga-style {
+.character-card.cyber-style {
     height: auto;
     min-height: 600px;
     cursor: pointer;
@@ -536,52 +579,47 @@ body {
     overflow: hidden;
 }
 
-.character-card.manga-style:hover {
+.character-card.cyber-style:hover {
     transform: translateY(-15px) scale(1.02);
-    border-color: var(--primary-gold);
-    box-shadow: 0 25px 60px rgba(255, 215, 0, 0.4);
+    border-color: var(--accent-cyan);
+    box-shadow: 0 25px 60px rgba(64, 224, 208, 0.4);
 }
 
 .character-image-container {
     position: relative;
     height: 180px;
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.1));
+    background: linear-gradient(135deg, rgba(64, 224, 208, 0.1), rgba(0, 191, 255, 0.1));
     display: flex;
     align-items: center;
     justify-content: center;
     border-bottom: 2px solid var(--glass-border);
 }
 
-.character-card.manga-style .card-image {
+.character-card.cyber-style .card-image {
     width: 120px;
     height: auto;
     margin: 0;
-    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+    filter: drop-shadow(0 0 20px rgba(64, 224, 208, 0.6));
     transition: all 0.3s ease;
 }
 
-.character-card.manga-style:hover .card-image {
+.character-card.cyber-style:hover .card-image {
     transform: scale(1.1);
-    filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
-}
-
-/* ⭐︎ランクを削除 */
-.character-rank {
-    display: none;
+    filter: drop-shadow(0 0 30px rgba(64, 224, 208, 0.8));
 }
 
 .character-info {
     padding: 25px;
 }
 
-.character-card.manga-style .character-name {
+.character-card.cyber-style .character-name {
     font-family: 'Yuji Syuku', serif;
     font-size: 1.8rem;
-    color: var(--primary-gold);
+    color: var(--primary-platinum);
     margin-bottom: 20px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
     font-weight: 700;
-    border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+    border-bottom: 2px solid rgba(64, 224, 208, 0.3);
     padding-bottom: 10px;
 }
 
@@ -618,18 +656,20 @@ body {
     line-height: 1.7;
     color: var(--text-secondary);
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-    background: rgba(255, 215, 0, 0.05);
+    background: rgba(64, 224, 208, 0.05);
     padding: 15px;
     border-radius: 10px;
-    border-left: 3px solid var(--primary-gold);
+    border-left: 3px solid var(--accent-cyan);
     font-style: italic;
 }
 
-/* ===========================================
-   最終セクション
-=========================================== */
+/*
+===========================================
+最終セクション
+===========================================
+*/
 .final-section {
-    border-top: 1px solid rgba(255, 215, 0, 0.3);
+    border-top: 1px solid rgba(64, 224, 208, 0.3);
     padding: 100px 20px;
 }
 
@@ -641,9 +681,9 @@ body {
 .final-title {
     font-family: 'Yuji Syuku', serif;
     font-size: clamp(2.5rem, 6vw, 4rem);
-    color: var(--primary-gold);
+    color: var(--primary-platinum);
     margin-bottom: 30px;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 1);
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 1), 0 0 20px rgba(64, 224, 208, 0.4);
 }
 
 .final-text {
@@ -657,12 +697,14 @@ body {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
 }
 
-/* ===========================================
-   ボタンスタイル
-=========================================== */
+/*
+===========================================
+ボタンスタイル
+===========================================
+*/
 .cta-button {
     position: relative;
-    background: linear-gradient(45deg, var(--primary-gold), var(--secondary-gold));
+    background: linear-gradient(45deg, var(--accent-cyan), var(--accent-blue));
     border: none;
     border-radius: 50px;
     padding: 20px 45px;
@@ -681,18 +723,18 @@ body {
 
 .cta-button:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(255, 215, 0, 0.6);
+    box-shadow: var(--shadow-glow);
 }
 
 .cta-button.secondary {
     background: transparent;
-    border: 2px solid var(--primary-gold);
-    color: var(--primary-gold);
+    border: 2px solid var(--accent-cyan);
+    color: var(--accent-cyan);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
 }
 
 .cta-button.secondary:hover {
-    background: var(--primary-gold);
+    background: var(--accent-cyan);
     color: var(--dark-bg);
 }
 
@@ -717,9 +759,11 @@ body {
     transform: translate(-50%, -50%) scale(1.3);
 }
 
-/* ===========================================
-   ローディングスクリーン
-=========================================== */
+/*
+===========================================
+ローディングスクリーン
+===========================================
+*/
 .loading-screen {
     position: fixed;
     top: 0;
@@ -748,21 +792,22 @@ body {
     width: 150px;
     height: auto;
     margin-bottom: 40px;
-    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+    filter: drop-shadow(0 0 20px rgba(64, 224, 208, 0.6));
 }
 
 .loading-text {
     font-size: 1.6rem;
-    color: var(--primary-gold);
+    color: var(--accent-cyan);
     margin-bottom: 40px;
     font-weight: 500;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+    animation: pulse 2s infinite;
 }
 
 .loading-bar {
     width: 320px;
     height: 6px;
-    background: rgba(255, 215, 0, 0.2);
+    background: rgba(64, 224, 208, 0.2);
     border-radius: 3px;
     overflow: hidden;
     margin: 0 auto;
@@ -770,29 +815,19 @@ body {
 
 .loading-progress {
     height: 100%;
-    background: linear-gradient(90deg, var(--primary-gold), var(--secondary-gold));
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
     border-radius: 3px;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    box-shadow: var(--shadow-glow);
+    animation: loading 3s ease-in-out;
 }
 
-/* ===========================================
-   ユーティリティクラス
-=========================================== */
+/*
+===========================================
+ユーティリティクラス
+===========================================
+*/
 .hidden {
     display: none !important;
-}
-
-.fade-in {
-    opacity: 0;
-}
-
-.character-img {
-    transition: all 0.3s var(--transition-smooth);
-}
-
-.character-img:hover {
-    transform: scale(1.05);
-    filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.8));
 }
 
 .glass-card {
