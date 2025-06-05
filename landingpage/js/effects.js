@@ -1,34 +1,32 @@
-/**
- * エフェクトシステム - 桜の花びら速度修正版
- */
-
+/*
+エフェクトシステム（固定速度桜版）
+*/
 class EffectsSystem {
     constructor() {
         this.fireworks = [];
         this.ripples = [];
         this.sparkles = [];
         this.sakuraPetals = [];
-        this.goldenSparks = [];
+        this.platinumSparks = [];
         this.isRunning = false;
         this.animationId = null;
-        
         this.init();
     }
-    
+
     init() {
         this.setupContainers();
         this.setupEventListeners();
         this.startRenderLoop();
         this.initializeNatureEffects();
-        console.log('🎆🌸 エフェクトシステム初期化完了');
+        console.log('🎆🌸 エフェクトシステム初期化完了（固定速度桜付き）');
     }
-    
+
     setupContainers() {
         this.fireworksContainer = document.getElementById('fireworksContainer');
         this.rippleContainer = document.getElementById('rippleContainer');
         this.sakuraContainer = document.getElementById('sakuraContainer');
-        this.goldenSparksContainer = document.getElementById('goldenSparksContainer');
-        
+        this.platinumSparksContainer = document.getElementById('platinumSparksContainer');
+
         if (!this.fireworksContainer) {
             this.fireworksContainer = document.createElement('div');
             this.fireworksContainer.id = 'fireworksContainer';
@@ -44,7 +42,7 @@ class EffectsSystem {
             `;
             document.body.appendChild(this.fireworksContainer);
         }
-        
+
         if (!this.rippleContainer) {
             this.rippleContainer = document.createElement('div');
             this.rippleContainer.id = 'rippleContainer';
@@ -61,21 +59,21 @@ class EffectsSystem {
             document.body.appendChild(this.rippleContainer);
         }
     }
-    
-    /**
-     * 自然エフェクトの初期化
-     */
+
+    /*
+    自然エフェクトの初期化
+    */
     initializeNatureEffects() {
         this.startSakuraEffect();
-        this.startGoldenSparksEffect();
+        this.startPlatinumSparksEffect();
     }
-    
-    /**
-     * 桜の花びらエフェクト開始 - ゆっくり修正
-     */
+
+    /*
+    桜の花びらエフェクト開始（固定速度）
+    */
     startSakuraEffect() {
         if (!this.sakuraContainer) return;
-        
+
         const createSakuraPetal = () => {
             const petal = document.createElement('div');
             petal.className = 'sakura-petal';
@@ -87,76 +85,73 @@ class EffectsSystem {
             petal.style.width = size + 'px';
             petal.style.height = size + 'px';
             
-            // 大幅に速度を遅く（20-40秒でゆっくり落下）
-            const duration = 20 + Math.random() * 20;
+            // 固定速度（25秒）
+            const duration = 25;
             petal.style.animationDuration = duration + 's';
-            
             petal.style.animationDelay = Math.random() * 5 + 's';
-            
+
             this.sakuraContainer.appendChild(petal);
-            
+
             setTimeout(() => {
                 if (petal.parentNode) {
                     petal.parentNode.removeChild(petal);
                 }
             }, (duration + 5) * 1000);
         };
-        
-        // 花びら生成間隔も長く（5秒間隔）
+
+        // 花びら生成間隔（5秒間隔）
         setInterval(createSakuraPetal, 5000);
-        
+
         // 初期の花びらを生成
         for (let i = 0; i < 3; i++) {
             setTimeout(createSakuraPetal, i * 1000);
         }
     }
-    
-    /**
-     * 金色の火の粉エフェクト開始
-     */
-    startGoldenSparksEffect() {
-        if (!this.goldenSparksContainer) return;
-        
-        const createGoldenSpark = () => {
+
+    /*
+    プラチナスパークエフェクト開始
+    */
+    startPlatinumSparksEffect() {
+        if (!this.platinumSparksContainer) return;
+
+        const createPlatinumSpark = () => {
             const spark = document.createElement('div');
-            spark.className = 'golden-spark';
-            
+            spark.className = 'platinum-spark';
+
             const sparkType = Math.random();
             if (sparkType > 0.8) {
                 spark.classList.add('bright');
             } else if (sparkType < 0.3) {
                 spark.classList.add('dim');
             }
-            
+
             spark.style.left = Math.random() * 100 + 'vw';
             spark.style.bottom = '-10px';
-            
+
             const size = 2 + Math.random() * 6;
             spark.style.width = size + 'px';
             spark.style.height = size + 'px';
-            
+
             const duration = 6 + Math.random() * 8;
             spark.style.animationDuration = duration + 's';
-            
             spark.style.animationDelay = Math.random() * 1 + 's';
-            
-            this.goldenSparksContainer.appendChild(spark);
-            
+
+            this.platinumSparksContainer.appendChild(spark);
+
             setTimeout(() => {
                 if (spark.parentNode) {
                     spark.parentNode.removeChild(spark);
                 }
             }, (duration + 1) * 1000);
         };
-        
-        setInterval(createGoldenSpark, 800);
-        
+
+        setInterval(createPlatinumSpark, 800);
+
         for (let i = 0; i < 8; i++) {
-            setTimeout(createGoldenSpark, i * 200);
+            setTimeout(createPlatinumSpark, i * 200);
         }
     }
-    
-    // 以下、前回と同じメソッド群...
+
     setupEventListeners() {
         document.addEventListener('click', (e) => {
             const specialElements = e.target.closest('.cta-button, .character-card, .main-title');
@@ -166,7 +161,7 @@ class EffectsSystem {
             }
         });
     }
-    
+
     createSpecialSakuraBurst(x, y) {
         for (let i = 0; i < 10; i++) {
             setTimeout(() => {
@@ -178,9 +173,9 @@ class EffectsSystem {
                 petal.style.width = '10px';
                 petal.style.height = '10px';
                 petal.style.zIndex = '1001';
-                
+
                 document.body.appendChild(petal);
-                
+
                 const angle = (Math.PI * 2 * i) / 10;
                 const velocity = 50 + Math.random() * 100;
                 let posX = x;
@@ -188,19 +183,19 @@ class EffectsSystem {
                 let vx = Math.cos(angle) * velocity;
                 let vy = Math.sin(angle) * velocity;
                 let life = 1.0;
-                
+
                 const animatePetal = () => {
                     posX += vx * 0.02;
                     posY += vy * 0.02;
                     vy += 30 * 0.02;
                     vx *= 0.99;
                     life -= 0.01;
-                    
+
                     petal.style.left = posX + 'px';
                     petal.style.top = posY + 'px';
                     petal.style.opacity = life;
                     petal.style.transform = `rotate(${(1 - life) * 360}deg)`;
-                    
+
                     if (life > 0) {
                         requestAnimationFrame(animatePetal);
                     } else {
@@ -209,33 +204,32 @@ class EffectsSystem {
                         }
                     }
                 };
-                
+
                 requestAnimationFrame(animatePetal);
             }, i * 50);
         }
     }
-    
+
     startRenderLoop() {
         if (this.isRunning) return;
-        
         this.isRunning = true;
         this.render();
     }
-    
+
     render() {
         if (!this.isRunning) return;
-        
+
         this.updateFireworks();
         this.updateRipples();
         this.updateSparkles();
-        
+
         this.animationId = requestAnimationFrame(() => this.render());
     }
-    
-    createRipple(x, y, color = 'rgba(255, 215, 0, 0.6)', size = 100) {
+
+    createRipple(x, y, color = 'rgba(64, 224, 208, 0.6)', size = 100) {
         const ripple = document.createElement('div');
         ripple.className = 'ripple-effect';
-        
+
         ripple.style.cssText = `
             position: absolute;
             left: ${x - size/2}px;
@@ -247,24 +241,24 @@ class EffectsSystem {
             pointer-events: none;
             animation: rippleExpand 0.6s ease-out forwards;
         `;
-        
+
         this.rippleContainer.appendChild(ripple);
-        
+
         setTimeout(() => {
             if (ripple.parentNode) {
                 ripple.parentNode.removeChild(ripple);
             }
         }, 600);
     }
-    
+
     createFirework(x, y, colors = null, particleCount = 20) {
         if (!colors) {
             colors = [
-                '#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', 
-                '#FFA500', '#FF1493', '#00BFFF', '#9370DB'
+                '#40E0D0', '#00BFFF', '#8A2BE2', '#FF1493',
+                '#E5E4E2', '#C0C0C0', '#00FFFF', '#9370DB'
             ];
         }
-        
+
         const firework = {
             x: x,
             y: y,
@@ -272,12 +266,12 @@ class EffectsSystem {
             startTime: Date.now(),
             duration: 2000
         };
-        
+
         for (let i = 0; i < particleCount; i++) {
             const angle = (Math.PI * 2 * i) / particleCount;
             const velocity = 50 + Math.random() * 100;
             const color = colors[Math.floor(Math.random() * colors.length)];
-            
+
             const particle = document.createElement('div');
             particle.style.cssText = `
                 position: absolute;
@@ -290,9 +284,9 @@ class EffectsSystem {
                 pointer-events: none;
                 box-shadow: 0 0 10px ${color};
             `;
-            
+
             this.fireworksContainer.appendChild(particle);
-            
+
             firework.particles.push({
                 element: particle,
                 x: x,
@@ -305,14 +299,14 @@ class EffectsSystem {
                 color: color
             });
         }
-        
+
         this.fireworks.push(firework);
-        
+
         if (window.audioSystem && window.audioSystem.audioEnabled) {
             setTimeout(() => window.audioSystem.playMagic(), 100);
         }
     }
-    
+
     createSparklesBurst(x, y, count = 8) {
         for (let i = 0; i < count; i++) {
             setTimeout(() => {
@@ -323,7 +317,7 @@ class EffectsSystem {
             }, i * 50);
         }
     }
-    
+
     createSparkle(x, y) {
         const sparkle = document.createElement('div');
         sparkle.style.cssText = `
@@ -336,7 +330,7 @@ class EffectsSystem {
             pointer-events: none;
             z-index: 1001;
         `;
-        
+
         sparkle.innerHTML = `
             <div style="
                 position: absolute;
@@ -375,39 +369,39 @@ class EffectsSystem {
                 transform: translate(-50%, -50%) rotate(45deg);
             "></div>
         `;
-        
+
         document.body.appendChild(sparkle);
-        
+
         const animation = sparkle.animate([
-            { 
-                opacity: 0, 
-                transform: 'scale(0) rotate(0deg)' 
+            {
+                opacity: 0,
+                transform: 'scale(0) rotate(0deg)'
             },
-            { 
-                opacity: 1, 
-                transform: 'scale(1) rotate(180deg)' 
+            {
+                opacity: 1,
+                transform: 'scale(1) rotate(180deg)'
             },
-            { 
-                opacity: 0, 
-                transform: 'scale(0) rotate(360deg)' 
+            {
+                opacity: 0,
+                transform: 'scale(0) rotate(360deg)'
             }
         ], {
             duration: 1000,
             easing: 'ease-out'
         });
-        
+
         animation.onfinish = () => {
             if (sparkle.parentNode) {
                 sparkle.parentNode.removeChild(sparkle);
             }
         };
     }
-    
+
     updateFireworks() {
         this.fireworks = this.fireworks.filter(firework => {
             const elapsed = Date.now() - firework.startTime;
             const progress = elapsed / firework.duration;
-            
+
             if (progress >= 1) {
                 firework.particles.forEach(particle => {
                     if (particle.element.parentNode) {
@@ -416,45 +410,43 @@ class EffectsSystem {
                 });
                 return false;
             }
-            
+
             firework.particles = firework.particles.filter(particle => {
                 const deltaTime = 16 / 1000;
-                
+
                 particle.x += particle.vx * deltaTime;
                 particle.y += particle.vy * deltaTime;
                 particle.vy += particle.gravity * deltaTime;
-                
                 particle.vx *= 0.99;
                 particle.vy *= 0.99;
-                
                 particle.life -= particle.decay;
-                
+
                 if (particle.life <= 0) {
                     if (particle.element.parentNode) {
                         particle.element.parentNode.removeChild(particle.element);
                     }
                     return false;
                 }
-                
+
                 particle.element.style.left = `${particle.x}px`;
                 particle.element.style.top = `${particle.y}px`;
                 particle.element.style.opacity = particle.life;
                 particle.element.style.transform = `scale(${particle.life})`;
-                
+
                 return true;
             });
-            
+
             return firework.particles.length > 0;
         });
     }
-    
+
     updateRipples() {
         this.ripples = this.ripples.filter(ripple => {
             const elapsed = Date.now() - ripple.startTime;
             return elapsed < ripple.duration;
         });
     }
-    
+
     updateSparkles() {
         this.sparkles = this.sparkles.filter(sparkle => {
             if (sparkle.animation.playState === 'finished') {
@@ -463,14 +455,14 @@ class EffectsSystem {
             return true;
         });
     }
-    
+
     optimizePerformance() {
         const now = Date.now();
-        
+
         this.fireworks = this.fireworks.filter(firework => {
             return (now - firework.startTime) < 10000;
         });
-        
+
         this.ripples = this.ripples.filter(ripple => {
             return (now - ripple.startTime) < 5000;
         });
@@ -486,4 +478,4 @@ setInterval(() => {
     }
 }, 30000);
 
-console.log('🎆🌸 エフェクトシステム完全初期化（ゆっくり桜付き）');
+console.log('🎆🌸 エフェクトシステム完全初期化（固定速度桜付き）');
