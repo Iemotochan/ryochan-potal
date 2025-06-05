@@ -1,0 +1,515 @@
+/* ===========================================
+   視覚エフェクト
+=========================================== */
+
+/* リップルエフェクト */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.8) 0%, rgba(255, 215, 0, 0.4) 30%, transparent 70%);
+    pointer-events: none;
+    animation: rippleExpand 0.6s ease-out;
+    transform-origin: center;
+}
+
+@keyframes rippleExpand {
+    from {
+        transform: scale(0);
+        opacity: 1;
+    }
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* 花火エフェクト */
+.firework {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.firework-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--primary-gold);
+    box-shadow: 0 0 10px currentColor;
+}
+
+/* パーティクルシステム */
+.particle-system {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.golden-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--primary-gold);
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: particleFloat 8s linear infinite;
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translateY(100vh) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) translateX(100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* グロー効果 */
+.glow-effect {
+    position: relative;
+}
+
+.glow-effect::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+    animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.2);
+    }
+}
+
+/* オーラエフェクト */
+.aura-effect {
+    position: relative;
+}
+
+.aura-effect::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;
+    height: 120%;
+    background: conic-gradient(
+        from 0deg,
+        transparent,
+        rgba(255, 215, 0, 0.3),
+        transparent,
+        rgba(255, 215, 0, 0.3),
+        transparent
+    );
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    animation: auraRotate 4s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes auraRotate {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* シマーエフェクト */
+.shimmer-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.shimmer-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        rgba(255, 255, 255, 0.4),
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    animation: shimmerSlide 3s ease-in-out infinite;
+}
+
+@keyframes shimmerSlide {
+    0% {
+        left: -100%;
+    }
+    50% {
+        left: 100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+/* ホログラムエフェクト */
+.hologram-effect {
+    position: relative;
+    background: linear-gradient(
+        45deg,
+        rgba(255, 215, 0, 0.1),
+        rgba(0, 191, 255, 0.1),
+        rgba(138, 43, 226, 0.1)
+    );
+    background-size: 300% 300%;
+    animation: hologramShift 5s ease infinite;
+}
+
+.hologram-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 255, 255, 0.03) 2px,
+        rgba(255, 255, 255, 0.03) 4px
+    );
+    pointer-events: none;
+}
+
+@keyframes hologramShift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* ガラス破砕エフェクト */
+.glass-shatter {
+    position: relative;
+    overflow: hidden;
+}
+
+.glass-shard {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    pointer-events: none;
+    animation: shatterFall 1s ease-out forwards;
+}
+
+@keyframes shatterFall {
+    0% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(300px) rotate(720deg);
+    }
+}
+
+/* エネルギー波エフェクト */
+.energy-wave {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 215, 0, 0.6);
+    animation: energyExpand 2s ease-out infinite;
+    pointer-events: none;
+}
+
+@keyframes energyExpand {
+    0% {
+        transform: scale(0.1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
+
+/* 電気エフェクト */
+.electric-effect {
+    position: relative;
+}
+
+.electric-bolt {
+    position: absolute;
+    width: 2px;
+    height: 20px;
+    background: linear-gradient(0deg, transparent, var(--accent-blue), transparent);
+    animation: electricFlicker 0.5s ease-in-out infinite;
+    transform-origin: bottom;
+}
+
+@keyframes electricFlicker {
+    0%, 100% {
+        opacity: 0;
+        transform: scaleY(0.5) translateX(0);
+    }
+    50% {
+        opacity: 1;
+        transform: scaleY(1.5) translateX(5px);
+    }
+}
+
+/* マジックサークル */
+.magic-circle {
+    position: relative;
+}
+
+.magic-circle::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    border: 2px solid rgba(255, 215, 0, 0.5);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: magicRotate 10s linear infinite;
+}
+
+.magic-circle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150px;
+    height: 150px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: magicRotate 8s linear infinite reverse;
+}
+
+@keyframes magicRotate {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* ネオンエフェクト */
+.neon-glow {
+    text-shadow:
+        0 0 5px currentColor,
+        0 0 10px currentColor,
+        0 0 15px currentColor,
+        0 0 20px var(--primary-gold),
+        0 0 35px var(--primary-gold),
+        0 0 40px var(--primary-gold);
+    animation: neonFlicker 2s ease-in-out infinite alternate;
+}
+
+@keyframes neonFlicker {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+
+/* 星空エフェクト */
+.starfield {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: starTwinkle 3s ease-in-out infinite;
+}
+
+@keyframes starTwinkle {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.5);
+    }
+}
+
+/* フローティングアイコン */
+.floating-icon {
+    position: absolute;
+    animation: iconFloat 6s ease-in-out infinite;
+    opacity: 0.7;
+}
+
+@keyframes iconFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-20px) rotate(90deg);
+    }
+    50% {
+        transform: translateY(-40px) rotate(180deg);
+    }
+    75% {
+        transform: translateY(-20px) rotate(270deg);
+    }
+}
+
+/* バックグラウンドアニメーション */
+.animated-bg {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* 3Dカードエフェクト */
+.card-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+}
+
+.card-3d:hover {
+    transform: rotateX(15deg) rotateY(15deg);
+}
+
+/* レインボーボーダー */
+.rainbow-border {
+    position: relative;
+    background: linear-gradient(45deg, 
+        #ff0000, #ff7300, #fffb00, #48ff00, 
+        #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    background-size: 400%;
+    border-radius: var(--border-radius);
+    animation: rainbowShift 3s ease infinite;
+}
+
+.rainbow-border::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    background: var(--dark-bg);
+    border-radius: calc(var(--border-radius) - 2px);
+    z-index: -1;
+}
+
+@keyframes rainbowShift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* パルスリング */
+.pulse-ring {
+    position: relative;
+}
+
+.pulse-ring::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border: 2px solid rgba(255, 215, 0, 0.5);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulseRing 2s ease-out infinite;
+}
+
+@keyframes pulseRing {
+    0% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 0;
+    }
+}
+
+/* モーフィングエフェクト */
+.morphing-shape {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    animation: morphing 8s ease-in-out infinite;
+}
+
+@keyframes morphing {
+    0%, 100% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+    25% {
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    }
+    50% {
+        border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%;
+    }
+    75% {
+        border-radius: 50% 40% 30% 40% / 40% 50% 60% 60%;
+    }
+}
