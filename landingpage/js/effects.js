@@ -1,6 +1,5 @@
 /**
- * エフェクトシステム
- * 高度な視覚エフェクトとインタラクション
+ * エフェクトシステム - 桜と金色エフェクト完全版
  */
 
 class EffectsSystem {
@@ -8,6 +7,8 @@ class EffectsSystem {
         this.fireworks = [];
         this.ripples = [];
         this.sparkles = [];
+        this.sakuraPetals = [];
+        this.goldenSparks = [];
         this.isRunning = false;
         this.animationId = null;
         
@@ -18,12 +19,15 @@ class EffectsSystem {
         this.setupContainers();
         this.setupEventListeners();
         this.startRenderLoop();
-        console.log('🎆 エフェクトシステム初期化完了');
+        this.initializeNatureEffects();
+        console.log('🎆🌸 エフェクトシステム初期化完了');
     }
     
     setupContainers() {
         this.fireworksContainer = document.getElementById('fireworksContainer');
         this.rippleContainer = document.getElementById('rippleContainer');
+        this.sakuraContainer = document.getElementById('sakuraContainer');
+        this.goldenSparksContainer = document.getElementById('goldenSparksContainer');
         
         if (!this.fireworksContainer) {
             this.fireworksContainer = document.createElement('div');
@@ -58,14 +62,156 @@ class EffectsSystem {
         }
     }
     
+    /**
+     * 自然エフェクトの初期化
+     */
+    initializeNatureEffects() {
+        this.startSakuraEffect();
+        this.startGoldenSparksEffect();
+    }
+    
+    /**
+     * 桜の花びらエフェクト開始
+     */
+    startSakuraEffect() {
+        if (!this.sakuraContainer) return;
+        
+        const createSakuraPetal = () => {
+            const petal = document.createElement('div');
+            petal.className = 'sakura-petal';
+            
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.top = '-20px';
+            
+            const size = 8 + Math.random() * 8;
+            petal.style.width = size + 'px';
+            petal.style.height = size + 'px';
+            
+            const duration = 8 + Math.random() * 12;
+            petal.style.animationDuration = duration + 's';
+            
+            petal.style.animationDelay = Math.random() * 2 + 's';
+            
+            this.sakuraContainer.appendChild(petal);
+            
+            setTimeout(() => {
+                if (petal.parentNode) {
+                    petal.parentNode.removeChild(petal);
+                }
+            }, (duration + 2) * 1000);
+        };
+        
+        setInterval(createSakuraPetal, 2000);
+        
+        for (let i = 0; i < 5; i++) {
+            setTimeout(createSakuraPetal, i * 400);
+        }
+    }
+    
+    /**
+     * 金色の火の粉エフェクト開始
+     */
+    startGoldenSparksEffect() {
+        if (!this.goldenSparksContainer) return;
+        
+        const createGoldenSpark = () => {
+            const spark = document.createElement('div');
+            spark.className = 'golden-spark';
+            
+            const sparkType = Math.random();
+            if (sparkType > 0.8) {
+                spark.classList.add('bright');
+            } else if (sparkType < 0.3) {
+                spark.classList.add('dim');
+            }
+            
+            spark.style.left = Math.random() * 100 + 'vw';
+            spark.style.bottom = '-10px';
+            
+            const size = 2 + Math.random() * 6;
+            spark.style.width = size + 'px';
+            spark.style.height = size + 'px';
+            
+            const duration = 6 + Math.random() * 8;
+            spark.style.animationDuration = duration + 's';
+            
+            spark.style.animationDelay = Math.random() * 1 + 's';
+            
+            this.goldenSparksContainer.appendChild(spark);
+            
+            setTimeout(() => {
+                if (spark.parentNode) {
+                    spark.parentNode.removeChild(spark);
+                }
+            }, (duration + 1) * 1000);
+        };
+        
+        setInterval(createGoldenSpark, 800);
+        
+        for (let i = 0; i < 8; i++) {
+            setTimeout(createGoldenSpark, i * 200);
+        }
+    }
+    
     setupEventListeners() {
-        // 特別な場所でのクリック時に追加エフェクト
         document.addEventListener('click', (e) => {
-            const specialElements = e.target.closest('.cta-button, .character-card, .main-character');
+            const specialElements = e.target.closest('.cta-button, .character-card, .main-title');
             if (specialElements) {
                 this.createSparklesBurst(e.clientX, e.clientY);
+                this.createSpecialSakuraBurst(e.clientX, e.clientY);
             }
         });
+    }
+    
+    /**
+     * 特別な桜の花びら爆発
+     */
+    createSpecialSakuraBurst(x, y) {
+        for (let i = 0; i < 10; i++) {
+            setTimeout(() => {
+                const petal = document.createElement('div');
+                petal.className = 'sakura-petal';
+                petal.style.position = 'fixed';
+                petal.style.left = x + 'px';
+                petal.style.top = y + 'px';
+                petal.style.width = '10px';
+                petal.style.height = '10px';
+                petal.style.zIndex = '1001';
+                
+                document.body.appendChild(petal);
+                
+                const angle = (Math.PI * 2 * i) / 10;
+                const velocity = 50 + Math.random() * 100;
+                let posX = x;
+                let posY = y;
+                let vx = Math.cos(angle) * velocity;
+                let vy = Math.sin(angle) * velocity;
+                let life = 1.0;
+                
+                const animatePetal = () => {
+                    posX += vx * 0.02;
+                    posY += vy * 0.02;
+                    vy += 30 * 0.02;
+                    vx *= 0.99;
+                    life -= 0.01;
+                    
+                    petal.style.left = posX + 'px';
+                    petal.style.top = posY + 'px';
+                    petal.style.opacity = life;
+                    petal.style.transform = `rotate(${(1 - life) * 360}deg)`;
+                    
+                    if (life > 0) {
+                        requestAnimationFrame(animatePetal);
+                    } else {
+                        if (petal.parentNode) {
+                            petal.parentNode.removeChild(petal);
+                        }
+                    }
+                };
+                
+                requestAnimationFrame(animatePetal);
+            }, i * 50);
+        }
     }
     
     startRenderLoop() {
@@ -85,12 +231,10 @@ class EffectsSystem {
     render() {
         if (!this.isRunning) return;
         
-        // エフェクトの更新
         this.updateFireworks();
         this.updateRipples();
         this.updateSparkles();
         
-        // 次のフレーム
         this.animationId = requestAnimationFrame(() => this.render());
     }
     
@@ -112,14 +256,12 @@ class EffectsSystem {
         
         this.rippleContainer.appendChild(ripple);
         
-        // クリーンアップ
         setTimeout(() => {
             if (ripple.parentNode) {
                 ripple.parentNode.removeChild(ripple);
             }
         }, 600);
         
-        // リップル配列に追加（アニメーション管理用）
         this.ripples.push({
             element: ripple,
             startTime: Date.now(),
@@ -143,7 +285,6 @@ class EffectsSystem {
             duration: 2000
         };
         
-        // パーティクル生成
         for (let i = 0; i < particleCount; i++) {
             const angle = (Math.PI * 2 * i) / particleCount;
             const velocity = 50 + Math.random() * 100;
@@ -179,7 +320,6 @@ class EffectsSystem {
         
         this.fireworks.push(firework);
         
-        // サウンドエフェクト
         if (window.audioSystem && window.audioSystem.audioEnabled) {
             setTimeout(() => window.audioSystem.playMagic(), 100);
         }
@@ -209,7 +349,6 @@ class EffectsSystem {
             z-index: 1001;
         `;
         
-        // 星形の作成
         sparkle.innerHTML = `
             <div style="
                 position: absolute;
@@ -251,7 +390,6 @@ class EffectsSystem {
         
         document.body.appendChild(sparkle);
         
-        // アニメーション
         const animation = sparkle.animate([
             { 
                 opacity: 0, 
@@ -270,7 +408,6 @@ class EffectsSystem {
             easing: 'ease-out'
         });
         
-        // クリーンアップ
         animation.onfinish = () => {
             if (sparkle.parentNode) {
                 sparkle.parentNode.removeChild(sparkle);
@@ -290,7 +427,6 @@ class EffectsSystem {
             const progress = elapsed / firework.duration;
             
             if (progress >= 1) {
-                // 花火終了 - パーティクルを削除
                 firework.particles.forEach(particle => {
                     if (particle.element.parentNode) {
                         particle.element.parentNode.removeChild(particle.element);
@@ -299,20 +435,16 @@ class EffectsSystem {
                 return false;
             }
             
-            // パーティクルを更新
             firework.particles = firework.particles.filter(particle => {
-                const deltaTime = 16 / 1000; // 60fps想定
+                const deltaTime = 16 / 1000;
                 
-                // 物理演算
                 particle.x += particle.vx * deltaTime;
                 particle.y += particle.vy * deltaTime;
                 particle.vy += particle.gravity * deltaTime;
                 
-                // 抵抗
                 particle.vx *= 0.99;
                 particle.vy *= 0.99;
                 
-                // 生命力減少
                 particle.life -= particle.decay;
                 
                 if (particle.life <= 0) {
@@ -322,7 +454,6 @@ class EffectsSystem {
                     return false;
                 }
                 
-                // 位置とスタイルを更新
                 particle.element.style.left = `${particle.x}px`;
                 particle.element.style.top = `${particle.y}px`;
                 particle.element.style.opacity = particle.life;
@@ -351,242 +482,21 @@ class EffectsSystem {
         });
     }
     
-    createLightBeam(startX, startY, endX, endY, color = '#FFD700', duration = 1000) {
-        const beam = document.createElement('div');
-        const distance = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
-        const angle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
-        
-        beam.style.cssText = `
-            position: absolute;
-            left: ${startX}px;
-            top: ${startY}px;
-            width: ${distance}px;
-            height: 4px;
-            background: linear-gradient(90deg, ${color}, transparent);
-            transform-origin: 0 50%;
-            transform: rotate(${angle}deg);
-            pointer-events: none;
-            z-index: 998;
-            box-shadow: 0 0 10px ${color};
-        `;
-        
-        document.body.appendChild(beam);
-        
-        // アニメーション
-        const animation = beam.animate([
-            { opacity: 0, transform: `rotate(${angle}deg) scaleX(0)` },
-            { opacity: 1, transform: `rotate(${angle}deg) scaleX(1)` },
-            { opacity: 0, transform: `rotate(${angle}deg) scaleX(1)` }
-        ], {
-            duration: duration,
-            easing: 'ease-out'
-        });
-        
-        animation.onfinish = () => {
-            if (beam.parentNode) {
-                beam.parentNode.removeChild(beam);
-            }
-        };
-    }
-    
-    createFloatingText(x, y, text, color = '#FFD700', duration = 2000) {
-        const textElement = document.createElement('div');
-        textElement.textContent = text;
-        
-        textElement.style.cssText = `
-            position: absolute;
-            left: ${x}px;
-            top: ${y}px;
-            color: ${color};
-            font-size: 24px;
-            font-weight: bold;
-            font-family: 'Yuji Syuku', serif;
-            pointer-events: none;
-            z-index: 1002;
-            text-shadow: 0 0 10px ${color};
-            white-space: nowrap;
-        `;
-        
-        document.body.appendChild(textElement);
-        
-        // アニメーション
-        const animation = textElement.animate([
-            { 
-                opacity: 0, 
-                transform: 'translateY(0px) scale(0.5)' 
-            },
-            { 
-                opacity: 1, 
-                transform: 'translateY(-50px) scale(1)', 
-                offset: 0.3 
-            },
-            { 
-                opacity: 0, 
-                transform: 'translateY(-100px) scale(0.8)' 
-            }
-        ], {
-            duration: duration,
-            easing: 'ease-out'
-        });
-        
-        animation.onfinish = () => {
-            if (textElement.parentNode) {
-                textElement.parentNode.removeChild(textElement);
-            }
-        };
-    }
-    
-    createPortal(x, y, size = 100, duration = 3000) {
-        const portal = document.createElement('div');
-        
-        portal.style.cssText = `
-            position: absolute;
-            left: ${x - size/2}px;
-            top: ${y - size/2}px;
-            width: ${size}px;
-            height: ${size}px;
-            border-radius: 50%;
-            background: conic-gradient(
-                from 0deg,
-                #FFD700,
-                #FF6B6B,
-                #4ECDC4,
-                #8A2BE2,
-                #FFD700
-            );
-            pointer-events: none;
-            z-index: 997;
-            animation: portalSpin 2s linear infinite;
-        `;
-        
-        // 内側のエフェクト
-        const inner = document.createElement('div');
-        inner.style.cssText = `
-            position: absolute;
-            top: 10%;
-            left: 10%;
-            width: 80%;
-            height: 80%;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(0,0,0,0.8) 30%, transparent 70%);
-        `;
-        
-        portal.appendChild(inner);
-        document.body.appendChild(portal);
-        
-        // CSS アニメーション追加
-        if (!document.getElementById('portalAnimation')) {
-            const style = document.createElement('style');
-            style.id = 'portalAnimation';
-            style.textContent = `
-                @keyframes portalSpin {
-                    from { transform: rotate(0deg) scale(0); }
-                    10% { transform: rotate(36deg) scale(1); }
-                    90% { transform: rotate(324deg) scale(1); }
-                    to { transform: rotate(360deg) scale(0); }
-                }
-            `;
-            document.head.appendChild(style);
-        }
-        
-        // クリーンアップ
-        setTimeout(() => {
-            if (portal.parentNode) {
-                portal.parentNode.removeChild(portal);
-            }
-        }, duration);
-    }
-    
-    createEnergyWave(centerX, centerY, maxRadius = 300, color = '#FFD700', duration = 1500) {
-        const wave = document.createElement('div');
-        
-        wave.style.cssText = `
-            position: absolute;
-            left: ${centerX}px;
-            top: ${centerY}px;
-            width: 0;
-            height: 0;
-            border: 3px solid ${color};
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 996;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 20px ${color};
-        `;
-        
-        document.body.appendChild(wave);
-        
-        const animation = wave.animate([
-            { 
-                width: '0px', 
-                height: '0px', 
-                opacity: 1,
-                borderWidth: '3px'
-            },
-            { 
-                width: `${maxRadius * 2}px`, 
-                height: `${maxRadius * 2}px`, 
-                opacity: 0,
-                borderWidth: '1px'
-            }
-        ], {
-            duration: duration,
-            easing: 'ease-out'
-        });
-        
-        animation.onfinish = () => {
-            if (wave.parentNode) {
-                wave.parentNode.removeChild(wave);
-            }
-        };
-    }
-    
-    createScreenShake(intensity = 10, duration = 500) {
-        const body = document.body;
-        const originalTransform = body.style.transform;
-        
-        let startTime = Date.now();
-        
-        const shake = () => {
-            const elapsed = Date.now() - startTime;
-            const progress = elapsed / duration;
-            
-            if (progress >= 1) {
-                body.style.transform = originalTransform;
-                return;
-            }
-            
-            const currentIntensity = intensity * (1 - progress);
-            const x = (Math.random() - 0.5) * currentIntensity;
-            const y = (Math.random() - 0.5) * currentIntensity;
-            
-            body.style.transform = `${originalTransform} translate(${x}px, ${y}px)`;
-            
-            requestAnimationFrame(shake);
-        };
-        
-        requestAnimationFrame(shake);
-    }
-    
-    // パフォーマンス最適化
     optimizePerformance() {
-        // 古いエフェクトを強制削除
         const now = Date.now();
         
         this.fireworks = this.fireworks.filter(firework => {
-            return (now - firework.startTime) < 10000; // 10秒以上古いものは削除
+            return (now - firework.startTime) < 10000;
         });
         
         this.ripples = this.ripples.filter(ripple => {
-            return (now - ripple.startTime) < 5000; // 5秒以上古いものは削除
+            return (now - ripple.startTime) < 5000;
         });
         
-        // DOM要素のクリーンアップ
         this.cleanupOrphanedElements();
     }
     
     cleanupOrphanedElements() {
-        // 孤立したエフェクト要素を削除
         const orphanedRipples = this.rippleContainer.querySelectorAll('.ripple-effect');
         orphanedRipples.forEach(ripple => {
             if (Date.now() - parseInt(ripple.dataset.created || '0') > 5000) {
@@ -595,25 +505,6 @@ class EffectsSystem {
         });
     }
     
-    // エフェクト設定
-    setEffectIntensity(level) {
-        // low, medium, high
-        this.effectIntensity = level;
-        
-        switch(level) {
-            case 'low':
-                this.defaultParticleCount = 10;
-                break;
-            case 'medium':
-                this.defaultParticleCount = 20;
-                break;
-            case 'high':
-                this.defaultParticleCount = 30;
-                break;
-        }
-    }
-    
-    // デバッグ情報
     getEffectInfo() {
         return {
             activeFireworks: this.fireworks.length,
@@ -632,6 +523,6 @@ setInterval(() => {
     if (window.effectsSystem) {
         window.effectsSystem.optimizePerformance();
     }
-}, 30000); // 30秒ごとにクリーンアップ
+}, 30000);
 
-console.log('🎆 エフェクトシステム完全初期化');
+console.log('🎆🌸 エフェクトシステム完全初期化（桜&金色火の粉付き）');
