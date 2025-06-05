@@ -100,7 +100,7 @@ body {
 }
 
 /* ===========================================
-   金色オーラコンテナ - モバイル最適化
+   金色オーラコンテナ
 =========================================== */
 .golden-aura-container {
     position: fixed;
@@ -117,6 +117,76 @@ body {
     width: 100%;
     height: 100%;
     opacity: 0.3;
+}
+
+/* ===========================================
+   桜の花びらエフェクト
+=========================================== */
+.sakura-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.sakura-petal {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: radial-gradient(circle, #ffb7c5, #ff69b4);
+    border-radius: 0 100% 0 100%;
+    opacity: 0.8;
+    animation: sakuraFall linear infinite;
+    transform-origin: center;
+}
+
+.sakura-petal::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #ffb7c5, #ff69b4);
+    border-radius: 100% 0 100% 0;
+    transform: rotate(45deg);
+}
+
+/* ===========================================
+   金色の火の粉エフェクト
+=========================================== */
+.golden-sparks-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.golden-spark {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, var(--primary-gold), var(--secondary-gold));
+    border-radius: 50%;
+    opacity: 0.9;
+    animation: sparkRise linear infinite;
+    box-shadow: 0 0 10px var(--primary-gold);
+}
+
+.golden-spark.bright {
+    background: radial-gradient(circle, #fff, var(--primary-gold));
+    box-shadow: 0 0 15px var(--primary-gold), 0 0 25px rgba(255, 215, 0, 0.5);
+}
+
+.golden-spark.dim {
+    opacity: 0.6;
+    background: radial-gradient(circle, var(--tertiary-gold), var(--secondary-gold));
 }
 
 /* ===========================================
@@ -177,7 +247,7 @@ body {
 }
 
 /* ===========================================
-   背景パララックス - 修正版
+   背景パララックス
 =========================================== */
 .parallax-bg {
     position: fixed;
@@ -202,7 +272,7 @@ body {
 }
 
 /* ===========================================
-   セクションオーバーレイ - 大幅に薄く
+   セクションオーバーレイ
 =========================================== */
 .section-overlay {
     position: absolute;
@@ -282,19 +352,6 @@ body {
     justify-content: center;
 }
 
-.character-container {
-    margin-bottom: 40px;
-    position: relative;
-}
-
-.main-character {
-    width: 220px;
-    height: auto;
-    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.7));
-    position: relative;
-    z-index: 2;
-}
-
 .title-content {
     text-align: center;
     max-width: 800px;
@@ -338,6 +395,10 @@ body {
     transform: translateX(-50%);
     text-align: center;
     opacity: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .scroll-text {
@@ -355,7 +416,7 @@ body {
 }
 
 /* ===========================================
-   エピソードセクション - タイプライター修正
+   エピソードセクション
 =========================================== */
 .episode-section {
     border-top: 1px solid rgba(255, 215, 0, 0.3);
@@ -399,7 +460,6 @@ body {
     flex: 1;
 }
 
-/* タイプライター用のテキストフレーム - 修正版 */
 .text-frame {
     background: rgba(0, 0, 0, 0.7);
     border: 2px solid var(--glass-border);
@@ -419,21 +479,9 @@ body {
     font-weight: 400;
     margin: 0;
     padding: 0;
-}
-
-/* タイプライターエフェクト用のスタイル */
-.episode-text.typing {
-    border-right: 2px solid var(--primary-gold);
-    white-space: nowrap;
-    overflow: hidden;
-    width: 0;
-    animation: typewriter 3s steps(100) forwards, blink 0.75s step-end infinite;
-}
-
-.episode-text.typing-complete {
     white-space: normal;
     width: 100%;
-    border-right: none;
+    border: none;
     animation: none;
 }
 
@@ -449,7 +497,7 @@ body {
 }
 
 /* ===========================================
-   キャラクターセクション
+   キャラクターセクション - 漫画風スタイル
 =========================================== */
 .characters-section {
     border-top: 1px solid rgba(255, 215, 0, 0.3);
@@ -468,69 +516,122 @@ body {
 
 .characters-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
     margin-top: 60px;
 }
 
-.character-card {
-    height: 420px;
+.character-card.manga-style {
+    height: auto;
+    min-height: 600px;
     cursor: pointer;
     position: relative;
-    background: rgba(0, 0, 0, 0.7);
-    border: 2px solid var(--glass-border);
-    border-radius: var(--border-radius);
-    padding: 25px;
-    text-align: center;
-    transition: all 0.3s var(--transition-smooth);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    backdrop-filter: blur(10px);
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(20, 20, 20, 0.9));
+    border: 3px solid var(--glass-border);
+    border-radius: var(--border-radius-large);
+    padding: 0;
+    text-align: left;
+    transition: all 0.4s var(--transition-smooth);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(15px);
+    overflow: hidden;
 }
 
-.character-card:hover {
-    transform: translateY(-10px);
+.character-card.manga-style:hover {
+    transform: translateY(-15px) scale(1.02);
     border-color: var(--primary-gold);
-    box-shadow: 0 20px 40px rgba(255, 215, 0, 0.3);
+    box-shadow: 0 25px 60px rgba(255, 215, 0, 0.4);
 }
 
-.card-image {
-    width: 100px;
-    height: auto;
-    margin: 0 auto 20px auto;
-    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5));
-    flex-shrink: 0;
-}
-
-.character-name {
-    font-family: 'Yuji Syuku', serif;
-    font-size: 1.6rem;
-    color: var(--primary-gold);
-    margin-bottom: 15px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
-    font-weight: 600;
-    flex-shrink: 0;
-}
-
-.character-desc-container {
-    flex: 1;
+.character-image-container {
+    position: relative;
+    height: 180px;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.1));
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 0;
+    border-bottom: 2px solid var(--glass-border);
 }
 
-.character-desc {
-    font-size: 1rem;
-    line-height: 1.6;
+.character-card.manga-style .card-image {
+    width: 120px;
+    height: auto;
+    margin: 0;
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+    transition: all 0.3s ease;
+}
+
+.character-card.manga-style:hover .card-image {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
+}
+
+.character-rank {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(45deg, var(--primary-gold), var(--secondary-gold));
+    color: var(--dark-bg);
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.character-info {
+    padding: 25px;
+}
+
+.character-card.manga-style .character-name {
+    font-family: 'Yuji Syuku', serif;
+    font-size: 1.8rem;
+    color: var(--primary-gold);
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+    font-weight: 700;
+    border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+    padding-bottom: 10px;
+}
+
+.character-details {
+    margin-bottom: 20px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.detail-label {
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    min-width: 60px;
+}
+
+.detail-value {
     color: var(--text-secondary);
-    text-align: center;
+    font-weight: 500;
+    text-align: right;
+    flex: 1;
+    margin-left: 15px;
+}
+
+.character-profile {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
+    background: rgba(255, 215, 0, 0.05);
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 3px solid var(--primary-gold);
+    font-style: italic;
 }
 
 /* ===========================================
@@ -563,19 +664,6 @@ body {
     margin-left: auto;
     margin-right: auto;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
-}
-
-.final-characters {
-    display: flex;
-    justify-content: center;
-    gap: 60px;
-    margin-top: 60px;
-}
-
-.final-character {
-    width: 140px;
-    height: auto;
-    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5));
 }
 
 /* ===========================================
