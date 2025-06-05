@@ -21,16 +21,32 @@
     <!-- プログレスバー -->
     <div class="scroll-progress"></div>
 
-    <!-- ローディングスクリーン -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loading-content">
-            <img src="./image/ryochan.png" alt="RYO-CHAN" class="loading-character">
+Copy<!-- 動画ローディングスクリーン -->
+<div class="loading-screen" id="loadingScreen">
+    <video 
+        id="loadingVideo" 
+        class="loading-video" 
+        autoplay 
+        muted 
+        playsinline>
+        <source src="./video/loading.mp4" type="video/mp4">
+        <source src="./image/loading.mp4" type="video/mp4">
+        <!-- フォールバック用 -->
+        <div class="loading-fallback">
+            <img src="./image/jatitle.mp4" alt="RYO-CHAN" class="loading-character">
             <div class="loading-text">物語を読み込み中...</div>
             <div class="loading-bar">
                 <div class="loading-progress"></div>
             </div>
         </div>
+    </video>
+    
+    <!-- オーバーレイテキスト（オプション） -->
+    <div class="loading-overlay">
+        <div class="loading-title">RYO-CHAN の冒険</div>
+        <div class="loading-subtitle">世界が目覚める時...</div>
     </div>
+</div>
 
     <!-- プラチナオーラエフェクト -->
     <div class="platinum-aura-container" id="platinumAuraContainer">
