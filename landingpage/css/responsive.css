@@ -1,5 +1,5 @@
 /* ===========================================
-   レスポンシブデザイン - 最適化版
+   レスポンシブデザイン
 =========================================== */
 
 /* タブレット (768px以下) */
@@ -30,11 +30,6 @@
     /* タイトルセクション */
     .title-section {
         padding: 60px 15px;
-    }
-    
-    .main-character {
-        width: 180px;
-        margin-bottom: 30px;
     }
     
     .main-title {
@@ -80,35 +75,31 @@
         margin: 0 auto;
     }
     
-    .character-card {
-        height: 380px;
+    .character-card.manga-style {
+        min-height: 500px;
+        padding: 0;
+    }
+    
+    .character-image-container {
+        height: 150px;
+    }
+    
+    .character-card.manga-style .card-image {
+        width: 100px;
+    }
+    
+    .character-info {
         padding: 20px;
     }
     
-    .card-image {
-        width: 90px;
+    .character-card.manga-style .character-name {
+        font-size: 1.6rem;
         margin-bottom: 15px;
     }
     
-    .character-name {
-        font-size: 1.5rem;
-        margin-bottom: 12px;
-    }
-    
-    .character-desc {
+    .character-profile {
         font-size: 0.95rem;
-        line-height: 1.5;
-    }
-    
-    /* 最終セクション */
-    .final-characters {
-        flex-direction: column;
-        align-items: center;
-        gap: 25px;
-    }
-    
-    .final-character {
-        width: 100px;
+        line-height: 1.6;
     }
     
     /* ボタン */
@@ -177,11 +168,6 @@
         padding: 50px 10px;
     }
     
-    .main-character {
-        width: 150px;
-        margin-bottom: 25px;
-    }
-    
     .main-title {
         font-size: clamp(2rem, 12vw, 3.5rem);
         margin-bottom: 15px;
@@ -229,24 +215,44 @@
         margin-bottom: 40px;
     }
     
-    .character-card {
-        height: 340px;
+    .character-card.manga-style {
+        min-height: 450px;
+    }
+    
+    .character-image-container {
+        height: 130px;
+    }
+    
+    .character-card.manga-style .card-image {
+        width: 80px;
+    }
+    
+    .character-info {
         padding: 15px;
     }
     
-    .card-image {
-        width: 80px;
+    .character-card.manga-style .character-name {
+        font-size: 1.4rem;
         margin-bottom: 12px;
     }
     
-    .character-name {
-        font-size: 1.3rem;
-        margin-bottom: 10px;
+    .detail-item {
+        margin-bottom: 8px;
+        padding: 6px 0;
     }
     
-    .character-desc {
+    .detail-label {
+        font-size: 0.8rem;
+    }
+    
+    .detail-value {
         font-size: 0.9rem;
-        line-height: 1.4;
+    }
+    
+    .character-profile {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        padding: 12px;
     }
     
     /* 最終セクション */
@@ -259,10 +265,6 @@
         font-size: clamp(1rem, 5vw, 1.3rem);
         margin-bottom: 30px;
         line-height: 1.6;
-    }
-    
-    .final-character {
-        width: 80px;
     }
     
     /* ボタン */
@@ -325,22 +327,16 @@
         padding: 30px 8px;
     }
     
-    .main-character {
-        width: 130px;
+    .episode-character {
+        width: 80px;
     }
     
-    .episode-character,
-    .final-character {
+    .character-card.manga-style .card-image {
         width: 70px;
     }
     
-    .card-image {
-        width: 70px;
-    }
-    
-    .character-card {
-        height: 300px;
-        padding: 12px;
+    .character-card.manga-style {
+        min-height: 400px;
     }
     
     .cta-button {
@@ -367,30 +363,21 @@
         max-width: 1400px;
     }
     
-    .main-character {
-        width: 250px;
-    }
-    
     .episode-character {
         width: 180px;
     }
     
-    .final-character {
-        width: 160px;
-    }
-    
     .characters-grid {
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 40px;
+        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+        gap: 50px;
     }
     
-    .character-card {
-        height: 460px;
-        padding: 30px;
+    .character-card.manga-style {
+        min-height: 650px;
     }
     
-    .card-image {
-        width: 120px;
+    .character-card.manga-style .card-image {
+        width: 140px;
     }
 }
 
@@ -403,28 +390,6 @@
     
     .title-section {
         min-height: 100vh;
-    }
-    
-    .title-section .content-wrapper {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        height: auto;
-        gap: 40px;
-    }
-    
-    .character-container {
-        margin-bottom: 0;
-        flex-shrink: 0;
-    }
-    
-    .main-character {
-        width: 180px;
-    }
-    
-    .title-content {
-        flex: 1;
-        text-align: left;
     }
     
     .episode-content {
@@ -441,12 +406,10 @@
 
 /* パフォーマンス最適化 */
 @media (max-width: 768px) {
-    /* アニメーション軽量化 */
     * {
         animation-duration: 0.5s !important;
     }
     
-    /* 重いエフェクトを無効化 */
     .glow-effect::before,
     .shimmer-effect::before {
         display: none;
@@ -455,7 +418,9 @@
 
 /* バッテリー節約モード */
 @media (prefers-reduced-motion: reduce) {
-    .golden-aura-container {
+    .golden-aura-container,
+    .sakura-container,
+    .golden-sparks-container {
         display: none;
     }
     
