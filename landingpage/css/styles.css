@@ -830,3 +830,229 @@ body {
 .glow-text {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
 }
+/* 既存のスタイルに以下を追加 */
+
+/* =========================================== 
+   音声許可ダイアログ 
+   =========================================== */
+.audio-permission-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 12000;
+    backdrop-filter: blur(10px);
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.3s ease;
+}
+
+.audio-permission-dialog.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.dialog-content {
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(20, 20, 20, 0.95));
+    border: 2px solid var(--glass-border);
+    border-radius: var(--border-radius-large);
+    padding: 40px;
+    text-align: center;
+    max-width: 450px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+.dialog-content h3 {
+    font-size: 1.8rem;
+    color: var(--primary-gold);
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+}
+
+.dialog-content p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+    line-height: 1.6;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.dialog-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.dialog-btn {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 40px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s var(--transition-smooth);
+    letter-spacing: 0.5px;
+}
+
+.dialog-btn.allow {
+    background: linear-gradient(45deg, var(--primary-gold), var(--secondary-gold));
+    color: var(--dark-bg);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+}
+
+.dialog-btn.allow:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(255, 215, 0, 0.5);
+}
+
+.dialog-btn.deny {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: var(--text-muted);
+}
+
+.dialog-btn.deny:hover {
+    border-color: rgba(255, 255, 255, 0.6);
+    color: var(--text-secondary);
+    transform: translateY(-2px);
+}
+
+/* =========================================== 
+   ローディング画面（動画背景版） 
+   =========================================== */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    overflow: hidden;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.loading-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: -1;
+}
+
+.loading-fallback {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: auto;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.8));
+    z-index: -1;
+}
+
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg, 
+        rgba(0, 0, 0, 0.3) 0%, 
+        rgba(0, 0, 0, 0.6) 50%, 
+        rgba(0, 0, 0, 0.4) 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-content {
+    text-align: center;
+    z-index: 2;
+    position: relative;
+    max-width: 500px;
+}
+
+.loading-title {
+    font-family: 'Yuji Syuku', serif;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    color: var(--primary-gold);
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 1);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.loading-subtitle {
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+    opacity: 0.9;
+}
+
+.loading-bar {
+    width: 320px;
+    height: 6px;
+    background: rgba(255, 215, 0, 0.2);
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 0 auto;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+}
+
+.loading-progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-gold), var(--secondary-gold));
+    border-radius: 3px;
+    animation: loading 3s ease-in-out forwards;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+}
+
+.loading-screen.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* モバイル対応 */
+@media (max-width: 768px) {
+    .dialog-content {
+        margin: 20px;
+        padding: 30px 25px;
+        max-width: 90vw;
+    }
+    
+    .dialog-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .dialog-btn {
+        width: 100%;
+        max-width: 280px;
+    }
+    
+    .loading-content {
+        padding: 0 20px;
+    }
+    
+    .loading-bar {
+        width: 280px;
+    }
+}
