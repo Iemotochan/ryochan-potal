@@ -1,5 +1,5 @@
 /**
- * エフェクトシステム - 桜と金色エフェクト完全版
+ * エフェクトシステム - 桜の花びら速度修正版
  */
 
 class EffectsSystem {
@@ -71,7 +71,7 @@ class EffectsSystem {
     }
     
     /**
-     * 桜の花びらエフェクト開始
+     * 桜の花びらエフェクト開始 - ゆっくり修正
      */
     startSakuraEffect() {
         if (!this.sakuraContainer) return;
@@ -87,10 +87,11 @@ class EffectsSystem {
             petal.style.width = size + 'px';
             petal.style.height = size + 'px';
             
-            const duration = 8 + Math.random() * 12;
+            // 大幅に速度を遅く（20-40秒でゆっくり落下）
+            const duration = 20 + Math.random() * 20;
             petal.style.animationDuration = duration + 's';
             
-            petal.style.animationDelay = Math.random() * 2 + 's';
+            petal.style.animationDelay = Math.random() * 5 + 's';
             
             this.sakuraContainer.appendChild(petal);
             
@@ -98,13 +99,15 @@ class EffectsSystem {
                 if (petal.parentNode) {
                     petal.parentNode.removeChild(petal);
                 }
-            }, (duration + 2) * 1000);
+            }, (duration + 5) * 1000);
         };
         
-        setInterval(createSakuraPetal, 2000);
+        // 花びら生成間隔も長く（5秒間隔）
+        setInterval(createSakuraPetal, 5000);
         
-        for (let i = 0; i < 5; i++) {
-            setTimeout(createSakuraPetal, i * 400);
+        // 初期の花びらを生成
+        for (let i = 0; i < 3; i++) {
+            setTimeout(createSakuraPetal, i * 1000);
         }
     }
     
@@ -153,6 +156,7 @@ class EffectsSystem {
         }
     }
     
+    // 以下、前回と同じメソッド群...
     setupEventListeners() {
         document.addEventListener('click', (e) => {
             const specialElements = e.target.closest('.cta-button, .character-card, .main-title');
@@ -163,9 +167,6 @@ class EffectsSystem {
         });
     }
     
-    /**
-     * 特別な桜の花びら爆発
-     */
     createSpecialSakuraBurst(x, y) {
         for (let i = 0; i < 10; i++) {
             setTimeout(() => {
@@ -221,13 +222,6 @@ class EffectsSystem {
         this.render();
     }
     
-    stopRenderLoop() {
-        this.isRunning = false;
-        if (this.animationId) {
-            cancelAnimationFrame(this.animationId);
-        }
-    }
-    
     render() {
         if (!this.isRunning) return;
         
@@ -261,12 +255,6 @@ class EffectsSystem {
                 ripple.parentNode.removeChild(ripple);
             }
         }, 600);
-        
-        this.ripples.push({
-            element: ripple,
-            startTime: Date.now(),
-            duration: 600
-        });
     }
     
     createFirework(x, y, colors = null, particleCount = 20) {
@@ -413,12 +401,6 @@ class EffectsSystem {
                 sparkle.parentNode.removeChild(sparkle);
             }
         };
-        
-        this.sparkles.push({
-            element: sparkle,
-            animation: animation,
-            startTime: Date.now()
-        });
     }
     
     updateFireworks() {
@@ -492,37 +474,16 @@ class EffectsSystem {
         this.ripples = this.ripples.filter(ripple => {
             return (now - ripple.startTime) < 5000;
         });
-        
-        this.cleanupOrphanedElements();
-    }
-    
-    cleanupOrphanedElements() {
-        const orphanedRipples = this.rippleContainer.querySelectorAll('.ripple-effect');
-        orphanedRipples.forEach(ripple => {
-            if (Date.now() - parseInt(ripple.dataset.created || '0') > 5000) {
-                ripple.remove();
-            }
-        });
-    }
-    
-    getEffectInfo() {
-        return {
-            activeFireworks: this.fireworks.length,
-            activeRipples: this.ripples.length,
-            activeSparkles: this.sparkles.length,
-            isRunning: this.isRunning
-        };
     }
 }
 
 // グローバルインスタンス作成
 window.effectsSystem = new EffectsSystem();
 
-// パフォーマンス監視
 setInterval(() => {
     if (window.effectsSystem) {
         window.effectsSystem.optimizePerformance();
     }
 }, 30000);
 
-console.log('🎆🌸 エフェクトシステム完全初期化（桜&金色火の粉付き）');
+console.log('🎆🌸 エフェクトシステム完全初期化（ゆっくり桜付き）');
