@@ -1,5 +1,5 @@
 /*
-オーディオシステム
+オーディオシステム（デバッグ強化版）
 */
 class AudioSystem {
     constructor() {
@@ -33,6 +33,10 @@ class AudioSystem {
             return;
         }
 
+        // デバッグ情報を追加
+        console.log('🎵 音楽ファイルのソース:', this.bgAudio.src);
+        console.log('🎵 音楽ファイルの準備状態:', this.bgAudio.readyState);
+
         this.bgAudio.volume = this.musicVolume;
         this.bgAudio.loop = true;
 
@@ -41,18 +45,41 @@ class AudioSystem {
         });
 
         this.bgAudio.addEventListener('canplaythrough', () => {
-            console.log('🎵 音楽ファイル読み込み完了');
+            console.log('🎵 音楽ファイル読み込み完了 - 再生可能');
+        });
+
+        this.bgAudio.addEventListener('loadeddata', () => {
+            console.log('🎵 音楽データ読み込み完了');
         });
 
         this.bgAudio.addEventListener('error', (e) => {
             console.error('❌ 音楽ファイル読み込みエラー:', e);
+            console.error('❌ エラー詳細:', this.bgAudio.error);
         });
 
         this.bgAudio.addEventListener('ended', () => {
             if (this.audioEnabled) {
+                console.log('🔄 音楽終了 - ループ再生中');
                 this.bgAudio.play().catch(e => console.log('再生エラー:', e));
             }
         });
+
+        // ファイルパスの存在確認
+        this.checkAudioFile();
+    }
+
+    // 音楽ファイルの存在確認
+    async checkAudioFile() {
+        try {
+            const response = await fetch('./audio/countdown.m4a');
+            if (response.ok) {
+                console.log('✅ countdown.m4a ファイルが見つかりました');
+            } else {
+                console.error('❌ countdown.m4a ファイルが見つかりません (404)');
+            }
+        } catch (error) {
+            console.error('❌ 音楽ファイル確認エラー:', error);
+        }
     }
 
     async setupWebAudio() {
@@ -94,20 +121,27 @@ class AudioSystem {
         if (this.audioEnabled) return;
 
         try {
+            console.log('🎵 オーディオ有効化を試行中...');
+
             if (this.audioContext && this.audioContext.state === 'suspended') {
                 await this.audioContext.resume();
+                console.log('🎛️ AudioContext を再開しました');
             }
 
             if (this.bgAudio) {
+                console.log('🎵 音楽再生を開始中...');
+                console.log('🎵 音楽ファイル準備状態:', this.bgAudio.readyState);
+                
                 await this.bgAudio.play();
                 this.audioEnabled = true;
-                console.log('🎵 オーディオ開始');
+                console.log('✅ 音楽再生開始成功');
             }
 
             this.updateAudioControlVisual();
             this.onAudioEnabled();
         } catch (error) {
-            console.warn('⚠️ オーディオ開始失敗:', error);
+            console.error('❌ オーディオ開始失敗:', error);
+            console.error('❌ エラー詳細:', error.message);
         }
     }
 
@@ -116,6 +150,7 @@ class AudioSystem {
 
         if (this.bgAudio) {
             this.bgAudio.pause();
+            console.log('⏸️ 音楽を一時停止しました');
         }
 
         this.stopAllSounds();
@@ -125,6 +160,7 @@ class AudioSystem {
     }
 
     toggle() {
+        console.log('🎵 オーディオトグル:', this.audioEnabled ? '停止' : '開始');
         if (this.audioEnabled) {
             this.disable();
         } else {
@@ -146,6 +182,7 @@ class AudioSystem {
                     this.createTone(freq, 0.3, 0.8, 'sine');
                 }, index * 150);
             });
+            console.log('🎶 ウェルカムサウンド再生');
         } catch (error) {
             console.warn('⚠️ ウェルカムサウンド再生失敗:', error);
         }
@@ -211,9 +248,9 @@ class AudioSystem {
         }
     }
 
+    // 残りのメソッドは前回と同じ...
     onSectionChange(sectionIndex) {
         this.currentSection = sectionIndex;
-
         if (!this.audioEnabled) return;
 
         switch(sectionIndex) {
@@ -237,7 +274,6 @@ class AudioSystem {
 
     adjustMusicFilter(type) {
         if (!this.bgAudio || !this.audioContext) return;
-
         console.log(`🎵 音楽フィルター切り替え: ${type}`);
     }
 
@@ -279,7 +315,9 @@ class AudioSystem {
             musicVolume: this.musicVolume,
             currentSection: this.currentSection,
             audioContext: this.audioContext ? this.audioContext.state : 'not available',
-            activeSounds: this.currentSounds.size
+            activeSounds: this.currentSounds.size,
+            bgAudioSrc: this.bgAudio ? this.bgAudio.src : 'not found',
+            bgAudioReadyState: this.bgAudio ? this.bgAudio.readyState : 'not found'
         };
     }
 }
