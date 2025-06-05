@@ -601,3 +601,4 @@ window.addEventListener('error', (e) => {
 
 // エクスポート
 window.AdventurePage = AdventurePage;
+ 
