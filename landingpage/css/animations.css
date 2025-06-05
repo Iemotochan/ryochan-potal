@@ -1,6 +1,8 @@
-/* ===========================================
-   基本アニメーション
-=========================================== */
+/*
+===========================================
+基本アニメーション
+===========================================
+*/
 
 @keyframes fadeInUp {
     from {
@@ -14,55 +16,55 @@
 }
 
 @keyframes pulse {
-    0%, 100% { 
-        opacity: 1; 
+    0%, 100% {
+        opacity: 1;
     }
-    50% { 
-        opacity: 0.8; 
+    50% {
+        opacity: 0.8;
     }
 }
 
 @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { 
-        transform: translateY(0); 
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
     }
-    40% { 
-        transform: translateY(-10px); 
+    40% {
+        transform: translateY(-10px);
     }
-    60% { 
-        transform: translateY(-5px); 
+    60% {
+        transform: translateY(-5px);
     }
 }
 
 @keyframes wave {
-    0%, 100% { 
-        transform: scaleY(0.5); 
+    0%, 100% {
+        transform: scaleY(0.5);
         opacity: 0.5;
     }
-    50% { 
-        transform: scaleY(1.5); 
+    50% {
+        transform: scaleY(1.5);
         opacity: 1;
     }
 }
 
 @keyframes gradientShift {
-    0% { 
-        background-position: 0% 50%; 
+    0% {
+        background-position: 0% 50%;
     }
-    50% { 
-        background-position: 100% 50%; 
+    50% {
+        background-position: 100% 50%;
     }
-    100% { 
-        background-position: 0% 50%; 
+    100% {
+        background-position: 0% 50%;
     }
 }
 
 @keyframes loading {
-    from { 
-        width: 0%; 
+    from {
+        width: 0%;
     }
-    to { 
-        width: 100%; 
+    to {
+        width: 100%;
     }
 }
 
@@ -77,9 +79,12 @@
     }
 }
 
-/* ===========================================
-   桜と金色エフェクトのアニメーション - ゆっくり修正
-=========================================== */
+/*
+===========================================
+桜とプラチナエフェクトのアニメーション
+固定速度版
+===========================================
+*/
 
 @keyframes sakuraFall {
     0% {
@@ -130,60 +135,103 @@
     }
 }
 
-/* ===========================================
-   インターセクション観察用アニメーション
-=========================================== */
+/*
+===========================================
+文字浮上エフェクト
+===========================================
+*/
 
-.title-line:nth-child(1) {
-    animation: fadeInUp 1s ease forwards;
+@keyframes textSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.title-line:nth-child(2) {
-    opacity: 0;
-    animation: fadeInUp 1s ease 0.5s forwards;
+@keyframes textGlow {
+    0%, 100% {
+        text-shadow: 
+            2px 2px 4px rgba(0, 0, 0, 1),
+            0 0 10px rgba(64, 224, 208, 0.3);
+    }
+    50% {
+        text-shadow: 
+            2px 2px 4px rgba(0, 0, 0, 1),
+            0 0 20px rgba(64, 224, 208, 0.6);
+    }
 }
 
-.subtitle {
-    animation: fadeInUp 1s ease 1s forwards;
+/*
+===========================================
+ホバーエフェクト
+===========================================
+*/
+
+@keyframes cardFloat {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-5px) scale(1.01);
+    }
 }
 
-.cta-container {
-    animation: fadeInUp 1s ease 1.5s forwards;
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
 }
 
-.scroll-indicator {
-    animation: fadeInUp 1s ease 2s forwards;
+/*
+===========================================
+プラチナグロー
+===========================================
+*/
+
+@keyframes platinumGlow {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(0.9);
+        filter: hue-rotate(0deg);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.1);
+        filter: hue-rotate(90deg);
+    }
 }
 
-.scroll-arrow {
-    animation: bounce 2s infinite;
+/*
+===========================================
+ボタンエフェクト
+===========================================
+*/
+
+@keyframes buttonPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(64, 224, 208, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 20px rgba(64, 224, 208, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(64, 224, 208, 0);
+    }
 }
 
-.loading-text {
-    animation: pulse 2s infinite;
-}
+/*
+===========================================
+アニメーション削減設定
+===========================================
+*/
 
-.loading-progress {
-    animation: loading 3s ease-in-out;
-}
-
-.audio-waves span:nth-child(1) {
-    animation: wave 1s infinite ease-in-out;
-}
-
-.audio-waves span:nth-child(2) {
-    animation: wave 1s infinite ease-in-out 0.1s;
-}
-
-.audio-waves span:nth-child(3) {
-    animation: wave 1s infinite ease-in-out 0.2s;
-}
-
-.scroll-progress {
-    animation: gradientShift 8s ease infinite;
-}
-
-/* ユーザーがアニメーション削減を希望する場合 */
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
