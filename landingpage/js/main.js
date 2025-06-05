@@ -1,6 +1,6 @@
 /*
 RYO-CHAN冒険ランディングページ
-パララックス強化 + 文字浮上エフェクト版
+音楽確認ダイアログ + スムーズパララックス版
 */
 
 class AdventurePage {
@@ -8,15 +8,18 @@ class AdventurePage {
         this.isLoading = true;
         this.currentSection = 0;
         this.hasInteracted = false;
+        this.audioPermissionRequested = false; // 追加
         this.isMobile = window.innerWidth <= 768;
         this.touchStartY = 0;
         this.touchEndY = 0;
 
-        // パララックス関連（10倍強化）
+        // パララックス関連（YJさんの調整値）
         this.parallaxConfig = {
-            speed: this.isMobile ? 3 : 6, // 10倍にアップ
+            speed: this.isMobile ? 3 : 6, // YJさんの調整値
             maxOffset: 0,
-            currentOffset: 0
+            currentOffset: 0,
+            lastScrollY: 0, // スムージング用
+            targetOffset: 0 // スムージング用
         };
 
         this.init();
@@ -29,6 +32,7 @@ class AdventurePage {
             this.setupEventListeners();
             this.initializeComponents();
             this.hideLoadingScreen();
+            this.startSmoothParallax(); // スムーズパララックス開始
             console.log('✨ 初期化完了 - 冒険の準備が整いました');
         } catch (error) {
             console.error('❌ 初期化エラー:', error);
@@ -36,9 +40,186 @@ class AdventurePage {
         }
     }
 
+    // 前のメソッドは同じなので省略...
+
     /*
-    アセットのプリロード
+    音楽確認ダイアログの表示
     */
+    async showAudioPermissionDialog() {
+        return new Promise((resolve) => {
+            // 美しいダイアログを作成
+            const dialogOverlay = document.createElement('div');
+            dialogOverlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10001;
+                backdrop-filter: blur(10px);
+            `;
+
+            const dialog = document.createElement('div');
+            dialog.style.cssText = `
+                background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(20, 20, 20, 0.9));
+                border: 2px solid rgba(64, 224, 208, 0.4);
+                border-radius: 20px;
+                padding: 40px;
+                text-align: center;
+                max-width: 400px;
+                box-shadow: 0 25px 60px rgba(64, 224, 208, 0.3);
+                color: #ffffff;
+            `;
+
+            dialog.innerHTML = `
+                <div style="font-size: 3rem; margin-bottom: 20px;">🎵</div>
+                <h3 style="font-family: 'Yuji Syuku', serif; color: #E5E4E2; margin-bottom: 15px; font-size: 1.5rem;">音楽で物語を演出</h3>
+                <p style="color: #f0f0f0; margin-bottom: 30px; line-height: 1.6;">
+                    RYO-CHANの冒険をより深く体験するため、<br>
+                    BGMと効果音を再生してもよろしいですか？
+                </p>
+                <div style="display: flex; gap: 15px; justify-content: center;">
+                    <button id="audioYes" style="
+                        background: linear-gradient(45deg, #40E0D0, #00BFFF);
+                        border: none;
+                        border-radius: 25px;
+                        padding: 12px 25px;
+                        color: #0a0a0a;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                    ">はい、再生する</button>
+                    <button id="audioNo" style="
+                        background: transparent;
+                        border: 2px solid #40E0D0;
+                        border-radius: 25px;
+                        padding: 12px 25px;
+                        color: #40E0D0;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                    ">いいえ</button>
+                </div>
+            `;
+
+            dialogOverlay.appendChild(dialog);
+            document.body.appendChild(dialogOverlay);
+
+            // ボタンイベント
+            document.getElementById('audioYes').onclick = () => {
+                document.body.removeChild(dialogOverlay);
+                resolve(true);
+            };
+
+            document.getElementById('audioNo').onclick = () => {
+                document.body.removeChild(dialogOverlay);
+                resolve(false);
+            };
+
+            // ホバーエフェクト
+            const buttons = dialog.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.onmouseover = () => {
+                    button.style.transform = 'translateY(-2px)';
+                    button.style.boxShadow = '0 5px 15px rgba(64, 224, 208, 0.4)';
+                };
+                button.onmouseout = () => {
+                    button.style.transform = 'translateY(0)';
+                    button.style.boxShadow = 'none';
+                };
+            });
+        });
+    }
+
+    /*
+    スムーズパララックスの開始
+    */
+    startSmoothParallax() {
+        const smoothUpdate = () => {
+            if (!this.bgImage) return;
+
+            const scrolled = window.pageYOffset;
+            const documentHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollProgress = Math.min(scrolled / documentHeight, 1);
+
+            // YJさんの調整値を使用
+            const maxMove = 800; // YJさんの設定値
+            const targetOffset = scrollProgress * maxMove * this.parallaxConfig.speed;
+
+            // スムージング処理
+            this.parallaxConfig.targetOffset = targetOffset;
+            this.parallaxConfig.currentOffset += (this.parallaxConfig.targetOffset - this.parallaxConfig.currentOffset) * 0.1;
+
+            // 滑らかな変換を適用
+            this.bgImage.style.transform = `translateY(-${this.parallaxConfig.currentOffset}px)`;
+            
+            this.updateBackgroundEffect(scrollProgress);
+
+            requestAnimationFrame(smoothUpdate);
+        };
+
+        smoothUpdate();
+    }
+
+    /*
+    パララックス更新（スムーズ版）
+    */
+    updateParallax() {
+        // この関数は startSmoothParallax() に置き換えられました
+        // スクロールイベントからは呼び出さない
+    }
+
+    /*
+    イベントハンドラー修正版
+    */
+    handleScroll() {
+        if (this.isLoading) return;
+        this.updateScrollProgress();
+        // updateParallax() を削除（スムーズ版を使用）
+    }
+
+    async handleClick(e) {
+        if (this.isLoading) return;
+
+        if (window.effectsSystem) {
+            window.effectsSystem.createRipple(e.clientX, e.clientY);
+        }
+
+        if (!this.hasInteracted) {
+            this.hasInteracted = true;
+            await this.onFirstInteraction();
+        }
+
+        if (window.audioSystem && window.audioSystem.audioEnabled) {
+            window.audioSystem.playClick();
+        }
+    }
+
+    /*
+    初回インタラクション処理（音楽確認付き）
+    */
+    async onFirstInteraction() {
+        console.log('🎉 初回インタラクション検出');
+        
+        if (!this.audioPermissionRequested) {
+            this.audioPermissionRequested = true;
+            
+            const audioPermission = await this.showAudioPermissionDialog();
+            
+            if (audioPermission && window.audioSystem) {
+                await window.audioSystem.enable();
+                console.log('🎵 ユーザーが音楽再生を許可しました');
+            } else {
+                console.log('🔇 ユーザーが音楽再生を拒否しました');
+            }
+        }
+    }
+
+    // 残りのメソッドは前回と同じ...
     async preloadAssets() {
         const images = [
             './image/background.png',
@@ -68,9 +249,6 @@ class AdventurePage {
         console.log('🎨 すべての画像アセットの処理が完了しました');
     }
 
-    /*
-    ローディングスクリーンを隠す
-    */
     hideLoadingScreen() {
         setTimeout(() => {
             const loadingScreen = document.getElementById('loadingScreen');
@@ -85,19 +263,12 @@ class AdventurePage {
         }, 2000);
     }
 
-    /*
-    イントロアニメーションの開始
-    */
     startIntroAnimations() {
         console.log('✨ イントロアニメーション開始');
         this.measurePerformance();
-        // 初期表示要素のアニメーション開始
         this.animateVisibleElements();
     }
 
-    /*
-    パフォーマンス測定
-    */
     measurePerformance() {
         if ('performance' in window) {
             const perfData = performance.getEntriesByType('navigation')[0];
@@ -108,15 +279,11 @@ class AdventurePage {
         }
     }
 
-    /*
-    イベントリスナーの設定
-    */
     setupEventListeners() {
-        // スクロールイベント
-        this.throttledScroll = this.throttle(this.handleScroll.bind(this), 5); // より頻繁に更新
+        // スクロールイベント（軽量化）
+        this.throttledScroll = this.throttle(this.handleScroll.bind(this), 16); // 60fps
         window.addEventListener('scroll', this.throttledScroll, { passive: true });
 
-        // クリック・タッチイベント
         document.addEventListener('click', this.handleClick.bind(this));
 
         if (this.isMobile) {
@@ -124,25 +291,19 @@ class AdventurePage {
             document.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: false });
         }
 
-        // リサイズイベント
         this.throttledResize = this.throttle(this.handleResize.bind(this), 250);
         window.addEventListener('resize', this.throttledResize);
 
-        // CTAボタン
         document.querySelectorAll('.cta-button').forEach(button => {
             button.addEventListener('click', this.handleCTAClick.bind(this));
         });
 
-        // オーディオコントロール
         const audioControl = document.getElementById('audioControl');
         if (audioControl) {
             audioControl.addEventListener('click', this.handleAudioClick.bind(this));
         }
     }
 
-    /*
-    スロットル関数
-    */
     throttle(func, limit) {
         let lastFunc;
         let lastRan;
@@ -164,71 +325,30 @@ class AdventurePage {
         }
     }
 
-    /*
-    コンポーネントの初期化
-    */
     initializeComponents() {
         this.setupParallaxBackground();
         this.setupIntersectionObserver();
     }
 
-    /*
-    パララックス背景の設定（強化版）
-    */
     setupParallaxBackground() {
         this.parallaxBg = document.getElementById('parallaxBg');
         this.bgImage = this.parallaxBg?.querySelector('.bg-image');
         if (this.bgImage) {
-            console.log('📐 背景画像が見つかりました - 強化パララックス開始');
-            this.updateParallax();
+            console.log('📐 背景画像が見つかりました - スムーズパララックス開始');
         }
     }
 
-    /*
-    パララックス更新（10倍強化版）
-    */
-    updateParallax() {
-        if (!this.bgImage) return;
-
-        const scrolled = window.pageYOffset;
-        const documentHeight = document.body.scrollHeight - window.innerHeight;
-        const scrollProgress = Math.min(scrolled / documentHeight, 1);
-
-        // 大幅に移動量を増加（最大移動距離を10倍に）
-        const maxMove = 800; // 2000pxの移動距離
-        const parallaxOffset = scrollProgress * maxMove * this.parallaxConfig.speed;
-
-        // 直接transformを適用
-        this.bgImage.style.transform = `translateY(-${parallaxOffset}px)`;
-
-        // デバッグ用ログ
-        if (scrolled % 200 < 10) { // 200pxごとにログ出力
-            console.log(`🌅 スクロール進行: ${(scrollProgress * 100).toFixed(0)}% | オフセット: ${parallaxOffset.toFixed(0)}px`);
-        }
-
-        // 背景の明るさ調整
-        this.updateBackgroundEffect(scrollProgress);
-    }
-
-    /*
-    背景エフェクト更新
-    */
     updateBackgroundEffect(scrollProgress) {
         if (!this.bgImage) return;
 
-        // スクロールに応じて背景を明るく
-        const brightness = 0.8 + (scrollProgress * 0.4); // 0.8から1.2へ
+        const brightness = 0.8 + (scrollProgress * 0.4);
         const contrast = 1.1;
         const saturation = 1.2;
 
         this.bgImage.style.filter = `brightness(${brightness}) contrast(${contrast}) saturate(${saturation})`;
     }
 
-    /*
-    インターセクションオブザーバーの設定（文字浮上エフェクト）
-    */
     setupIntersectionObserver() {
-        // 文字浮上エフェクト用オブザーバー
         this.textObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -241,12 +361,10 @@ class AdventurePage {
             rootMargin: '-50px 0px'
         });
 
-        // すべての fade-in-text 要素を監視
         document.querySelectorAll('.fade-in-text').forEach(element => {
             this.textObserver.observe(element);
         });
 
-        // セクション切り替え用オブザーバー
         const sections = document.querySelectorAll('.section');
         this.sectionObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -259,30 +377,16 @@ class AdventurePage {
         sections.forEach(section => this.sectionObserver.observe(section));
     }
 
-    /*
-    表示可能な要素のアニメーション
-    */
     animateVisibleElements() {
-        // 初期表示時に見える要素を即座にアニメーション
         const viewportHeight = window.innerHeight;
         document.querySelectorAll('.fade-in-text').forEach(element => {
             const rect = element.getBoundingClientRect();
             if (rect.top < viewportHeight && rect.bottom > 0) {
                 setTimeout(() => {
                     element.classList.add('visible');
-                }, Math.random() * 500); // ランダムな遅延でより自然に
+                }, Math.random() * 500);
             }
         });
-    }
-
-    /*
-    イベントハンドラー
-    */
-    handleScroll() {
-        if (this.isLoading) return;
-
-        this.updateScrollProgress();
-        this.updateParallax();
     }
 
     updateScrollProgress() {
@@ -294,23 +398,6 @@ class AdventurePage {
         const progressBar = document.querySelector('.scroll-progress');
         if (progressBar) {
             progressBar.style.width = `${scrollProgress}%`;
-        }
-    }
-
-    handleClick(e) {
-        if (this.isLoading) return;
-
-        if (window.effectsSystem) {
-            window.effectsSystem.createRipple(e.clientX, e.clientY);
-        }
-
-        if (window.audioSystem) {
-            window.audioSystem.playClick();
-        }
-
-        if (!this.hasInteracted) {
-            this.hasInteracted = true;
-            this.onFirstInteraction();
         }
     }
 
@@ -333,7 +420,7 @@ class AdventurePage {
 
         if (wasMobile !== this.isMobile) {
             console.log(`📱 デバイス切り替え: ${this.isMobile ? 'モバイル' : 'デスクトップ'}`);
-            this.parallaxConfig.speed = this.isMobile ? 8 : 15; // 新しい速度設定
+            this.parallaxConfig.speed = this.isMobile ? 3 : 6; // YJさんの設定値
         }
 
         if (window.platinumAuraSystem) {
@@ -369,21 +456,10 @@ class AdventurePage {
         }
     }
 
-    /*
-    ユーティリティメソッド
-    */
-    onFirstInteraction() {
-        console.log('🎉 初回インタラクション検出');
-        if (window.audioSystem) {
-            window.audioSystem.enable();
-        }
-    }
-
     handleSectionInView(section) {
         const sectionId = section.id;
         console.log(`👁️ セクション表示: ${sectionId}`);
 
-        // セクション固有のアニメーション
         const sectionTexts = section.querySelectorAll('.fade-in-text:not(.visible)');
         sectionTexts.forEach((text, index) => {
             setTimeout(() => {
@@ -432,4 +508,3 @@ window.addEventListener('error', (e) => {
 
 // エクスポート
 window.AdventurePage = AdventurePage;
- 
