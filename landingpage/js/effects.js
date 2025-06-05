@@ -449,7 +449,7 @@ class EffectsSystem {
 
     updateSparkles() {
         this.sparkles = this.sparkles.filter(sparkle => {
-            if (sparkle.animation.playState === 'finished') {
+            if (sparkle.animation && sparkle.animation.playState === 'finished') {
                 return false;
             }
             return true;
