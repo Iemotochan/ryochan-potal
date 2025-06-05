@@ -1,22 +1,11 @@
 /* ===========================================
-   基本アニメーション - 最適化版
+   基本アニメーション - タイプライター修正版
 =========================================== */
 
 @keyframes fadeInUp {
     from {
         opacity: 0;
         transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
     }
     to {
         opacity: 1;
@@ -68,7 +57,7 @@
     }
 }
 
-/* タイプライター修正版 - テキストのみ展開 */
+/* タイプライター修正版 */
 @keyframes typewriter {
     from { 
         width: 0;
@@ -105,60 +94,6 @@
         opacity: 1;
         transform: scale(1);
     }
-}
-
-@keyframes slideInFromBottom {
-    from {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes rippleExpand {
-    from {
-        transform: scale(0);
-        opacity: 1;
-    }
-    to {
-        transform: scale(4);
-        opacity: 0;
-    }
-}
-
-/* ===========================================
-   アニメーションクラス - 軽量化
-=========================================== */
-
-.animate-pulse {
-    animation: pulse 3s infinite;
-}
-
-.animate-bounce {
-    animation: bounce 2s infinite;
-}
-
-.animate-wave {
-    animation: wave 1.5s infinite ease-in-out;
-}
-
-.animate-gradient {
-    animation: gradientShift 5s ease infinite;
-}
-
-.animate-loading {
-    animation: loading 3s ease-in-out;
-}
-
-.animate-scale-in {
-    animation: scaleIn 0.6s ease;
-}
-
-.animate-slide-up {
-    animation: slideInFromBottom 0.8s ease;
 }
 
 /* ===========================================
@@ -212,24 +147,6 @@
 
 .scroll-progress {
     animation: gradientShift 8s ease infinite;
-}
-
-/* ===========================================
-   パフォーマンス最適化
-=========================================== */
-
-.will-change-transform {
-    will-change: transform;
-}
-
-.will-change-opacity {
-    will-change: opacity;
-}
-
-.gpu-accelerated {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    perspective: 1000px;
 }
 
 /* ユーザーがアニメーション削減を希望する場合 */
