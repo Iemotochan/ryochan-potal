@@ -50,13 +50,73 @@ html {
     overflow-x: hidden;
 }
 
+/* 英語版専用フォント設定 */
 body {
-    font-family: 'Inter', 'Noto Serif JP', sans-serif;
-    background: var(--dark-bg);
-    color: var(--text-primary);
-    overflow-x: hidden;
-    position: relative;
-    line-height: 1.6;
+    font-family: 'Helvetica Neue', 'Inter', Arial, sans-serif;
+}
+
+.main-title,
+.section-title,
+.episode-title,
+.final-title,
+.character-name {
+    font-family: 'Helvetica Neue', 'Yuji Syuku', serif;
+    font-weight: 700;
+}
+
+.subtitle,
+.episode-text,
+.final-text,
+.character-profile {
+    font-family: 'Helvetica Neue', 'Inter', Arial, sans-serif;
+    font-weight: 400;
+}
+
+.loading-text,
+.scroll-text,
+.button-text,
+.detail-label,
+.detail-value,
+.episode-number {
+    font-family: 'Helvetica Neue', 'Inter', Arial, sans-serif;
+    font-weight: 500;
+}
+
+/* 英語テキストのレイアウト調整 */
+.title-divider {
+    display: none;
+}
+
+.character-profile,
+.episode-text {
+    text-align: left;
+    line-height: 1.7;
+}
+
+/* 長い英語テキストの調整 */
+.detail-value {
+    font-size: 0.9rem;
+    word-wrap: break-word;
+}
+
+.character-name {
+    font-size: 1.6rem;
+    line-height: 1.3;
+}
+
+/* レスポンシブ調整 */
+@media (max-width: 480px) {
+    .title-line:last-child {
+        margin-top: 0.2em;
+    }
+    
+    .detail-value {
+        font-size: 0.85rem;
+    }
+    
+    .character-name {
+        font-size: 1.4rem;
+    }
 }
 
 /*
