@@ -324,7 +324,7 @@ class AdventurePage {
         const documentHeight = document.body.scrollHeight - window.innerHeight;
         const scrollProgress = Math.min(scrolled / documentHeight, 1);
 
-        const maxMove = 1000;
+        const maxMove = 800;
         const parallaxOffset = scrollProgress * maxMove * this.parallaxConfig.speed;
 
         this.bgImage.style.transform = `translateY(-${parallaxOffset}px)`;
