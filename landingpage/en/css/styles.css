@@ -161,42 +161,7 @@ body {
 
 /*
 ===========================================
-桜の花びらエフェクト
-===========================================
-*/
-.sakura-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 2;
-    overflow: hidden;
-}
 
-.sakura-petal {
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    background: radial-gradient(circle, #ffb7c5, #ff69b4);
-    border-radius: 0 100% 0 100%;
-    opacity: 0.8;
-    animation: sakuraFall 25s linear infinite;
-    transform-origin: center;
-}
-
-.sakura-petal::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, #ffb7c5, #ff69b4);
-    border-radius: 100% 0 100% 0;
-    transform: rotate(45deg);
-}
-
-/*
 ===========================================
 プラチナスパークエフェクト
 ===========================================
