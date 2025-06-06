@@ -1,0 +1,392 @@
+/*
+===========================================
+レスポンシブデザイン
+===========================================
+*/
+
+/* タブレット (768px以下) */
+@media (max-width: 768px) {
+    /* パフォーマンス最適化 */
+    .platinum-aura-container {
+        opacity: 0.2;
+    }
+
+    #platinumAuraCanvas {
+        opacity: 0.2;
+    }
+
+    /* 背景パララックス調整 */
+    .bg-image {
+        min-height: 500vh;
+    }
+
+    .section {
+        padding: 60px 15px;
+    }
+
+    .content-wrapper {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    /* タイトルセクション */
+    .title-section {
+        padding: 60px 15px;
+    }
+
+    .main-title {
+        font-size: clamp(2.5rem, 10vw, 4rem);
+        margin-bottom: 20px;
+    }
+
+    .subtitle {
+        font-size: clamp(1rem, 5vw, 1.4rem);
+        margin-bottom: 30px;
+    }
+
+    /* エピソードセクション */
+    .episode-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        text-align: center;
+    }
+
+    .character-showcase {
+        order: -1;
+        margin-bottom: 20px;
+    }
+
+    .episode-character {
+        width: 120px;
+    }
+
+    .text-frame {
+        min-height: 150px;
+        padding: 20px;
+    }
+
+    .episode-text {
+        font-size: clamp(1rem, 4vw, 1.2rem);
+    }
+
+    /* キャラクターセクション */
+    .characters-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .character-card.cyber-style {
+        min-height: 500px;
+        padding: 0;
+    }
+
+    .character-image-container {
+        height: 150px;
+    }
+
+    .character-card.cyber-style .card-image {
+        width: 100px;
+    }
+
+    .character-info {
+        padding: 20px;
+    }
+
+    .character-card.cyber-style .character-name {
+        font-size: 1.6rem;
+        margin-bottom: 15px;
+    }
+
+    .character-profile {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    /* ボタン */
+    .cta-button {
+        padding: 16px 35px;
+        font-size: 1rem;
+        margin: 10px 5px;
+    }
+
+    /* オーディオコントロール */
+    .audio-control {
+        width: 50px;
+        height: 50px;
+        top: 15px;
+        right: 15px;
+    }
+
+    .audio-icon {
+        font-size: 18px;
+    }
+
+    /* ローディングスクリーン */
+    .loading-character {
+        width: 130px;
+    }
+
+    .loading-text {
+        font-size: 1.4rem;
+    }
+
+    .loading-bar {
+        width: 280px;
+    }
+}
+
+/* スマートフォン (480px以下) */
+@media (max-width: 480px) {
+    /* さらなるパフォーマンス最適化 */
+    .platinum-aura-container {
+        display: none;
+    }
+
+    .bg-image {
+        min-height: 300vh;
+    }
+
+    .section {
+        padding: 40px 10px;
+    }
+
+    .content-wrapper {
+        padding: 0 5px;
+    }
+
+    /* タイトルセクション */
+    .title-section {
+        padding: 50px 10px;
+    }
+
+    .main-title {
+        font-size: clamp(2rem, 12vw, 3.5rem);
+        margin-bottom: 15px;
+    }
+
+    .subtitle {
+        font-size: clamp(0.9rem, 6vw, 1.2rem);
+        margin-bottom: 25px;
+        line-height: 1.5;
+    }
+
+    /* エピソードセクション */
+    .episode-header {
+        margin-bottom: 30px;
+    }
+
+    .episode-number {
+        font-size: 14px;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+    }
+
+    .episode-title {
+        font-size: clamp(2rem, 8vw, 3rem);
+        margin-bottom: 15px;
+    }
+
+    .episode-character {
+        width: 100px;
+    }
+
+    .text-frame {
+        min-height: 120px;
+        padding: 15px;
+    }
+
+    .episode-text {
+        font-size: clamp(0.9rem, 4vw, 1.1rem);
+        line-height: 1.6;
+    }
+
+    /* キャラクターセクション */
+    .section-title {
+        font-size: clamp(2rem, 8vw, 3rem);
+        margin-bottom: 40px;
+    }
+
+    .character-card.cyber-style {
+        min-height: 450px;
+    }
+
+    .character-image-container {
+        height: 130px;
+    }
+
+    .character-card.cyber-style .card-image {
+        width: 80px;
+    }
+
+    .character-info {
+        padding: 15px;
+    }
+
+    .character-card.cyber-style .character-name {
+        font-size: 1.4rem;
+        margin-bottom: 12px;
+    }
+
+    .detail-item {
+        margin-bottom: 8px;
+        padding: 6px 0;
+    }
+
+    .detail-label {
+        font-size: 0.8rem;
+    }
+
+    .detail-value {
+        font-size: 0.9rem;
+    }
+
+    .character-profile {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        padding: 12px;
+    }
+
+    /* 最終セクション */
+    .final-title {
+        font-size: clamp(2rem, 8vw, 3rem);
+        margin-bottom: 20px;
+    }
+
+    .final-text {
+        font-size: clamp(1rem, 5vw, 1.3rem);
+        margin-bottom: 30px;
+        line-height: 1.6;
+    }
+
+    /* ボタン */
+    .cta-button {
+        padding: 14px 30px;
+        font-size: 0.95rem;
+        margin: 8px 3px;
+        border-radius: 40px;
+    }
+
+    .cta-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* オーディオコントロール */
+    .audio-control {
+        width: 45px;
+        height: 45px;
+        top: 12px;
+        right: 12px;
+    }
+
+    .audio-icon {
+        font-size: 16px;
+    }
+
+    .audio-waves span {
+        width: 2px;
+        height: 12px;
+    }
+
+    /* プログレスバー */
+    .scroll-progress {
+        height: 3px;
+    }
+
+    /* ローディングスクリーン */
+    .loading-character {
+        width: 120px;
+        margin-bottom: 25px;
+    }
+
+    .loading-text {
+        font-size: 1.2rem;
+        margin-bottom: 25px;
+    }
+
+    .loading-bar {
+        width: 250px;
+        height: 5px;
+    }
+}
+
+/* 横向きスマートフォン */
+@media (max-width: 768px) and (orientation: landscape) {
+    .section {
+        min-height: auto;
+        padding: 40px 20px;
+    }
+
+    .title-section {
+        min-height: 100vh;
+    }
+
+    .episode-content {
+        grid-template-columns: 1fr auto;
+        gap: 40px;
+        text-align: left;
+    }
+
+    .character-showcase {
+        order: 0;
+        margin-bottom: 0;
+    }
+}
+
+/* 大画面 (1200px以上) */
+@media (min-width: 1200px) {
+    .bg-image {
+        min-height: 1200vh;
+    }
+
+    .content-wrapper {
+        max-width: 1400px;
+    }
+
+    .episode-character {
+        width: 180px;
+    }
+
+    .characters-grid {
+        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+        gap: 50px;
+    }
+
+    .character-card.cyber-style {
+        min-height: 650px;
+    }
+
+    .character-card.cyber-style .card-image {
+        width: 140px;
+    }
+}
+
+/* パフォーマンス最適化 */
+@media (max-width: 768px) {
+    * {
+        animation-duration: 0.5s !important;
+    }
+
+    .glow-effect::before,
+    .shimmer-effect::before {
+        display: none;
+    }
+}
+
+/* バッテリー節約モード */
+@media (prefers-reduced-motion: reduce) {
+    .platinum-aura-container,
+    .sakura-container,
+    .platinum-sparks-container {
+        display: none;
+    }
+    
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
