@@ -1,5 +1,5 @@
 /*
-エフェクトシステム（固定速度桜版）
+エフェクトシステム（固定速度版）
 */
 class EffectsSystem {
     constructor() {
@@ -18,7 +18,7 @@ class EffectsSystem {
         this.setupEventListeners();
         this.startRenderLoop();
         this.initializeNatureEffects();
-        console.log('🎆🌸 エフェクトシステム初期化完了（固定速度桜付き）');
+        console.log('🎆🌸 エフェクトシステム初期化完了（固定速度付き）');
     }
 
     setupContainers() {
@@ -68,45 +68,7 @@ class EffectsSystem {
         this.startPlatinumSparksEffect();
     }
 
-    /*
-    桜の花びらエフェクト開始（固定速度）
-    */
-    startSakuraEffect() {
-        if (!this.sakuraContainer) return;
-
-        const createSakuraPetal = () => {
-            const petal = document.createElement('div');
-            petal.className = 'sakura-petal';
-            
-            petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.top = '-20px';
-            
-            const size = 8 + Math.random() * 8;
-            petal.style.width = size + 'px';
-            petal.style.height = size + 'px';
-            
-            // 固定速度（25秒）
-            const duration = 25;
-            petal.style.animationDuration = duration + 's';
-            petal.style.animationDelay = Math.random() * 5 + 's';
-
-            this.sakuraContainer.appendChild(petal);
-
-            setTimeout(() => {
-                if (petal.parentNode) {
-                    petal.parentNode.removeChild(petal);
-                }
-            }, (duration + 5) * 1000);
-        };
-
-        // 花びら生成間隔（5秒間隔）
-        setInterval(createSakuraPetal, 5000);
-
-        // 初期の花びらを生成
-        for (let i = 0; i < 3; i++) {
-            setTimeout(createSakuraPetal, i * 1000);
-        }
-    }
+undefined
 
     /*
     プラチナスパークエフェクト開始
@@ -478,4 +440,4 @@ setInterval(() => {
     }
 }, 30000);
 
-console.log('🎆🌸 エフェクトシステム完全初期化（固定速度桜付き）');
+console.log('🎆🌸 エフェクトシステム完全初期化（固定速度付き）');
