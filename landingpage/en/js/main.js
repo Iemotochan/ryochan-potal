@@ -195,7 +195,7 @@ class AdventurePage {
         const scrollProgress = Math.min(scrolled / documentHeight, 1);
 
         // 大幅に移動量を増加（最大移動距離を10倍に）
-        const maxMove = 800; // 2000pxの移動距離
+        const maxMove = 600; // 2000pxの移動距離
         const parallaxOffset = scrollProgress * maxMove * this.parallaxConfig.speed;
 
         // 直接transformを適用
