@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RYO-CHAN の冒険 | 運命が交錯する時、小さな武者犬が世界を変える</title>
-    <meta name="description" content="小さな武者犬RYO-CHANの壮大な冒険が今始まる。Web3の世界で世界を変革する物語。">
+    <title>RYO-CHAN's Adventure | When destiny intersects, a small warrior dog changes the world</title>
+    <meta name="description" content="The grand adventure of RYO-CHAN, a small warrior dog, begins now. A story of transforming the world in the Web3 universe.">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Yuji+Syuku:wght@400&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Yuji+Syuku:wght@400&family=Noto+Serif+JP:wght@400;500;600;700&family=Helvetica+Neue:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- 修正されたスタイルパス -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/effects.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/english.css">
 </head>
 <body>
     <!-- プログレスバー -->
@@ -25,7 +26,7 @@
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-content">
             <img src="./image/ryochan.png" alt="RYO-CHAN" class="loading-character">
-            <div class="loading-text">物語を読み込み中...</div>
+            <div class="loading-text">Loading the story...</div>
             <div class="loading-bar">
                 <div class="loading-progress"></div>
             </div>
@@ -45,7 +46,7 @@
 
     <!-- パララックス背景 -->
     <div class="parallax-bg" id="parallaxBg">
-        <img src="./image/background.png" alt="神秘的な背景" class="bg-image" id="bgImage">
+        <img src="./image/background.png" alt="Mystical background" class="bg-image" id="bgImage">
         <div class="bg-overlay"></div>
     </div>
 
@@ -73,21 +74,21 @@
             <div class="content-wrapper">
                 <div class="title-content">
                     <h1 class="main-title fade-in-text">
-                        <span class="title-line">RYO-CHAN</span>
-                        <span class="title-divider">の</span>
-                        <span class="title-line">冒険</span>
+                        <span class="title-line">RYO-CHAN's</span>
+                        <span class="title-divider"></span>
+                        <span class="title-line">Adventure</span>
                     </h1>
-                    <p class="subtitle fade-in-text">運命が交錯する時、小さな武者犬が世界を変える</p>
+                    <p class="subtitle fade-in-text">When destiny intersects, a small warrior dog changes the world</p>
                     
                     <div class="cta-container">
                         <button class="cta-button primary" data-action="start">
-                            <span class="button-text">物語を始める</span>
+                            <span class="button-text">Begin the Story</span>
                             <div class="button-glow"></div>
                         </button>
                     </div>
                     
                     <div class="scroll-indicator">
-                        <div class="scroll-text">スクロールして続きを読む</div>
+                        <div class="scroll-text">Scroll to continue reading</div>
                         <div class="scroll-arrow">↓</div>
                     </div>
                 </div>
@@ -98,146 +99,143 @@
         <section class="section characters-section" id="charactersSection">
             <div class="section-overlay"></div>
             <div class="content-wrapper">
-                <h2 class="section-title fade-in-text">登場人物</h2>
+                <h2 class="section-title fade-in-text">Characters</h2>
                 
                 <div class="characters-grid">
-                    <!-- RYO-CHAN -->
-                    <div class="character-card cyber-style fade-in-text" data-character="ryochan">
-                        <div class="character-image-container">
-                            <img src="./image/ryochan.png" alt="RYO-CHAN" class="card-image">
-                        </div>
-                        <div class="character-info">
-                            <h3 class="character-name">RYO-CHAN</h3>
-                            <div class="character-details">
-                                <div class="detail-item">
-                                    <span class="detail-label">年齢:</span>
-                                    <span class="detail-value">不明（推定2歳）</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">種族:</span>
-                                    <span class="detail-value">ミニチュアシュナウザー</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">特技:</span>
-                                    <span class="detail-value">運命感知・金融システム理解</span>
-                                </div>
-                            </div>
-                            <div class="character-profile">
-                                小さな武者鎧に身を包んだ神秘的な犬。Web3の世界で重要な役割を果たす運命を背負っている。その愛らしい外見とは裏腹に、世界を変革する力を秘めている。
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- OLDMAN -->
-                    <div class="character-card cyber-style fade-in-text" data-character="oldman">
-                        <div class="character-image-container">
-                            <img src="./image/oldman.png" alt="OLDMAN" class="card-image">
-                        </div>
-                        <div class="character-info">
-                            <h3 class="character-name">OLDMAN</h3>
-                            <div class="character-details">
-                                <div class="detail-item">
-                                    <span class="detail-label">年齢:</span>
-                                    <span class="detail-value">数百歳</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">職業:</span>
-                                    <span class="detail-value">古の賢者・導師</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">特技:</span>
-                                    <span class="detail-value">予言・古代の智恵・月読み</span>
-                                </div>
-                            </div>
-                            <div class="character-profile">
-                                古から伝わる智恵を持つ謎の老人。月明かりの下でRYO-CHANに重要な啓示を与える。その杖から放たれる光は、迷いし者たちの道を照らす。
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- SAKURA -->
-                    <div class="character-card cyber-style fade-in-text" data-character="sakura">
-                        <div class="character-image-container">
-                            <img src="./image/sakura.png" alt="SAKURA" class="card-image">
-                        </div>
-                        <div class="character-info">
-                            <h3 class="character-name">SAKURA</h3>
-                            <div class="character-details">
-                                <div class="detail-item">
-                                    <span class="detail-label">年齢:</span>
-                                    <span class="detail-value">16歳（見た目）</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">職業:</span>
-                                    <span class="detail-value">神社の巫女？</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">特技:</span>
-                                    <span class="detail-value">花びら操作・瞬間移動</span>
-                                </div>
-                            </div>
-                            <div class="character-profile">
-                                桜の花びらと共に現れる謎の少女。その正体は物語の鍵を握る重要な存在。美しく儚げな外見だが、秘められた力は計り知れない。
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- SHADOW -->
-                    <div class="character-card cyber-style fade-in-text" data-character="shadow">
-                        <div class="character-image-container">
-                            <img src="./image/shadow.png" alt="SHADOW" class="card-image">
-                        </div>
-                        <div class="character-info">
-                            <h3 class="character-name">SHADOW</h3>
-                            <div class="character-details">
-                                <div class="detail-item">
-                                    <span class="detail-label">年齢:</span>
-                                    <span class="detail-value">様々</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">職業:</span>
-                                    <span class="detail-value">闇のハッカー集団</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">特技:</span>
-                                    <span class="detail-value">システム侵入・情報操作</span>
-                                </div>
-                            </div>
-                            <div class="character-profile">
-                                デジタル世界の影で暗躍する謎の組織。高度なハッキング技術を駆使し、世界の裏で糸を引く。その真の目的は謎に包まれている。
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ??? -->
-                    <div class="character-card cyber-style fade-in-text" data-character="secret">
-                        <div class="character-image-container">
-                            <img src="./image/secret.png" alt="???" class="card-image">
-                        </div>
-                        <div class="character-info">
-                            <h3 class="character-name">？？？</h3>
-                            <div class="character-details">
-                                <div class="detail-item">
-                                    <span class="detail-label">年齢:</span>
-                                    <span class="detail-value">不明</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">職業:</span>
-                                    <span class="detail-value">？？？</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">特技:</span>
-                                    <span class="detail-value">すべてを統制する力</span>
-                                </div>
-                            </div>
-                            <div class="character-profile">
-                                すべての謎を握る最重要人物。その正体が明かされる時、物語は大きく動き出す。RYO-CHANの運命に深く関わる存在。
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- RYO-CHAN -->
+<div class="character-card cyber-style fade-in-text" data-character="ryochan">
+    <div class="character-image-container">
+        <img src="./image/ryochan.png" alt="RYO-CHAN" class="card-image">
+    </div>
+    <div class="character-info">
+        <h3 class="character-name">RYO-CHAN</h3>
+        <div class="character-details">
+            <div class="detail-item">
+                <span class="detail-label">Bloodline:</span>
+                <span class="detail-value">Descendant of White Cloud, Miniature Schnauzer</span>
             </div>
-        </section>
+            <div class="detail-item">
+                <span class="detail-label">Awakening Site:</span>
+                <span class="detail-value">Ancient Shrine on a Full Moon Night</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Special Abilities:</span>
+                <span class="detail-value">Ki Visualization, Malice Detection, Contract Analysis</span>
+            </div>
+        </div>
+        <div class="character-profile">
+            A guardian dog from a special bloodline dating back to 1945. Awakened to the power of "Ki" on a full moon night, gaining the ability to detect malicious smart contracts. Clad in small warrior armor, she is a destined warrior protecting the cryptocurrency world with the belief of "bark with courage, bite with honor."
+        </div>
+    </div>
+</div>
+
+<!-- OLDMAN（神社の老管理人） -->
+<div class="character-card cyber-style fade-in-text" data-character="oldman">
+    <div class="character-image-container">
+        <img src="./image/oldman.png" alt="OLDMAN" class="card-image">
+    </div>
+    <div class="character-info">
+        <h3 class="character-name">The Shrine's Elder Keeper</h3>
+        <div class="character-details">
+            <div class="detail-item">
+                <span class="detail-label">Form of Existence:</span>
+                <span class="detail-value">Spirit appearing on full moon nights</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Relationship:</span>
+                <span class="detail-value">Sakura's grandfather, RYO-CHAN's mentor</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Knowledge:</span>
+                <span class="detail-value">Ancient Ki, Katakamuna, Traditional Wisdom</span>
+            </div>
+        </div>
+        <div class="character-profile">
+            The last guardian who knows the secrets of "Ki" passed down in Japan since ancient times. Foresees the fusion of the power of true kanji lost after the war with modern technology. A mysterious being who grants RYO-CHAN her mission and guides her to become a bridge between tradition and innovation. The light emanating from his staff shows the true path to lost souls.
+        </div>
+    </div>
+</div>
+
+<!-- SAKURA -->
+<div class="character-card cyber-style fade-in-text" data-character="sakura">
+    <div class="character-image-container">
+        <img src="./image/sakura.png" alt="SAKURA" class="card-image">
+    </div>
+    <div class="character-info">
+        <h3 class="character-name">SAKURA</h3>
+        <div class="character-details">
+            <div class="detail-item">
+                <span class="detail-label">Occupation:</span>
+                <span class="detail-value">Blockchain Researcher</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Development:</span>
+                <span class="detail-value">RYO SCAN System, AI Integration Technology</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Mission:</span>
+                <span class="detail-value">Science & Ki Fusion, Anti-Fraud Technology</span>
+            </div>
+        </div>
+        <div class="character-profile">
+            Granddaughter of the shrine's elder keeper and a brilliant technologist. Fuses RYO-CHAN's ability to sense "Ki" with scientific technology to develop the innovative RYO SCAN system. A crucial figure bridging traditional wisdom with cutting-edge technology, protecting the safety of the cryptocurrency world.
+        </div>
+    </div>
+</div>
+
+<!-- SHADOW（敵対勢力） -->
+<div class="character-card cyber-style fade-in-text" data-character="shadow">
+    <div class="character-image-container">
+        <img src="./image/shadow.png" alt="SHADOW" class="card-image">
+    </div>
+    <div class="character-info">
+        <h3 class="character-name">The Dark Organizations</h3>
+        <div class="character-details">
+            <div class="detail-item">
+                <span class="detail-label">Composition:</span>
+                <span class="detail-value">TSUKI, DDWO, Independent Hackers</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Purpose:</span>
+                <span class="detail-value">Ki Dominance, Mental Control, Information Manipulation</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Methods:</span>
+                <span class="detail-value">Complex Fraud, System Infiltration, Psychological Manipulation</span>
+            </div>
+        </div>
+        <div class="character-profile">
+            Dark forces led by the secret organization TSUKI, continuing since the post-war era. They seek to weaken Japan's "Ki" and abuse digital technology to dominate people. Not simple evil, but intelligent enemies with complex motivations and advanced technology. The existence that most fears RYO-CHAN's abilities.
+        </div>
+    </div>
+</div>
+
+<!-- 謎の存在 -->
+<div class="character-card cyber-style fade-in-text" data-character="secret">
+    <div class="character-image-container">
+        <img src="./image/secret.png" alt="???" class="card-image">
+    </div>
+    <div class="character-info">
+        <h3 class="character-name">The Mastermind</h3>
+        <div class="character-details">
+            <div class="detail-item">
+                <span class="detail-label">Identity:</span>
+                <span class="detail-value">████████ (Classified Information)</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Plan:</span>
+                <span class="detail-value">New World Order, Complete Control System</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Related:</span>
+                <span class="detail-value">70-year Long-term Strategy</span>
+            </div>
+        </div>
+        <div class="character-profile">
+            The mysterious figure at the center of all conspiracies. The true mastermind who has intentionally weakened Japan's spirituality from the post-war reconstruction period to the present. When their true identity is revealed, RYO-CHAN and her companions will face their greatest trial... What is their true purpose?
+        </div>
+    </div>
+</div>
 
         <!-- エピソード01 -->
         <section class="section episode-section" id="episode1">
@@ -245,14 +243,14 @@
             <div class="content-wrapper">
                 <div class="episode-header">
                     <span class="episode-number fade-in-text">Episode 01</span>
-                    <h2 class="episode-title fade-in-text">覚醒</h2>
+                    <h2 class="episode-title fade-in-text">Awakening</h2>
                 </div>
                 
                 <div class="episode-content">
                     <div class="text-container">
                         <div class="text-frame glass-card">
                             <p class="episode-text fade-in-text">
-                                満月の夜、古い神社に迷い込んだ一匹の小さな犬。それがすべての始まりだった。神秘的な光に包まれて目覚めたRYO-CHANに待ち受けていたのは、想像を絶する運命の物語。古の賢者が語る予言、隠された力の覚醒、そして世界を変革する使命...。しかし、その背後には何者かの影が蠢いている。果たしてRYO-CHANは自分に課せられた運命を受け入れることができるのか？
+                                On a night of the full moon, a small dog wandered into an ancient shrine. That was the beginning of everything. What awaited RYO-CHAN, who awakened enveloped in mystical light, was an unimaginable story of destiny. The prophecy spoken by an ancient sage, the awakening of hidden powers, and a mission to transform the world... However, shadows lurk behind it all. Will RYO-CHAN be able to accept the destiny thrust upon her?
                             </p>
                         </div>
                     </div>
@@ -269,14 +267,14 @@
             <div class="content-wrapper">
                 <div class="episode-header">
                     <span class="episode-number fade-in-text">Episode 02</span>
-                    <h2 class="episode-title fade-in-text">歪み</h2>
+                    <h2 class="episode-title fade-in-text">Distortion</h2>
                 </div>
                 
                 <div class="episode-content">
                     <div class="text-container">
                         <div class="text-frame glass-card">
                             <p class="episode-text fade-in-text">
-                                東京の夜に潜む闇の組織。彼らは高度な技術を駆使し、デジタル世界の奥深くで何かを企んでいた。一方、RYO-CHANの覚醒は予想以上の波紋を呼び、各地で不可解な現象が発生し始める。古の力と最新技術が交錯する中、善と悪の境界線は曖昧になっていく。真の敵は誰なのか？そしてRYO-CHANは迫り来る危機に立ち向かうことができるのか？
+                                A dark organization lurking in the Tokyo nights. Using advanced technology, they were plotting something in the depths of the digital world. Meanwhile, RYO-CHAN's awakening created ripples beyond expectations, and inexplicable phenomena began occurring everywhere. As ancient powers and cutting-edge technology intersect, the line between good and evil becomes blurred. Who is the true enemy? And can RYO-CHAN stand against the approaching crisis?
                             </p>
                         </div>
                     </div>
@@ -292,16 +290,16 @@
             <div class="section-overlay"></div>
             <div class="content-wrapper">
                 <div class="final-content">
-                    <h2 class="final-title fade-in-text">物語は始まったばかり</h2>
-                    <p class="final-text fade-in-text">RYO-CHANの冒険に参加しよう。あなたも物語の一部となる時が来た。</p>
+                    <h2 class="final-title fade-in-text">The Story Has Only Just Begun</h2>
+                    <p class="final-text fade-in-text">Join RYO-CHAN's adventure. The time has come for you to become part of the story.</p>
                     
                     <div class="cta-container">
                         <button class="cta-button primary" data-action="read">
-                            <span class="button-text">ストーリーを読む</span>
+                            <span class="button-text">Read the Story</span>
                             <div class="button-glow"></div>
                         </button>
                         <button class="cta-button secondary" data-action="join">
-                            <span class="button-text">コミュニティに参加</span>
+                            <span class="button-text">Join the Community</span>
                             <div class="button-glow"></div>
                         </button>
                     </div>
